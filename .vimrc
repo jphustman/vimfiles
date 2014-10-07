@@ -1,8 +1,15 @@
+" vim: set foldmarker={,} foldlevel=0 foldmethod=marker:
+"
+" :NeoBundleList        - list configured bundles
+" :NeoBundleInstall(!)  - install (update) bundles
+" :NeoBundleClean(!)    - confirm (or auto-approve) removal of unused bundles
+"
+"
+"
 if has('vim_starting')
     set nocompatible    " Be iMproved
     set runtimepath+=~/.vim/bundle/neobundle.vim/
 endif
-
 
 
 " Bundles {
@@ -13,7 +20,7 @@ call neobundle#begin(expand('~/.vim/bundle/'))
 NeoBundleFetch 'Shougo/neobundle.vim'
 
 " My Bundles here:
-NeoBundle 'davejlong/cf-utils.vim'
+NeoBundle 'git@github.com:jphustman/cf-utils.vim'
 NeoBundle 'altercation/vim-colors-solarized'
 NeoBundle 'scrooloose/syntastic'
 NeoBundle 'tpope/vim-surround'
@@ -25,6 +32,10 @@ NeoBundle 'Lokaltog/powerline', {'rtp':'~/.vim/bundle/powerline/bindings/vim'}
 NeoBundle 'scrooloose/nerdcommenter'
 NeoBundle 'majutsushi/tagbar'
 NeoBundle 'tpope/vim-fugitive'
+NeoBundle 'kristijanhusak/vim-multiple-cursors'
+NeoBundle 'nathanaelkane/vim-indent-guides'
+NeoBundle 'vsutil.vim'
+NeoBundle 'VimRegEx.vim'
 
 " neocomplete
 NeoBundle 'Shougo/neocomplcache.vim'
@@ -60,7 +71,7 @@ NeoBundleCheck
 "let g:syntastic_javascript_checkers=['gjslint']
 let g:syntastic_javascript_gjslint_args = '--edition=latest'
 let g:syntastic_javascript_checkers=['jslint']
-
+let g:syntastic_check_on_open = 1
 
 let g:tagbar_ctags_bin='C:\Users\jphustman\Downloads\ctags58\ctags58\ctags.exe'
 set tags=./tags;/,~/.vimtags
@@ -78,6 +89,8 @@ syntax on
 set mouse=a
 set mousehide
 scriptencoding utf-8
+set columns=90
+set lines=40
 
 let g:solarized_termcolors=256
 let g:solarized_termtrans=1
@@ -88,7 +101,8 @@ color solarized
 highlight clear SignColumn
 highlight clear LineNr
 
-
+" indent guides
+let g:indent_guides_start_level = 2
 
 " Status Line {
 set laststatus=2
@@ -112,12 +126,17 @@ set ruler
 set rulerformat=%30(%=\:b%n%y%m%r%w\ %l,%c%V\ %P%)
 set showcmd
 
-set nowrap
-set autoindent
-set shiftwidth=4
-set expandtab
+set comments=sl:/*,mb:*,elx:*/
+
+set textwidth=80
+set wrapmargin=60
 set tabstop=4
 set softtabstop=4
+set shiftwidth=4
+set noexpandtab
+set cindent
+
+" set nowrap
 set nojoinspaces
 set splitright
 set splitbelow
@@ -202,11 +221,11 @@ nmap <leader>f6 :set foldlevel=6<CR>
 nmap <leader>f7 :set foldlevel=7<CR>
 nmap <leader>f8 :set foldlevel=8<CR>
 nmap <leader>f9 :set foldlevel=9<CR>
+" }
 
 
-
-" NeoComplCache
-	" Disable AutoComplPop.
+" NeoComplCache {
+" Disable AutoComplPop.
 let g:acp_enableAtStartup = 0
 " Use neocomplcache.
 let g:neocomplcache_enable_at_startup = 1
@@ -303,7 +322,6 @@ let g:neocomplcache_omni_patterns.perl =
 \ '[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
 
 
-
 " NeoSnippet
 " Plugin key-mappings.
 imap <C-k>     <Plug>(neosnippet_expand_or_jump)
@@ -322,6 +340,7 @@ smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 if has('conceal')
   set conceallevel=2 concealcursor=i
 endif
+" }
 
 
 
