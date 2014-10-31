@@ -1,4 +1,3 @@
-" vim: set foldmarker={,} foldlevel=0 foldmethod=marker:
 "
 " :NeoBundleList        - list configured bundles
 " :NeoBundleInstall(!)  - install (update) bundles
@@ -7,8 +6,8 @@
 "
 "
 if has('vim_starting')
-    set nocompatible    " Be iMproved
-    set runtimepath+=~/.vim/bundle/neobundle.vim/
+	set nocompatible    " Be iMproved
+	set runtimepath+=~/.vim/bundle/neobundle.vim/
 endif
 
 
@@ -79,10 +78,10 @@ set tags=./tags;/,~/.vimtags
 " Make tags placed in .git/tags file available in all levels of a repository
 let gitroot = substitute(system('git rev-parse --show-toplevel'), '[\n\r]', '', 'g')
 if gitroot != ''
-    let &tags = &tags . ',' . gitroot . '/.git/tags'
+	let &tags = &tags . ',' . gitroot . '/.git/tags'
 endif
 
-" General {
+" General
 
 set background=dark
 syntax on
@@ -128,8 +127,8 @@ set showcmd
 
 set comments=sl:/*,mb:*,elx:*/
 
-set textwidth=80
-set wrapmargin=60
+"set textwidth=80
+"set wrapmargin=80
 set tabstop=4
 set softtabstop=4
 set shiftwidth=4
@@ -148,9 +147,9 @@ set tabpagemax=15
 
 "set backup
 if has('persistent_undo')
-    set undofile
-    set undolevels=1000
-    set undoreload=10000
+	set undofile
+	set undolevels=1000
+	set undoreload=10000
 endif
 
 set history=1000
@@ -202,6 +201,10 @@ set list
 set listchars=tab:›\ ,trail:•,extends:#,nbsp:.
 set listchars+=precedes:<,extends:>
 
+nnoremap <F3> :set list!<CR>
+
+
+
 nmap <F8> :TagbarToggle<CR>
 
 nmap <leader>/ :nohlsearch<CR>
@@ -243,14 +246,14 @@ let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
 
 " Define dictionary.
 let g:neocomplcache_dictionary_filetype_lists = {
-\ 'default' : '',
-\ 'vimshell' : $HOME.'/.vimshell_hist',
-\ 'scheme' : $HOME.'/.gosh_completions'
-\ }
+			\ 'default' : '',
+			\ 'vimshell' : $HOME.'/.vimshell_hist',
+			\ 'scheme' : $HOME.'/.gosh_completions'
+			\ }
 
 " Define keyword.
 if !exists('g:neocomplcache_keyword_patterns')
-let g:neocomplcache_keyword_patterns = {}
+	let g:neocomplcache_keyword_patterns = {}
 endif
 let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
 
@@ -262,9 +265,9 @@ inoremap <expr><C-l> neocomplcache#complete_common_string()
 " <CR>: close popup and save indent.
 inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
 function! s:my_cr_function()
-return neocomplcache#smart_close_popup() . "\<CR>"
-" For no inserting <CR> key.
-"return pumvisible() ? neocomplcache#close_popup() : "\<CR>"
+	return neocomplcache#smart_close_popup() . "\<CR>"
+	" For no inserting <CR> key.
+	"return pumvisible() ? neocomplcache#close_popup() : "\<CR>"
 endfunction
 " <TAB>: completion.
 inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
@@ -304,22 +307,22 @@ autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 
 " Enable heavy omni completion.
 if !exists('g:neocomplcache_omni_patterns')
-let g:neocomplcache_omni_patterns = {}
+	let g:neocomplcache_omni_patterns = {}
 endif
 if !exists('g:neocomplcache_force_omni_patterns')
-let g:neocomplcache_force_omni_patterns = {}
+	let g:neocomplcache_force_omni_patterns = {}
 endif
 let g:neocomplcache_omni_patterns.php =
-\ '[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
+			\ '[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
 let g:neocomplcache_omni_patterns.c =
-\ '[^.[:digit:] *\t]\%(\.\|->\)\%(\h\w*\)\?'
+			\ '[^.[:digit:] *\t]\%(\.\|->\)\%(\h\w*\)\?'
 let g:neocomplcache_omni_patterns.cpp =
-\ '[^.[:digit:] *\t]\%(\.\|->\)\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
+			\ '[^.[:digit:] *\t]\%(\.\|->\)\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
 
 " For perlomni.vim setting.
 " https://github.com/c9s/perlomni.vim
 let g:neocomplcache_omni_patterns.perl =
-\ '[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
+			\ '[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
 
 
 " NeoSnippet
@@ -330,15 +333,15 @@ xmap <C-k>     <Plug>(neosnippet_expand_target)
 
 " SuperTab like snippets behavior.
 imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-\ "\<Plug>(neosnippet_expand_or_jump)"
-\: pumvisible() ? "\<C-n>" : "\<TAB>"
+			\ "\<Plug>(neosnippet_expand_or_jump)"
+			\: pumvisible() ? "\<C-n>" : "\<TAB>"
 smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-\ "\<Plug>(neosnippet_expand_or_jump)"
-\: "\<TAB>"
+			\ "\<Plug>(neosnippet_expand_or_jump)"
+			\: "\<TAB>"
 
 " For snippet_complete marker.
 if has('conceal')
-  set conceallevel=2 concealcursor=i
+	set conceallevel=2 concealcursor=i
 endif
 " }
 
@@ -349,51 +352,51 @@ set pastetoggle=<F10>
 inoremap <C-v> <F10><C-r>+<F10>
 vnoremap <C-c> "+y
 
- " Initialize directories {
-    function! InitializeDirectories()
-        let parent = $HOME
-        let prefix = 'vim'
-        let dir_list = {
-                    \ 'backup': 'backupdir',
-                    \ 'views': 'viewdir',
-                    \ 'swap': 'directory' }
+" Initialize directories {
+function! InitializeDirectories()
+	let parent = $HOME
+	let prefix = 'vim'
+	let dir_list = {
+				\ 'backup': 'backupdir',
+				\ 'views': 'viewdir',
+				\ 'swap': 'directory' }
 
-        if has('persistent_undo')
-            let dir_list['undo'] = 'undodir'
-        endif
+	if has('persistent_undo')
+		let dir_list['undo'] = 'undodir'
+	endif
 
-        let common_dir = parent . '/.' . prefix
+	let common_dir = parent . '/.' . prefix
 
-        for [dirname, settingname] in items(dir_list)
-            let directory = common_dir . dirname . '/'
-            if exists("*mkdir")
-                if !isdirectory(directory)
-                    call mkdir(directory)
-                endif
-            endif
-            if !isdirectory(directory)
-                echo "Warning: Unable to create backup directory: " . directory
-                echo "Try: mkdir -p " . directory
-            else
-                let directory = substitute(directory, " ", "\\\\ ", "g")
-                exec "set " . settingname . "=" . directory
-            endif
-        endfor
-    endfunction
-    call InitializeDirectories()
+	for [dirname, settingname] in items(dir_list)
+		let directory = common_dir . dirname . '/'
+		if exists("*mkdir")
+			if !isdirectory(directory)
+				call mkdir(directory)
+			endif
+		endif
+		if !isdirectory(directory)
+			echo "Warning: Unable to create backup directory: " . directory
+			echo "Try: mkdir -p " . directory
+		else
+			let directory = substitute(directory, " ", "\\\\ ", "g")
+			exec "set " . settingname . "=" . directory
+		endif
+	endfor
+endfunction
+call InitializeDirectories()
 " }
 
 " remove trailing whitespace
 autocmd FileType * autocmd BufWritePre <buffer> call StripTrailingWhitespace()
 function! StripTrailingWhitespace()
-    " save last search and cursor position
-    let _s=@/
-    let l = line(".")
-    let c = col(".")
+	" save last search and cursor position
+	let _s=@/
+	let l = line(".")
+	let c = col(".")
 
-    %s/\s\+$//e
-    let @/=_s
-    call cursor(l, c)
+	%s/\s\+$//e
+	let @/=_s
+	call cursor(l, c)
 endfunction
 
 
