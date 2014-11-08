@@ -68,8 +68,8 @@ NeoBundleCheck
 "let g:syntastic_javascript_checkers=['gjslint', 'jshint', 'jslint']
 "let g:syntastic_javascript_gjslint_args = '--strict'
 "let g:syntastic_javascript_checkers=['gjslint']
-let g:syntastic_javascript_gjslint_args = '--edition=latest'
-let g:syntastic_javascript_checkers=['jslint']
+"let g:syntastic_javascript_gjslint_args = '--edition=latest'
+let g:syntastic_javascript_checkers=['jshint']
 let g:syntastic_check_on_open = 1
 
 let g:tagbar_ctags_bin='C:\Users\jphustman\Downloads\ctags58\ctags58\ctags.exe'
@@ -88,7 +88,7 @@ syntax on
 set mouse=a
 set mousehide
 scriptencoding utf-8
-set columns=90
+set columns=120
 set lines=40
 
 let g:solarized_termcolors=256
@@ -119,7 +119,28 @@ set statusline+=%=%-14.(%l,%c%V%)\ %p%% " Right aligned file nav info
 
 set showmode
 
-set guifont=Consolas:h10
+" GUI Settings {
+" GVIM- (here instead of .gvimrc)
+if has('gui_running')
+	set guioptions-=T " Remove the toolbar
+	set lines=40 " 40 lines of text instead of 24
+	if has("gui_gtk2")
+		set guifont=Inconsolata\ Medium\ 10
+	elseif has("gui_mac")
+		set guifont=Andale\ Mono\ Regular:h16,Menlo\ Regular:h15,Consolas\ Regular:h16,Courier\ New\ Regular:h18
+	elseif has("gui_win32")
+		set guifont=Andale_Mono:h10,Menlo:h10,Consolas:h10,Courier_New:h10
+	endif
+	if has('gui_macvim')
+		set transparency=5 " Make the window slightly transparent
+	endif
+else
+	if &term == 'xterm' || &term == 'screen'
+		set t_Co=256 " Enable 256 colors to stop the CSApprox warning and make xterm vim shine
+	endif
+	"set term=builtin_ansi " Make arrow and other keys work
+endif
+" }
 
 set ruler
 set rulerformat=%30(%=\:b%n%y%m%r%w\ %l,%c%V\ %P%)
@@ -198,7 +219,7 @@ set scrolloff=3
 set foldenable
 
 set list
-set listchars=tab:›\ ,trail:•,extends:#,nbsp:.
+set listchars=tab:¿\ ,trail:¿,extends:#,nbsp:. " Highlight problematic whitespace
 set listchars+=precedes:<,extends:>
 
 nnoremap <F3> :set list!<CR>
