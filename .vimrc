@@ -219,7 +219,7 @@ set scrolloff=3
 set foldenable
 
 set list
-set listchars=tab:¿\ ,trail:¿,extends:#,nbsp:.
+set listchars=tab:¿\ ,trail:¿,extends:#,nbsp:. " Highlight problematic whitespace
 set listchars+=precedes:<,extends:>
 
 nnoremap <F3> :set list!<CR>
