@@ -345,7 +345,8 @@ if has('conceal')
 endif
 " }
 
-
+" JSON remove concealing
+let g:vim_json_syntax_conceal = 0
 
 " Ctrl-C and V for copypasta
 set pastetoggle=<F10>
