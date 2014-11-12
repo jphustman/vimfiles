@@ -79,8 +79,8 @@ NeoBundleCheck
 "let g:syntastic_javascript_checkers=['gjslint', 'jshint', 'jslint']
 "let g:syntastic_javascript_gjslint_args = '--strict'
 "let g:syntastic_javascript_checkers=['gjslint']
-let g:syntastic_javascript_gjslint_args = '--edition=latest'
-let g:syntastic_javascript_checkers=['jslint']
+"let g:syntastic_javascript_gjslint_args = '--edition=latest'
+let g:syntastic_javascript_checkers=['jshint']
 let g:syntastic_check_on_open = 1
 
 let g:tagbar_ctags_bin='C:\Users\jphustman\Downloads\ctags58\ctags58\ctags.exe'
@@ -102,7 +102,7 @@ syntax on
 set mouse=a
 set mousehide
 scriptencoding utf-8
-set columns=90
+set columns=120
 set lines=40
 
 let g:solarized_termcolors=256
@@ -133,10 +133,7 @@ set statusline+=%=%-14.(%l,%c%V%)\ %p%% " Right aligned file nav info
 
 set showmode
 
-"set guifont=Consolas:h10
-
 if has('gui_running')
-	set guioptions-=T           " Remove the toolbar
 	set lines=40                " 40 lines of text instead of 24
 	if !exists("g:spf13_no_big_font")
 		if LINUX() && has("gui_running")
@@ -272,7 +269,8 @@ nmap <leader>f9 :set foldlevel=9<CR>
 
 
 
-
+" JSON remove concealing
+let g:vim_json_syntax_conceal = 0
 
 " Ctrl-C and V for copypasta
 set pastetoggle=<F10>
