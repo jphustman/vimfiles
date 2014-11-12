@@ -3,8 +3,18 @@
 " :NeoBundleInstall(!)  - install (update) bundles
 " :NeoBundleClean(!)    - confirm (or auto-approve) removal of unused bundles
 "
-"
-"
+" Identify platform {
+	silent function! OSX()
+		return has('macunix')
+	endfunction
+	silent function! LINUX()
+		return has('unix') && !has('macunix') && !has('win32unix')
+	endfunction
+	silent function! WINDOWS()
+		return  (has('win16') || has('win32') || has('win64'))
+	endfunction
+" }
+
 if has('vim_starting')
 	set nocompatible    " Be iMproved
 	set runtimepath+=~/.vim/bundle/neobundle.vim/
@@ -36,12 +46,9 @@ NeoBundle 'nathanaelkane/vim-indent-guides'
 NeoBundle 'vsutil.vim'
 NeoBundle 'VimRegEx.vim'
 
-" neocomplete
-NeoBundle 'Shougo/neocomplcache.vim'
-"NeoBundle 'Shougo/neocomplete.vim.git'
-NeoBundle 'Shougo/neosnippet'
-NeoBundle 'Shougo/neosnippet-snippets'
-"NeoBundle 'honza/vim-snippets'
+NeoBundle 'Valloric/YouCompleteMe'
+NeoBundle 'justmao945/vim-clang'
+NeoBundle 'rhysd/vim-clang-format'
 
 " javascript
 NeoBundle 'elzr/vim-json'
@@ -57,6 +64,10 @@ NeoBundle 'gorodinskiy/vim-coloresque'
 NeoBundle 'tpope/vim-haml'
 
 NeoBundle 'tpope/vim-markdown'
+
+" Arduino
+NeoBundle 'sudar/vim-arduino-syntax'
+"NeoBundle 'jplaut/vim-arduino-ino'
 
 call neobundle#end()
 
@@ -82,8 +93,11 @@ if gitroot != ''
 endif
 
 " General
-
-set background=dark
+if OSX()
+	set background=light
+else
+	set background=dark
+endif
 syntax on
 set mouse=a
 set mousehide
@@ -119,28 +133,23 @@ set statusline+=%=%-14.(%l,%c%V%)\ %p%% " Right aligned file nav info
 
 set showmode
 
-" GUI Settings {
-" GVIM- (here instead of .gvimrc)
 if has('gui_running')
-	set guioptions-=T " Remove the toolbar
-	set lines=40 " 40 lines of text instead of 24
-	if has("gui_gtk2")
-		set guifont=Inconsolata\ Medium\ 10
-	elseif has("gui_mac")
-		set guifont=Andale\ Mono\ Regular:h16,Menlo\ Regular:h15,Consolas\ Regular:h16,Courier\ New\ Regular:h18
-	elseif has("gui_win32")
-		set guifont=Andale_Mono:h10,Menlo:h10,Consolas:h10,Courier_New:h10
-	endif
-	if has('gui_macvim')
-		set transparency=5 " Make the window slightly transparent
+	set lines=40                " 40 lines of text instead of 24
+	if !exists("g:spf13_no_big_font")
+		if LINUX() && has("gui_running")
+			set guifont=Andale\ Mono\ Regular\ 12,Menlo\ Regular\ 11,Consolas\ Regular\ 12,Courier\ New\ Regular\ 14
+		elseif OSX() && has("gui_running")
+			set guifont=Andale\ Mono:h13,Menlo\ Regular:h11,Consolas\ Regular:h12,Courier\ New\ Regular:h14
+		elseif WINDOWS() && has("gui_running")
+			set guifont=Andale_Mono:h10,Menlo:h10,Consolas:h10,Courier_New:h10
+		endif
 	endif
 else
 	if &term == 'xterm' || &term == 'screen'
-		set t_Co=256 " Enable 256 colors to stop the CSApprox warning and make xterm vim shine
+		set t_Co=256            " Enable 256 colors to stop the CSApprox warning and make xterm vim shine
 	endif
-	"set term=builtin_ansi " Make arrow and other keys work
+	"set term=builtin_ansi       " Make arrow and other keys work
 endif
-" }
 
 set ruler
 set rulerformat=%30(%=\:b%n%y%m%r%w\ %l,%c%V\ %P%)
@@ -164,6 +173,8 @@ set splitbelow
 
 set virtualedit=onemore
 set colorcolumn=80
+highlight ColorColumn ctermbg=darkgray
+
 set cursorline
 set tabpagemax=15
 
@@ -225,9 +236,18 @@ set listchars+=precedes:<,extends:>
 
 nnoremap <F3> :set list!<CR>
 
-
-
 nmap <F8> :TagbarToggle<CR>
+
+map <F9> :call ToggleBGColor()<CR>
+function! ToggleBGColor ()
+	if (&background == 'light')
+		set background=dark
+		echo "background -> dark"
+	else
+		set background=light
+		echo "background -> light"
+	endif
+endfunction
 
 nmap <leader>/ :nohlsearch<CR>
 
@@ -249,123 +269,6 @@ nmap <leader>f9 :set foldlevel=9<CR>
 " }
 
 
-" NeoComplCache {
-" Disable AutoComplPop.
-let g:acp_enableAtStartup = 0
-" Use neocomplcache.
-let g:neocomplcache_enable_at_startup = 1
-" Use smartcase.
-let g:neocomplcache_enable_smart_case = 1
-" Set minimum syntax keyword length.
-let g:neocomplcache_min_syntax_length = 3
-let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
-
-" Enable heavy features.
-" Use camel case completion.
-"let g:neocomplcache_enable_camel_case_completion = 1
-" Use underbar completion.
-"let g:neocomplcache_enable_underbar_completion = 1
-
-" Define dictionary.
-let g:neocomplcache_dictionary_filetype_lists = {
-			\ 'default' : '',
-			\ 'vimshell' : $HOME.'/.vimshell_hist',
-			\ 'scheme' : $HOME.'/.gosh_completions'
-			\ }
-
-" Define keyword.
-if !exists('g:neocomplcache_keyword_patterns')
-	let g:neocomplcache_keyword_patterns = {}
-endif
-let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
-
-" Plugin key-mappings.
-inoremap <expr><C-g> neocomplcache#undo_completion()
-inoremap <expr><C-l> neocomplcache#complete_common_string()
-
-" Recommended key-mappings.
-" <CR>: close popup and save indent.
-inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-function! s:my_cr_function()
-	return neocomplcache#smart_close_popup() . "\<CR>"
-	" For no inserting <CR> key.
-	"return pumvisible() ? neocomplcache#close_popup() : "\<CR>"
-endfunction
-" <TAB>: completion.
-inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
-" <C-h>, <BS>: close popup and delete backword char.
-inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
-inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
-inoremap <expr><C-y> neocomplcache#close_popup()
-inoremap <expr><C-e> neocomplcache#cancel_popup()
-" Close popup by <Space>.
-"inoremap <expr><Space> pumvisible() ? neocomplcache#close_popup() : "\<Space>"
-
-" For cursor moving in insert mode(Not recommended)
-"inoremap <expr><Left> neocomplcache#close_popup() . "\<Left>"
-"inoremap <expr><Right> neocomplcache#close_popup() . "\<Right>"
-"inoremap <expr><Up> neocomplcache#close_popup() . "\<Up>"
-"inoremap <expr><Down> neocomplcache#close_popup() . "\<Down>"
-" Or set this.
-"let g:neocomplcache_enable_cursor_hold_i = 1
-" Or set this.
-"let g:neocomplcache_enable_insert_char_pre = 1
-
-" AutoComplPop like behavior.
-"let g:neocomplcache_enable_auto_select = 1
-
-" Shell like behavior(not recommended).
-"set completeopt+=longest
-"let g:neocomplcache_enable_auto_select = 1
-"let g:neocomplcache_disable_auto_complete = 1
-"inoremap <expr><TAB> pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
-
-" Enable omni completion.
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-
-" Enable heavy omni completion.
-if !exists('g:neocomplcache_omni_patterns')
-	let g:neocomplcache_omni_patterns = {}
-endif
-if !exists('g:neocomplcache_force_omni_patterns')
-	let g:neocomplcache_force_omni_patterns = {}
-endif
-let g:neocomplcache_omni_patterns.php =
-			\ '[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
-let g:neocomplcache_omni_patterns.c =
-			\ '[^.[:digit:] *\t]\%(\.\|->\)\%(\h\w*\)\?'
-let g:neocomplcache_omni_patterns.cpp =
-			\ '[^.[:digit:] *\t]\%(\.\|->\)\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
-
-" For perlomni.vim setting.
-" https://github.com/c9s/perlomni.vim
-let g:neocomplcache_omni_patterns.perl =
-			\ '[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
-
-
-" NeoSnippet
-" Plugin key-mappings.
-imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-xmap <C-k>     <Plug>(neosnippet_expand_target)
-
-" SuperTab like snippets behavior.
-imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-			\ "\<Plug>(neosnippet_expand_or_jump)"
-			\: pumvisible() ? "\<C-n>" : "\<TAB>"
-smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-			\ "\<Plug>(neosnippet_expand_or_jump)"
-			\: "\<TAB>"
-
-" For snippet_complete marker.
-if has('conceal')
-	set conceallevel=2 concealcursor=i
-endif
-" }
 
 " JSON remove concealing
 let g:vim_json_syntax_conceal = 0
@@ -375,7 +278,24 @@ set pastetoggle=<F10>
 inoremap <C-v> <F10><C-r>+<F10>
 vnoremap <C-c> "+y
 
-" Initialize directories {
+" C++ specific http://www.alexeyshmalko.com/2014/using-vim-as-c-cpp-ide/
+set exrc	" enable directory specific .vimrc
+set secure	"
+augroup project
+	autocmd!
+	autocmd BufRead,BufNewFile *.h,*.c set filetype=c.doxygen
+augroup END
+let &path.="src/include,/usr/include/AL,"
+set includeexpr=substitute(v:fname,'\\.','/','g')
+let g:ycm_global_ycm_extra_conf = "~/.vim/.ycm_extra_conf.py"
+let g:ycm_key_list_select_completion=[]
+let g:ycm_key_list_previous_completion=[]
+"set makeprg=make\ -C\ ../build\ -j9
+
+" Arduino specifics
+au BufRead,BufNewFile *.ino,*.pde set filetype=c++
+
+" \ RegularInitialize directories {
 function! InitializeDirectories()
 	let parent = $HOME
 	let prefix = 'vim'

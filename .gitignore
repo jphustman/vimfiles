@@ -4,3 +4,5 @@
 # But not these files...
 !.gitignore
 !.vimrc
+!.vim/
+!.vim/.ycm_extra_conf.py
