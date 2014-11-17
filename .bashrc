@@ -29,6 +29,6 @@ GIT_PS1_SHOWUPSTREAM="auto git"
 
 # A green/blue prompt for regular users:
 #PS1='[\u@\h \W]\$ '  # Default
-PS1='\[\e[0;32m\]\u\[\e[m\] \[\e[1;34m\]\w\[\e[m\]$(__git_ps1 " [%s $(get_sha)] ")\[\e[1;32m\]\$\[\e[m\] \[\e[0;37m\]'
+PS1='\[\e[0;32m\]\u\[\e[m\] \[\e[1;34m\]\w\[\e[m\]$(__git_ps1 " [%s $(get_sha)]")\[\e[1;32m\]\$\[\e[m\] \[\e[0;37m\]'
 
 
