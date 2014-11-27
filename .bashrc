@@ -29,11 +29,11 @@ fi
 
 # A green/blue prompt for regular users:
 #PS1='[\u@\h \W]\$ '  # Default
-#PS1='\[\e[0;32m\]\u\[\e[m\] \[\e[1;34m\]\w\[\e[m\]$(__git_ps1 " [%s $(get_sha)]")\[\e[1;32m\]\$\[\e[m\] \[\e[0;37m\]'
+PS1='\[\e[0;32m\]\u\[\e[m\] \[\e[1;34m\]\w\[\e[m\] \[\e[1;32m\]\$\[\e[m\] \[\e[0;37m\]'
 
 # git@github.com:magicmonty/bash-git-prompt.git
 GIT_PROMPT_ONLY_IN_REPO=1
 GIT_PROMPT_THEME=Solarized
 GIT_PROMPT_START='\[\e[0;32m\]\u\[\e[m\] \w'
 GIT_PROMPT_END=' \$ '
-source .bash-git-prompt/gitprompt.sh
+source ~/.bash-git-prompt/gitprompt.sh
