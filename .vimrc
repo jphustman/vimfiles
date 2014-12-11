@@ -63,6 +63,12 @@ NeoBundle 'hail2u/vim-css3-syntax'
 NeoBundle 'gorodinskiy/vim-coloresque'
 NeoBundle 'tpope/vim-haml'
 
+" PHP
+NeoBundle 'spf13/PIV' " PHP Integration for Vim
+NeoBundle 'blueyed/smarty.vim' " Smarty plugin for Vim
+
+
+
 NeoBundle 'tpope/vim-markdown'
 
 " Arduino
@@ -78,9 +84,9 @@ NeoBundleCheck
 
 "let g:syntastic_javascript_checkers=['gjslint', 'jshint', 'jslint']
 "let g:syntastic_javascript_gjslint_args = '--strict'
-let g:syntastic_javascript_checkers=['jshint']
-" let g:syntastic_javascript_jslint_args = '--edition=latest --white: false'
-" let g:syntastic_javascript_checkers=['jslint']
+"let g:syntastic_javascript_checkers=['jshint']
+ let g:syntastic_javascript_jslint_args = '--edition=latest'
+ let g:syntastic_javascript_checkers=['jslint']
 let g:syntastic_check_on_open = 1
 
 let g:tagbar_ctags_bin='C:\Users\jphustman\Downloads\ctags58\ctags58\ctags.exe'
