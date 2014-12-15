@@ -110,6 +110,8 @@ set mousehide
 scriptencoding utf-8
 set columns=120
 set lines=40
+set colorcolumn=81
+highlight ColorColumn ctermbg=darkgray
 
 let g:solarized_termcolors=256
 let g:solarized_termtrans=1
@@ -178,8 +180,6 @@ set splitright
 set splitbelow
 
 set virtualedit=onemore
-set colorcolumn=80
-highlight ColorColumn ctermbg=darkgray
 
 set cursorline
 set tabpagemax=15
