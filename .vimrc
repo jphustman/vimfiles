@@ -242,6 +242,8 @@ set scrolloff=3
 
 
 set foldenable
+set foldmethod=indent
+set foldlevel=1
 
 set list
 set listchars=tab:¿\ ,trail:¿,extends:#,nbsp:. " Highlight problematic whitespace
