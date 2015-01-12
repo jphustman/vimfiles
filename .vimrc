@@ -75,6 +75,10 @@ NeoBundle 'tpope/vim-markdown'
 NeoBundle 'sudar/vim-arduino-syntax'
 "NeoBundle 'jplaut/vim-arduino-ino'
 
+NeoBundle 'ynkdir/vim-vimlparser'
+NeoBundle 'syngan/vim-vimlint', {
+    \ 'depends' : 'ynkdir/vim-vimlparser'}
+
 call neobundle#end()
 
 filetype plugin indent on    " Required!
@@ -84,17 +88,18 @@ NeoBundleCheck
 
 "let g:syntastic_javascript_checkers=['gjslint', 'jshint', 'jslint']
 "let g:syntastic_javascript_gjslint_args = '--strict'
-"let g:syntastic_javascript_checkers=['jshint']
+let g:syntastic_html_checkers=['jshint']
 let g:syntastic_javascript_jslint_args = '--edition=latest'
 let g:syntastic_javascript_checkers=['jslint']
-
+let g:syntastic_scss_checkers=['scss_lint']
+let g:syntastic_vim_checkers=['vimlint']
 let g:syntastic_check_on_open = 1
 
 let g:tagbar_ctags_bin='C:\Users\jphustman\Downloads\ctags58\ctags58\ctags.exe'
 set tags=./tags;/,~/.vimtags
 
 " Make tags placed in .git/tags file available in all levels of a repository
-let gitroot = substitute(system('git rev-parse --show-toplevel'), '[\n\r]', '', 'g')
+let g:gitroot = substitute(system('git rev-parse --show-toplevel'), '[\n\r]', '', 'g')
 if gitroot != ''
 	let &tags = &tags . ',' . gitroot . '/.git/tags'
 endif
@@ -163,7 +168,7 @@ endif
 set ruler
 set rulerformat=%30(%=\:b%n%y%m%r%w\ %l,%c%V\ %P%)
 set showcmd
-
+set visualbell
 set comments=sl:/*,mb:*,elx:*/
 
 "set textwidth=80
@@ -173,7 +178,8 @@ set softtabstop=4
 set shiftwidth=4
 set noexpandtab
 set cindent
-autocmd FileType javascript setlocal expandtab
+autocmd FileType javascript,scss setlocal expandtab
+autocmd FileType scss set tabstop=2 softtabstop=2 shiftwidth=2
 
 " set nowrap
 set nojoinspaces
@@ -196,8 +202,8 @@ set history=1000
 set number
 set sidescroll=5
 set shiftround
-let mapleader=","
-let maplocalleader=",,"
+let g:mapleader=","
+let g:maplocalleader=",,"
 
 noremap <leader>- ddp
 noremap <leader>_ ddkP
@@ -302,7 +308,7 @@ let g:ycm_key_list_previous_completion=[]
 "set makeprg=make\ -C\ ../build\ -j9
 
 " Arduino specifics
-au BufRead,BufNewFile *.ino,*.pde set filetype=c++
+au BufRead,BufNewFile *.ino,*.pde set filetype=arduino
 
 " \ RegularInitialize directories {
 function! InitializeDirectories()
