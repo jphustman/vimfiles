@@ -85,8 +85,9 @@ NeoBundleCheck
 "let g:syntastic_javascript_checkers=['gjslint', 'jshint', 'jslint']
 "let g:syntastic_javascript_gjslint_args = '--strict'
 "let g:syntastic_javascript_checkers=['jshint']
- let g:syntastic_javascript_jslint_args = '--edition=latest'
- let g:syntastic_javascript_checkers=['jslint']
+let g:syntastic_javascript_jslint_args = '--edition=latest'
+let g:syntastic_javascript_checkers=['jslint']
+
 let g:syntastic_check_on_open = 1
 
 let g:tagbar_ctags_bin='C:\Users\jphustman\Downloads\ctags58\ctags58\ctags.exe'
