@@ -37,7 +37,7 @@ NeoBundle 'matchit.zip'
 NeoBundle 'jphustman/Align.vim'
 NeoBundle 'jphustman/SQLUtilities'
 NeoBundle 'jphustman/dbext.vim'
-"NeoBundle 'Lokaltog/powerline', {'rtp':'~/.vim/bundle/powerline/powerline/bindings/vim'}
+NeoBundle 'Lokaltog/powerline', {'rtp':'~/.vim/bundle/powerline/powerline/bindings/vim'}
 NeoBundle 'scrooloose/nerdcommenter'
 NeoBundle 'majutsushi/tagbar'
 NeoBundle 'tpope/vim-fugitive'
@@ -46,7 +46,7 @@ NeoBundle 'nathanaelkane/vim-indent-guides'
 NeoBundle 'vsutil.vim'
 NeoBundle 'VimRegEx.vim'
 
-"NeoBundle 'Valloric/YouCompleteMe'
+NeoBundle 'Valloric/YouCompleteMe'
 NeoBundle 'justmao945/vim-clang'
 NeoBundle 'rhysd/vim-clang-format'
 
@@ -73,7 +73,7 @@ NeoBundle 'tpope/vim-markdown'
 
 " Arduino
 NeoBundle 'sudar/vim-arduino-syntax'
-"NeoBundle 'jplaut/vim-arduino-ino'
+NeoBundle 'jplaut/vim-arduino-ino'
 
 NeoBundle 'ynkdir/vim-vimlparser'
 NeoBundle 'syngan/vim-vimlint', {
