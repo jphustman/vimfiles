@@ -92,6 +92,7 @@ let g:syntastic_html_checkers=['jshint']
 let g:syntastic_javascript_jslint_args = '--edition=latest'
 let g:syntastic_javascript_checkers=['jslint']
 let g:syntastic_scss_checkers=['scss_lint']
+let g:syntastic_html_checkers=['tidy']
 let g:syntastic_vim_checkers=['vimlint']
 let g:syntastic_check_on_open = 1
 
