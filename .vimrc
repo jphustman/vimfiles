@@ -183,7 +183,7 @@ set shiftwidth=4
 set noexpandtab
 set cindent
 autocmd FileType javascript,scss setlocal expandtab
-"autocmd FileType scss set tabstop=2 softtabstop=2 shiftwidth=2
+autocmd FileType scss set tabstop=2 softtabstop=2 shiftwidth=2
 
 " set nowrap
 set nojoinspaces
