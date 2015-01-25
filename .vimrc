@@ -67,6 +67,8 @@ NeoBundle 'tpope/vim-haml'
 NeoBundle 'spf13/PIV' " PHP Integration for Vim
 NeoBundle 'blueyed/smarty.vim' " Smarty plugin for Vim
 
+" *css
+NeoBundle 'cakebaker/scss-syntax.vim'
 
 
 NeoBundle 'tpope/vim-markdown'
@@ -94,6 +96,7 @@ let g:syntastic_javascript_checkers=['jslint']
 let g:syntastic_scss_checkers=['scss_lint']
 let g:syntastic_html_checkers=['tidy']
 let g:syntastic_vim_checkers=['vimlint']
+let g:syntastic_html_checkers=['tidy']
 let g:syntastic_check_on_open = 1
 
 let g:tagbar_ctags_bin='C:\Users\jphustman\Downloads\ctags58\ctags58\ctags.exe'
@@ -180,7 +183,7 @@ set shiftwidth=4
 set noexpandtab
 set cindent
 autocmd FileType javascript,scss setlocal expandtab
-autocmd FileType scss set tabstop=2 softtabstop=2 shiftwidth=2
+"autocmd FileType scss set tabstop=2 softtabstop=2 shiftwidth=2
 
 " set nowrap
 set nojoinspaces
