@@ -37,7 +37,7 @@ NeoBundle 'matchit.zip'
 NeoBundle 'jphustman/Align.vim'
 NeoBundle 'jphustman/SQLUtilities'
 NeoBundle 'jphustman/dbext.vim'
-"NeoBundle 'Lokaltog/powerline', {'rtp':'~/.vim/bundle/powerline/powerline/bindings/vim'}
+NeoBundle 'Lokaltog/powerline', {'rtp':'~/.vim/bundle/powerline/powerline/bindings/vim'}
 NeoBundle 'scrooloose/nerdcommenter'
 NeoBundle 'majutsushi/tagbar'
 NeoBundle 'tpope/vim-fugitive'
@@ -46,7 +46,7 @@ NeoBundle 'nathanaelkane/vim-indent-guides'
 NeoBundle 'vsutil.vim'
 NeoBundle 'VimRegEx.vim'
 
-"NeoBundle 'Valloric/YouCompleteMe'
+NeoBundle 'Valloric/YouCompleteMe'
 NeoBundle 'justmao945/vim-clang'
 NeoBundle 'rhysd/vim-clang-format'
 
@@ -88,11 +88,12 @@ NeoBundleCheck
 
 "let g:syntastic_javascript_checkers=['gjslint', 'jshint', 'jslint']
 "let g:syntastic_javascript_gjslint_args = '--strict'
-let g:syntastic_html_checkers=['jshint']
-let g:syntastic_javascript_jslint_args = '--edition=latest'
+let g:syntastic_html_checkers=["jshint"]
+let g:syntastic_javascript_jslint_args = "--edition=latest"
 let g:syntastic_javascript_checkers=['jslint']
-let g:syntastic_scss_checkers=['scss_lint']
-let g:syntastic_vim_checkers=['vimlint']
+let g:syntastic_css_checkers=['csslint']
+let g:syntastic_scss_checkers = ['scss_lint']
+let g:syntastic_vim_checkers=["vimlint"]
 let g:syntastic_check_on_open = 1
 
 let g:tagbar_ctags_bin='C:\Users\jphustman\Downloads\ctags58\ctags58\ctags.exe'
@@ -245,9 +246,18 @@ set foldenable
 set foldmethod=indent
 set foldlevel=1
 
-set list
-set listchars=tab:¿\ ,trail:¿,extends:#,nbsp:. " Highlight problematic whitespace
-set listchars+=precedes:<,extends:>
+" List chars (from Janus)
+set listchars=""            " Reset the listchars
+set listchars=tab:\ \       " a tab should display as "  ", trailing whitespace as "."
+set listchars+=trail:.      " show trailing spaces as dots
+set listchars+=extends:>    " The character to show in the last column when wrap is
+                            " off and the line continues beyond the right of the screen
+set listchars+=precedes:<   " The character to show in the last column when wrap is
+                            " off and the line continues beyond the left of the screen
+
+"set list
+"set listchars=tab:¿\ ,trail:¿,extends:#,nbsp:. " Highlight problematic whitespace
+"set listchars+=precedes:<,extends:>
 
 nnoremap <F3> :set list!<CR>
 
