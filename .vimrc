@@ -118,9 +118,9 @@ syntax on
 set mouse=a
 set mousehide
 scriptencoding utf-8
-set columns=120
+set columns=90
 set lines=40
-set colorcolumn=81
+set colorcolumn=72
 highlight ColorColumn ctermbg=darkgray
 
 let g:solarized_termcolors=256
