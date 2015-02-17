@@ -41,7 +41,7 @@ NeoBundle 'Lokaltog/powerline', {'rtp':'~/.vim/bundle/powerline/powerline/bindin
 NeoBundle 'scrooloose/nerdcommenter'
 NeoBundle 'majutsushi/tagbar'
 NeoBundle 'tpope/vim-fugitive'
-NeoBundle 'kristijanhusak/vim-multiple-cursors'
+NeoBundle 'terryma/vim-multiple-cursors'
 NeoBundle 'nathanaelkane/vim-indent-guides'
 NeoBundle 'vsutil.vim'
 NeoBundle 'VimRegEx.vim'
@@ -49,6 +49,8 @@ NeoBundle 'VimRegEx.vim'
 " NeoBundle 'Valloric/YouCompleteMe'
 NeoBundle 'justmao945/vim-clang'
 NeoBundle 'rhysd/vim-clang-format'
+
+NeoBundle 'editorconfig/editorconfig-vim'
 
 " javascript
 NeoBundle 'elzr/vim-json'
@@ -67,13 +69,21 @@ NeoBundle 'tpope/vim-haml'
 NeoBundle 'spf13/PIV' " PHP Integration for Vim
 NeoBundle 'blueyed/smarty.vim' " Smarty plugin for Vim
 
+" *css
+NeoBundle 'cakebaker/scss-syntax.vim'
 
 
 NeoBundle 'tpope/vim-markdown'
 
 " Arduino
 NeoBundle 'sudar/vim-arduino-syntax'
-"NeoBundle 'jplaut/vim-arduino-ino'
+NeoBundle 'jplaut/vim-arduino-ino'
+
+NeoBundle 'ynkdir/vim-vimlparser'
+NeoBundle 'syngan/vim-vimlint', {
+    \ 'depends' : 'ynkdir/vim-vimlparser'}
+
+NeoBundle 'jphustman/VimIRC.vim'
 
 call neobundle#end()
 
@@ -84,16 +94,20 @@ NeoBundleCheck
 
 "let g:syntastic_javascript_checkers=['gjslint', 'jshint', 'jslint']
 "let g:syntastic_javascript_gjslint_args = '--strict'
-"let g:syntastic_javascript_checkers=['jshint']
- let g:syntastic_javascript_jslint_args = '--edition=latest'
- let g:syntastic_javascript_checkers=['jslint']
+let g:syntastic_html_checkers=["jshint"]
+let g:syntastic_javascript_jslint_args = "--edition=latest"
+let g:syntastic_javascript_checkers=['jslint']
+let g:syntastic_css_checkers=['csslint']
+let g:syntastic_scss_checkers = ['scss_lint']
+let g:syntastic_html_checkers=['tidy']
+let g:syntastic_vim_checkers=['vimlint']
 let g:syntastic_check_on_open = 1
 
 let g:tagbar_ctags_bin='C:\Users\jphustman\Downloads\ctags58\ctags58\ctags.exe'
 set tags=./tags;/,~/.vimtags
 
 " Make tags placed in .git/tags file available in all levels of a repository
-let gitroot = substitute(system('git rev-parse --show-toplevel'), '[\n\r]', '', 'g')
+let g:gitroot = substitute(system('git rev-parse --show-toplevel'), '[\n\r]', '', 'g')
 if gitroot != ''
 	let &tags = &tags . ',' . gitroot . '/.git/tags'
 endif
@@ -162,7 +176,7 @@ endif
 set ruler
 set rulerformat=%30(%=\:b%n%y%m%r%w\ %l,%c%V\ %P%)
 set showcmd
-
+set visualbell
 set comments=sl:/*,mb:*,elx:*/
 
 "set textwidth=80
@@ -172,7 +186,8 @@ set softtabstop=4
 set shiftwidth=4
 set noexpandtab
 set cindent
-autocmd FileType javascript setlocal expandtab
+autocmd FileType javascript,scss setlocal expandtab
+autocmd FileType scss set tabstop=2 softtabstop=2 shiftwidth=2
 
 " set nowrap
 set nojoinspaces
@@ -195,8 +210,8 @@ set history=1000
 set number
 set sidescroll=5
 set shiftround
-let mapleader=","
-let maplocalleader=",,"
+let g:mapleader=","
+let g:maplocalleader=",,"
 
 noremap <leader>- ddp
 noremap <leader>_ ddkP
@@ -235,12 +250,32 @@ set scrolloff=3
 
 
 set foldenable
+set foldmethod=indent
+set foldlevel=1
 
-set list
-set listchars=tab:¿\ ,trail:¿,extends:#,nbsp:. " Highlight problematic whitespace
-set listchars+=precedes:<,extends:>
+" List chars (from Janus)
+set listchars=""            " Reset the listchars
+set listchars=tab:\ \       " a tab should display as "  ", trailing whitespace as "."
+set listchars+=trail:.      " show trailing spaces as dots
+set listchars+=extends:>    " The character to show in the last column when wrap is
+                            " off and the line continues beyond the right of the screen
+set listchars+=precedes:<   " The character to show in the last column when wrap is
+                            " off and the line continues beyond the left of the screen
+
+"set list
+"set listchars=tab:¿\ ,trail:¿,extends:#,nbsp:. " Highlight problematic whitespace
+"set listchars+=precedes:<,extends:>
+
+function! Sorted(l)
+	let new_list = deepcopy(a:l)
+	call sort(new_list)
+	return new_list
+endfunction
 
 nnoremap <F3> :set list!<CR>
+
+nmap <F4> vii:sort i<cr>
+vnoremap <F4> :sort i<cr>
 
 nmap <F8> :TagbarToggle<CR>
 
@@ -299,7 +334,7 @@ let g:ycm_key_list_previous_completion=[]
 "set makeprg=make\ -C\ ../build\ -j9
 
 " Arduino specifics
-au BufRead,BufNewFile *.ino,*.pde set filetype=c++
+au BufRead,BufNewFile *.ino,*.pde set filetype=arduino
 
 " \ RegularInitialize directories {
 function! InitializeDirectories()
