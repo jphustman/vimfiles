@@ -37,7 +37,9 @@ NeoBundle 'matchit.zip'
 NeoBundle 'jphustman/Align.vim'
 NeoBundle 'jphustman/SQLUtilities'
 NeoBundle 'jphustman/dbext.vim'
-NeoBundle 'Lokaltog/powerline', {'rtp':'~/.vim/bundle/powerline/powerline/bindings/vim'}
+if !WINDOWS()
+	NeoBundle 'Lokaltog/powerline', {'rtp':'~/.vim/bundle/powerline/powerline/bindings/vim'}
+endif
 NeoBundle 'scrooloose/nerdcommenter'
 NeoBundle 'majutsushi/tagbar'
 NeoBundle 'tpope/vim-fugitive'
@@ -49,8 +51,6 @@ NeoBundle 'VimRegEx.vim'
 " NeoBundle 'Valloric/YouCompleteMe'
 NeoBundle 'justmao945/vim-clang'
 NeoBundle 'rhysd/vim-clang-format'
-
-NeoBundle 'editorconfig/editorconfig-vim'
 
 " javascript
 NeoBundle 'elzr/vim-json'
