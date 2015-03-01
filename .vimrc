@@ -46,7 +46,7 @@ NeoBundle 'nathanaelkane/vim-indent-guides'
 NeoBundle 'vsutil.vim'
 NeoBundle 'VimRegEx.vim'
 
-NeoBundle 'Valloric/YouCompleteMe'
+"NeoBundle 'Valloric/YouCompleteMe'
 NeoBundle 'justmao945/vim-clang'
 NeoBundle 'rhysd/vim-clang-format'
 
