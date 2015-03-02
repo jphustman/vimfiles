@@ -1,4 +1,4 @@
-"
+" vim: set sw=4 ts=4 sts=4 et tw=78 foldmarker={,} foldlevel=0 foldmethod=marker:
 " :NeoBundleList        - list configured bundles
 " :NeoBundleInstall(!)  - install (update) bundles
 " :NeoBundleClean(!)    - confirm (or auto-approve) removal of unused bundles
@@ -41,14 +41,16 @@ NeoBundle 'Lokaltog/powerline', {'rtp':'~/.vim/bundle/powerline/powerline/bindin
 NeoBundle 'scrooloose/nerdcommenter'
 NeoBundle 'majutsushi/tagbar'
 NeoBundle 'tpope/vim-fugitive'
-NeoBundle 'kristijanhusak/vim-multiple-cursors'
+NeoBundle 'terryma/vim-multiple-cursors'
 NeoBundle 'nathanaelkane/vim-indent-guides'
 NeoBundle 'vsutil.vim'
 NeoBundle 'VimRegEx.vim'
 
-NeoBundle 'Valloric/YouCompleteMe'
+"NeoBundle 'Valloric/YouCompleteMe'
 NeoBundle 'justmao945/vim-clang'
 NeoBundle 'rhysd/vim-clang-format'
+
+NeoBundle 'editorconfig/editorconfig-vim'
 
 " javascript
 NeoBundle 'elzr/vim-json'
@@ -66,6 +68,7 @@ NeoBundle 'tpope/vim-haml'
 " PHP
 NeoBundle 'spf13/PIV' " PHP Integration for Vim
 NeoBundle 'blueyed/smarty.vim' " Smarty plugin for Vim
+NeoBundle 'stefanich/php.vim-html-enhanced'
 
 " *css
 NeoBundle 'cakebaker/scss-syntax.vim'
@@ -81,6 +84,8 @@ NeoBundle 'ynkdir/vim-vimlparser'
 NeoBundle 'syngan/vim-vimlint', {
     \ 'depends' : 'ynkdir/vim-vimlparser'}
 
+NeoBundle 'jphustman/VimIRC.vim'
+
 call neobundle#end()
 
 filetype plugin indent on    " Required!
@@ -88,6 +93,7 @@ filetype plugin indent on    " Required!
 NeoBundleCheck
 " }
 
+" Syntastic Config {
 "let g:syntastic_javascript_checkers=['gjslint', 'jshint', 'jslint']
 "let g:syntastic_javascript_gjslint_args = '--strict'
 let g:syntastic_html_checkers=["jshint"]
@@ -98,6 +104,12 @@ let g:syntastic_scss_checkers = ['scss_lint']
 let g:syntastic_html_checkers=['tidy']
 let g:syntastic_vim_checkers=['vimlint']
 let g:syntastic_check_on_open = 1
+
+" let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute " ,"trimming empty <", "unescaped &" , "lacks \"action", "is not recognized!", "discarding unexpected"]
+let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute "]
+
+" }
+
 
 let g:tagbar_ctags_bin='C:\Users\jphustman\Downloads\ctags58\ctags58\ctags.exe'
 set tags=./tags;/,~/.vimtags
@@ -118,7 +130,7 @@ syntax on
 set mouse=a
 set mousehide
 scriptencoding utf-8
-set columns=90
+set columns=83
 set lines=40
 set colorcolumn=72
 highlight ColorColumn ctermbg=darkgray
@@ -262,7 +274,16 @@ set listchars+=precedes:<   " The character to show in the last column when wrap
 "set listchars=tab:¿\ ,trail:¿,extends:#,nbsp:. " Highlight problematic whitespace
 "set listchars+=precedes:<,extends:>
 
+function! Sorted(l)
+	let new_list = deepcopy(a:l)
+	call sort(new_list)
+	return new_list
+endfunction
+
 nnoremap <F3> :set list!<CR>
+
+nmap <F4> vii:sort i<cr>
+vnoremap <F4> :sort i<cr>
 
 nmap <F8> :TagbarToggle<CR>
 
