@@ -37,11 +37,13 @@ NeoBundle 'matchit.zip'
 NeoBundle 'jphustman/Align.vim'
 NeoBundle 'jphustman/SQLUtilities'
 NeoBundle 'jphustman/dbext.vim'
-NeoBundle 'Lokaltog/powerline', {'rtp':'~/.vim/bundle/powerline/powerline/bindings/vim'}
+if !WINDOWS()
+	NeoBundle 'Lokaltog/powerline', {'rtp':'~/.vim/bundle/powerline/powerline/bindings/vim'}
+endif
 NeoBundle 'scrooloose/nerdcommenter'
 NeoBundle 'majutsushi/tagbar'
 NeoBundle 'tpope/vim-fugitive'
-NeoBundle 'kristijanhusak/vim-multiple-cursors'
+NeoBundle 'terryma/vim-multiple-cursors'
 NeoBundle 'nathanaelkane/vim-indent-guides'
 NeoBundle 'vsutil.vim'
 NeoBundle 'VimRegEx.vim'
@@ -80,6 +82,8 @@ NeoBundle 'jplaut/vim-arduino-ino'
 NeoBundle 'ynkdir/vim-vimlparser'
 NeoBundle 'syngan/vim-vimlint', {
     \ 'depends' : 'ynkdir/vim-vimlparser'}
+
+NeoBundle 'jphustman/VimIRC.vim'
 
 call neobundle#end()
 
@@ -262,7 +266,16 @@ set listchars+=precedes:<   " The character to show in the last column when wrap
 "set listchars=tab:¿\ ,trail:¿,extends:#,nbsp:. " Highlight problematic whitespace
 "set listchars+=precedes:<,extends:>
 
+function! Sorted(l)
+	let new_list = deepcopy(a:l)
+	call sort(new_list)
+	return new_list
+endfunction
+
 nnoremap <F3> :set list!<CR>
+
+nmap <F4> vii:sort i<cr>
+vnoremap <F4> :sort i<cr>
 
 nmap <F8> :TagbarToggle<CR>
 
