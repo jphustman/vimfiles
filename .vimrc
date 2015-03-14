@@ -70,6 +70,13 @@ NeoBundle 'spf13/PIV' " PHP Integration for Vim
 NeoBundle 'blueyed/smarty.vim' " Smarty plugin for Vim
 NeoBundle 'stefanich/php.vim-html-enhanced'
 
+" Python
+NeoBundle 'klen/python-mode'
+NeoBundle 'python.vim'
+NeoBundle 'python_match.vim'
+NeoBundle 'pythoncomplete'
+
+
 " *css
 NeoBundle 'cakebaker/scss-syntax.vim'
 
@@ -111,6 +118,21 @@ let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute "]
 
 " }
 
+" Python {
+
+" Disable PyMode if python support not present
+if !has('python')
+    let g:pymode = 0
+endif
+
+if isdirectory(expand("~/.vim/bundle/python-mode"))
+    let g:pymode_lint_checkers = ['pyflakes']
+    let g:pymode_trim_whitespaces = 0
+    let g:pymode_options = 0
+    let g:pymode_rope = 0
+endif
+
+" }
 
 let g:tagbar_ctags_bin='C:\Users\jphustman\Downloads\ctags58\ctags58\ctags.exe'
 set tags=./tags;/,~/.vimtags
@@ -222,6 +244,7 @@ set shiftround
 let g:mapleader=","
 let g:maplocalleader=",,"
 
+" Mappings {
 noremap <leader>- ddp
 noremap <leader>_ ddkP
 inoremap <leader><c-u> <esc>bveU$a
@@ -230,6 +253,45 @@ nnoremap <leader><c-u> bveU
 nnoremap <leader>ev :vsplit $MYVIMRC<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>
 
+nnoremap H O
+nnoremap L $
+
+nnoremap <F3> :set list!<CR>
+
+nmap <F4> vii:sort i<cr>
+vnoremap <F4> :sort i<cr>
+
+nmap <F8> :TagbarToggle<CR>
+
+map <F9> :call ToggleBGColor()<CR>
+function! ToggleBGColor ()
+	if (&background == 'light')
+		set background=dark
+		echo "background -> dark"
+	else
+		set background=light
+		echo "background -> light"
+	endif
+endfunction
+
+nmap <leader>/ :nohlsearch<CR>
+
+map <c-J> <c-W>j<c-w>_
+map <c-K> <c-W>k<c-w>_
+map <c-L> <c-W>l<c-w>_
+map <c-H> <c-W>h<c-w>_
+
+nmap <leader>f0 :set foldlevel=0<CR>
+nmap <leader>f1 :set foldlevel=1<CR>
+nmap <leader>f2 :set foldlevel=2<CR>
+nmap <leader>f3 :set foldlevel=3<CR>
+nmap <leader>f4 :set foldlevel=4<CR>
+nmap <leader>f5 :set foldlevel=5<CR>
+nmap <leader>f6 :set foldlevel=6<CR>
+nmap <leader>f7 :set foldlevel=7<CR>
+nmap <leader>f8 :set foldlevel=8<CR>
+nmap <leader>f9 :set foldlevel=9<CR>
+" }
 
 " Find merge conflict markers
 map <leader>fc /\v^[<\|=>]{7}( .*\|$)<CR>
@@ -238,8 +300,6 @@ iabbrev adn and
 iabbrev waht what
 iabbrev tehn then
 
-nnoremap H O
-nnoremap L $
 
 set showmatch
 set incsearch
@@ -281,43 +341,7 @@ function! Sorted(l)
 	return new_list
 endfunction
 
-nnoremap <F3> :set list!<CR>
-
-nmap <F4> vii:sort i<cr>
-vnoremap <F4> :sort i<cr>
-
-nmap <F8> :TagbarToggle<CR>
-
-map <F9> :call ToggleBGColor()<CR>
-function! ToggleBGColor ()
-	if (&background == 'light')
-		set background=dark
-		echo "background -> dark"
-	else
-		set background=light
-		echo "background -> light"
-	endif
-endfunction
-
-nmap <leader>/ :nohlsearch<CR>
-
-map <c-J> <c-W>j<c-w>_
-map <c-K> <c-W>k<c-w>_
-map <c-L> <c-W>l<c-w>_
-map <c-H> <c-W>h<c-w>_
-
-nmap <leader>f0 :set foldlevel=0<CR>
-nmap <leader>f1 :set foldlevel=1<CR>
-nmap <leader>f2 :set foldlevel=2<CR>
-nmap <leader>f3 :set foldlevel=3<CR>
-nmap <leader>f4 :set foldlevel=4<CR>
-nmap <leader>f5 :set foldlevel=5<CR>
-nmap <leader>f6 :set foldlevel=6<CR>
-nmap <leader>f7 :set foldlevel=7<CR>
-nmap <leader>f8 :set foldlevel=8<CR>
-nmap <leader>f9 :set foldlevel=9<CR>
 " }
-
 
 
 " JSON remove concealing
