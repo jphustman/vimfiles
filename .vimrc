@@ -109,6 +109,7 @@ let g:syntastic_scss_checkers = ['scss_lint']
 let g:syntastic_html_checkers=['tidy']
 let g:syntastic_php_checkers=['php']
 let g:syntastic_vim_checkers=['vimlint']
+let g:syntastic_php_checkers=['php', 'phplint']
 let g:syntastic_check_on_open = 1
 
 " let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute " ,"trimming empty <", "unescaped &" , "lacks \"action", "is not recognized!", "discarding unexpected"]
