@@ -161,7 +161,6 @@ set mousehide
 scriptencoding utf-8
 set columns=83
 set lines=40
-set colorcolumn=72
 highlight ColorColumn ctermbg=darkgray
 
 let g:solarized_termcolors=256
@@ -323,7 +322,8 @@ set showcmd
 set visualbell
 set comments=sl:/*,mb:*,elx:*/
 
-"set textwidth=80
+set colorcolumn=72,79
+set textwidth=72
 "set wrapmargin=80
 set tabstop=4
 set softtabstop=4
