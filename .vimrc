@@ -1,4 +1,4 @@
-"
+" vim: set sw=4 ts=4 sts=4 et tw=78 foldmarker={,} foldlevel=0 foldmethod=marker:
 " :NeoBundleList        - list configured bundles
 " :NeoBundleInstall(!)  - install (update) bundles
 " :NeoBundleClean(!)    - confirm (or auto-approve) removal of unused bundles
@@ -37,7 +37,10 @@ NeoBundle 'matchit.zip'
 NeoBundle 'jphustman/Align.vim'
 NeoBundle 'jphustman/SQLUtilities'
 NeoBundle 'jphustman/dbext.vim'
-NeoBundle 'Lokaltog/powerline', {'rtp':'~/.vim/bundle/powerline/powerline/bindings/vim'}
+if !WINDOWS()
+	NeoBundle 'Lokaltog/powerline', {'rtp':'~/.vim/bundle/powerline/powerline/bindings/vim'}
+endif
+
 NeoBundle 'scrooloose/nerdcommenter'
 NeoBundle 'majutsushi/tagbar'
 NeoBundle 'tpope/vim-fugitive'
@@ -46,11 +49,13 @@ NeoBundle 'nathanaelkane/vim-indent-guides'
 NeoBundle 'vsutil.vim'
 NeoBundle 'VimRegEx.vim'
 
-" NeoBundle 'Valloric/YouCompleteMe'
 NeoBundle 'justmao945/vim-clang'
 NeoBundle 'rhysd/vim-clang-format'
 
-NeoBundle 'editorconfig/editorconfig-vim'
+if WINDOWS()
+    NeoBundle 'Shougo/neocomplcache.vim'
+    NeoBundle 'bling/vim-airline'
+endif
 
 " javascript
 NeoBundle 'elzr/vim-json'
@@ -68,6 +73,14 @@ NeoBundle 'tpope/vim-haml'
 " PHP
 NeoBundle 'spf13/PIV' " PHP Integration for Vim
 NeoBundle 'blueyed/smarty.vim' " Smarty plugin for Vim
+NeoBundle 'stefanich/php.vim-html-enhanced'
+
+" Python
+NeoBundle 'klen/python-mode'
+NeoBundle 'python.vim'
+NeoBundle 'python_match.vim'
+NeoBundle 'pythoncomplete'
+
 
 " *css
 NeoBundle 'cakebaker/scss-syntax.vim'
@@ -94,6 +107,7 @@ filetype plugin indent on    " Required!
 NeoBundleCheck
 " }
 
+" Syntastic Config {
 "let g:syntastic_javascript_checkers=['gjslint', 'jshint', 'jslint']
 "let g:syntastic_javascript_gjslint_args = '--strict'
 let g:syntastic_javascript_jslint_args = "--edition=latest"
@@ -102,8 +116,31 @@ let g:syntastic_css_checkers=['csslint']
 let g:syntastic_scss_checkers = ['scss_lint']
 "let g:syntastic_cfml_checkers=['cflint']
 let g:syntastic_html_checkers=['tidy', 'jshint']
+let g:syntastic_php_checkers=['php']
 let g:syntastic_vim_checkers=['vimlint']
+let g:syntastic_php_checkers=['php', 'phplint']
 let g:syntastic_check_on_open = 1
+
+" let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute " ,"trimming empty <", "unescaped &" , "lacks \"action", "is not recognized!", "discarding unexpected"]
+let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute "]
+
+" }
+
+" Python {
+
+" Disable PyMode if python support not present
+if !has('python')
+    let g:pymode = 0
+endif
+
+if isdirectory(expand("~/.vim/bundle/python-mode"))
+    let g:pymode_lint_checkers = ['pyflakes']
+    let g:pymode_trim_whitespaces = 0
+    let g:pymode_options = 0
+    let g:pymode_rope = 0
+endif
+
+" }
 
 let g:tagbar_ctags_bin='C:\Users\jphustman\Downloads\ctags58\ctags58\ctags.exe'
 set tags=./tags;/,~/.vimtags
@@ -124,9 +161,8 @@ syntax on
 set mouse=a
 set mousehide
 scriptencoding utf-8
-set columns=120
+set columns=83
 set lines=40
-set colorcolumn=81
 highlight ColorColumn ctermbg=darkgray
 
 let g:solarized_termcolors=256
@@ -153,7 +189,114 @@ set statusline+=\ [%{getcwd()}] " Current dir
 set statusline+=%=%-14.(%l,%c%V%)\ %p%% " Right aligned file nav info
 " }
 
+" NeoComplCache {
+    if WINDOWS()
+        let g:acp_enableAtStartup = 0
+        let g:neocomplcache_enable_at_startup = 1
+        let g:neocomplcache_enable_camel_case_completion = 1
+        let g:neocomplcache_enable_smart_case = 1
+        let g:neocomplcache_enable_underbar_completion = 1
+        let g:neocomplcache_enable_auto_delimiter = 1
+        let g:neocomplcache_max_list = 15
+        let g:neocomplcache_force_overwrite_completefunc = 1
 
+        " Define dictionary.
+        let g:neocomplcache_dictionary_filetype_lists = {
+                    \ 'default' : '',
+                    \ 'vimshell' : $HOME.'/.vimshell_hist',
+                    \ 'scheme' : $HOME.'/.gosh_completions'
+                    \ }
+
+        " Define keyword.
+        let g:neocomplcache_keyword_patterns = {}
+        let g:neocomplcache_keyword_patterns._ = '\h\w*'
+
+        " Plugin key-mappings {
+        " These two lines conflict with the default digraph mapping of <C-K>
+        imap <C-k> <Plug>(neosnippet_expand_or_jump)
+        smap <C-k> <Plug>(neosnippet_expand_or_jump)
+        imap <silent><expr><C-k> neosnippet#expandable() ?
+                    \ "\<Plug>(neosnippet_expand_or_jump)" : (pumvisible() ?
+                    \ "\<C-e>" : "\<Plug>(neosnippet_expand_or_jump)")
+        smap <TAB> <Right><Plug>(neosnippet_jump_or_expand)
+
+        inoremap <expr><C-g> neocomplcache#undo_completion()
+        inoremap <expr><C-l> neocomplcache#complete_common_string()
+        "inoremap <expr><CR> neocomplcache#complete_common_string()
+
+        function! CleverCr()
+            if pumvisible()
+                if neosnippet#expandable()
+                    let exp = "\<Plug>(neosnippet_expand)"
+                    return exp . neocomplcache#close_popup()
+                else
+                    return neocomplcache#close_popup()
+                endif
+            else
+                return "\<CR>"
+            endif
+        endfunction
+
+        " <CR> close popup and save indent or expand snippet
+        imap <expr> <CR> CleverCr()
+
+        " <CR>: close popup
+        " <s-CR>: close popup and save indent.
+        inoremap <expr><s-CR> pumvisible() ? neocomplcache#close_popup()"\<CR>" : "\<CR>"
+        "inoremap <expr><CR> pumvisible() ? neocomplcache#close_popup() : "\<CR>"
+
+        " <C-h>, <BS>: close popup and delete backword char.
+        inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
+        inoremap <expr><C-y> neocomplcache#close_popup()
+        " <TAB>: completion.
+        inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
+        inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<TAB>"
+        " }
+
+        " Enable omni completion.
+        autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+        autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+        autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+        autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+        autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+        autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
+        autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
+
+        " Enable heavy omni completion.
+        let g:neocomplcache_omni_patterns = {}
+        let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+        let g:neocomplcache_omni_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
+        let g:neocomplcache_omni_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
+        let g:neocomplcache_omni_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+        let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\h\w*\|\h\w*::'
+        let g:neocomplcache_omni_patterns.go = '\h\w*\.\?'
+    endif
+" }
+
+" vim-airline {
+if WINDOWS()
+    " Set configuration options for the statusline plugin vim-airline.
+    " Use the powerline theme and optionally enable powerline symbols.
+    " To use the symbols ?, ?, ?, ?, ?, ?, and ?.in the statusline
+    " segments add the following to your .vimrc.before.local file:
+    "   let g:airline_powerline_fonts=1
+    " If the previous symbols do not render for you then install a
+    " powerline enabled font.
+
+    " See `:echo g:airline_theme_map` for some more choices
+    " Default in terminal vim is 'dark'
+    if isdirectory(expand("~/.vim/bundle/vim-airline/"))
+        if !exists('g:airline_theme')
+            let g:airline_theme = 'solarized'
+        endif
+        if !exists('g:airline_powerline_fonts')
+            " Use the default set of separators with a few customizations
+            let g:airline_left_sep='›'  " Slightly fancier than '>'
+            let g:airline_right_sep='‹' " Slightly fancier than '<'
+        endif
+    endif
+endif
+" }
 
 set showmode
 
@@ -181,7 +324,8 @@ set showcmd
 set visualbell
 set comments=sl:/*,mb:*,elx:*/
 
-"set textwidth=80
+set colorcolumn=72,79
+set textwidth=72
 "set wrapmargin=80
 set tabstop=4
 set softtabstop=4
@@ -215,6 +359,7 @@ set shiftround
 let g:mapleader=","
 let g:maplocalleader=",,"
 
+" Mappings {
 noremap <leader>- ddp
 noremap <leader>_ ddkP
 inoremap <leader><c-u> <esc>bveU$a
@@ -223,6 +368,45 @@ nnoremap <leader><c-u> bveU
 nnoremap <leader>ev :vsplit $MYVIMRC<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>
 
+nnoremap H O
+nnoremap L $
+
+nnoremap <F3> :set list!<CR>
+
+nmap <F4> vii:sort i<cr>
+vnoremap <F4> :sort i<cr>
+
+nmap <F8> :TagbarToggle<CR>
+
+map <F9> :call ToggleBGColor()<CR>
+function! ToggleBGColor ()
+	if (&background == 'light')
+		set background=dark
+		echo "background -> dark"
+	else
+		set background=light
+		echo "background -> light"
+	endif
+endfunction
+
+nmap <leader>/ :nohlsearch<CR>
+
+map <c-J> <c-W>j<c-w>_
+map <c-K> <c-W>k<c-w>_
+map <c-L> <c-W>l<c-w>_
+map <c-H> <c-W>h<c-w>_
+
+nmap <leader>f0 :set foldlevel=0<CR>
+nmap <leader>f1 :set foldlevel=1<CR>
+nmap <leader>f2 :set foldlevel=2<CR>
+nmap <leader>f3 :set foldlevel=3<CR>
+nmap <leader>f4 :set foldlevel=4<CR>
+nmap <leader>f5 :set foldlevel=5<CR>
+nmap <leader>f6 :set foldlevel=6<CR>
+nmap <leader>f7 :set foldlevel=7<CR>
+nmap <leader>f8 :set foldlevel=8<CR>
+nmap <leader>f9 :set foldlevel=9<CR>
+" }
 
 " Find merge conflict markers
 map <leader>fc /\v^[<\|=>]{7}( .*\|$)<CR>
@@ -231,8 +415,6 @@ iabbrev adn and
 iabbrev waht what
 iabbrev tehn then
 
-nnoremap H O
-nnoremap L $
 
 set showmatch
 set incsearch
@@ -274,43 +456,7 @@ function! Sorted(l)
 	return new_list
 endfunction
 
-nnoremap <F3> :set list!<CR>
-
-nmap <F4> vii:sort i<cr>
-vnoremap <F4> :sort i<cr>
-
-nmap <F8> :TagbarToggle<CR>
-
-map <F9> :call ToggleBGColor()<CR>
-function! ToggleBGColor ()
-	if (&background == 'light')
-		set background=dark
-		echo "background -> dark"
-	else
-		set background=light
-		echo "background -> light"
-	endif
-endfunction
-
-nmap <leader>/ :nohlsearch<CR>
-
-map <c-J> <c-W>j<c-w>_
-map <c-K> <c-W>k<c-w>_
-map <c-L> <c-W>l<c-w>_
-map <c-H> <c-W>h<c-w>_
-
-nmap <leader>f0 :set foldlevel=0<CR>
-nmap <leader>f1 :set foldlevel=1<CR>
-nmap <leader>f2 :set foldlevel=2<CR>
-nmap <leader>f3 :set foldlevel=3<CR>
-nmap <leader>f4 :set foldlevel=4<CR>
-nmap <leader>f5 :set foldlevel=5<CR>
-nmap <leader>f6 :set foldlevel=6<CR>
-nmap <leader>f7 :set foldlevel=7<CR>
-nmap <leader>f8 :set foldlevel=8<CR>
-nmap <leader>f9 :set foldlevel=9<CR>
 " }
-
 
 
 " JSON remove concealing
