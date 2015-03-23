@@ -325,7 +325,7 @@ set visualbell
 set comments=sl:/*,mb:*,elx:*/
 
 set colorcolumn=72,79
-set textwidth=72
+"set textwidth=72
 "set wrapmargin=80
 set tabstop=4
 set softtabstop=4
