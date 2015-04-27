@@ -114,7 +114,7 @@ let g:syntastic_javascript_jslint_args = "--edition=latest"
 let g:syntastic_javascript_checkers=['jslint']
 let g:syntastic_css_checkers=['csslint']
 let g:syntastic_scss_checkers = ['scss_lint']
-"let g:syntastic_cfml_checkers=['cflint']
+let g:syntastic_cfml_checkers=['cflint']
 let g:syntastic_html_checkers=['tidy', 'jshint']
 let g:syntastic_php_checkers=['php']
 let g:syntastic_vim_checkers=['vimlint']
@@ -142,7 +142,7 @@ endif
 
 " }
 
-let g:tagbar_ctags_bin='C:\Users\jphustman\Downloads\ctags58\ctags58\ctags.exe'
+" let g:tagbar_ctags_bin='C:\Users\jphustman\Downloads\ctags58\ctags58\ctags.exe'
 set tags=./tags;/,~/.vimtags
 
 " Make tags placed in .git/tags file available in all levels of a repository
@@ -150,6 +150,8 @@ let g:gitroot = substitute(system('git rev-parse --show-toplevel'), '[\n\r]', ''
 if gitroot != ''
 	let &tags = &tags . ',' . gitroot . '/.git/tags'
 endif
+
+set lazyredraw
 
 " General
 if OSX()
@@ -304,7 +306,7 @@ if has('gui_running')
 	set lines=40                " 40 lines of text instead of 24
 	if !exists("g:spf13_no_big_font")
 		if LINUX() && has("gui_running")
-			set guifont=Inconsolata\ Medium\ 10
+			set guifont=Inconsolata\ Medium\ 12
 		elseif OSX() && has("gui_running")
 			set guifont=Andale\ Mono:h13,Menlo\ Regular:h11,Consolas\ Regular:h12,Courier\ New\ Regular:h14
 		elseif WINDOWS() && has("gui_running")
