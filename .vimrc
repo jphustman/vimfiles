@@ -58,6 +58,10 @@ if WINDOWS()
     NeoBundle 'bling/vim-airline'
 endif
 
+if OSX()
+    NeoBundle 'Valloric/YouCompleteMe'
+endif
+
 " javascript
 NeoBundle 'elzr/vim-json'
 NeoBundle 'groenewege/vim-less'
@@ -275,6 +279,13 @@ set statusline+=%=%-14.(%l,%c%V%)\ %p%% " Right aligned file nav info
         let g:neocomplcache_omni_patterns.go = '\h\w*\.\?'
     endif
 " }
+
+" YouCompleteMe {
+if OSX()
+
+
+
+endif
 
 " vim-airline {
 if WINDOWS()
