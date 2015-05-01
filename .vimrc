@@ -29,7 +29,7 @@ call neobundle#begin(expand('~/.vim/bundle/'))
 NeoBundleFetch 'Shougo/neobundle.vim'
 
 " My Bundles here:
-NeoBundle 'git@github.com:jphustman/cf-utils.vim'
+" NeoBundle 'git@github.com:jphustman/cf-utils.vim'
 NeoBundle 'altercation/vim-colors-solarized'
 NeoBundle 'scrooloose/syntastic'
 NeoBundle 'cflint/cflint-syntastic'
