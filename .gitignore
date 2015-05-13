@@ -3,6 +3,8 @@
 
 # But not these files...
 !.gitignore
+!.bash_profile
 !.bashrc
+!.bash_logout
 !.vimrc
 !.bash_profile
