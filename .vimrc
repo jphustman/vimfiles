@@ -189,11 +189,14 @@ set laststatus=2
 
 " Broken down into easily includeable segments
 set statusline=%<%f\ " Filename
-set statusline+=%w%h%m%r " Options
-set statusline+=%{fugitive#statusline()} " Git Hotness
-set statusline+=\ [%{&ff}/%Y] " Filetype
-set statusline+=\ [%{getcwd()}] " Current dir
-set statusline+=%=%-14.(%l,%c%V%)\ %p%% " Right aligned file nav info
+set statusline+=%h%m%r" Options
+set statusline+=%{fugitive#statusline()}" Git Hotness
+set statusline+=%=%-14.(%l,%c%V%)\ %P"
+
+
+"set statusline+=\ [%{&ff}/%Y] " Filetype
+"set statusline+=\ [%{getcwd()}] " Current dir
+"set statusline+=%=%-14.(%l,%c%V%)\ %p%% " Right aligned file nav info
 " }
 
 " NeoComplCache {
@@ -320,7 +323,7 @@ if has('gui_running')
 		if LINUX() && has("gui_running")
 			set guifont=Inconsolata\ Medium\ 12
 		elseif OSX() && has("gui_running")
-			set guifont=Andale\ Mono:h13,Menlo\ Regular:h11,Consolas\ Regular:h12,Courier\ New\ Regular:h14
+			set guifont=Inconsolata\ for\ Powerline:h14
 		elseif WINDOWS() && has("gui_running")
 			set guifont=Andale_Mono:h10,Menlo:h10,Consolas:h10,Courier_New:h10
 		endif
