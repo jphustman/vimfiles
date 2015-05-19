@@ -117,7 +117,7 @@ NeoBundleCheck
 "let g:syntastic_javascript_checkers=['gjslint', 'jshint', 'jslint']
 "let g:syntastic_javascript_gjslint_args = '--strict'
 let g:syntastic_javascript_jslint_args = "--edition=latest"
-let g:syntastic_javascript_checkers=['jslint']
+let g:syntastic_javascript_checkers=['jshint']
 let g:syntastic_css_checkers=['csslint']
 let g:syntastic_scss_checkers = ['scss_lint']
 let g:syntastic_cfml_checkers=['cflint']
@@ -409,10 +409,14 @@ endfunction
 
 nmap <leader>/ :nohlsearch<CR>
 
-map <c-J> <c-W>j<c-w>_
-map <c-K> <c-W>k<c-w>_
-map <c-L> <c-W>l<c-w>_
-map <c-H> <c-W>h<c-w>_
+"map <c-J> <c-W>j<c-w>_
+"map <c-K> <c-W>k<c-w>_
+"map <c-L> <c-W>l<c-w>_
+"map <c-H> <c-W>h<c-w>_
+map <c-J> <c-W>j
+map <c-K> <c-W>k
+map <c-L> <c-W>l
+map <c-H> <c-W>h
 
 nmap <leader>f0 :set foldlevel=0<CR>
 nmap <leader>f1 :set foldlevel=1<CR>
