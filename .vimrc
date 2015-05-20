@@ -114,9 +114,14 @@ NeoBundleCheck
 " }
 
 " Syntastic Config {
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
 "let g:syntastic_javascript_checkers=['gjslint', 'jshint', 'jslint']
 "let g:syntastic_javascript_gjslint_args = '--strict'
 let g:syntastic_javascript_jslint_args = "--edition=latest"
+"let g:syntastic_javascript_checkers=['jslint']
 let g:syntastic_javascript_checkers=['jshint']
 let g:syntastic_css_checkers=['csslint']
 let g:syntastic_scss_checkers = ['scss_lint']
@@ -125,7 +130,6 @@ let g:syntastic_html_checkers=['tidy', 'jshint']
 let g:syntastic_php_checkers=['php']
 let g:syntastic_vim_checkers=['vimlint']
 let g:syntastic_php_checkers=['php', 'phplint']
-let g:syntastic_check_on_open = 1
 
 " let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute " ,"trimming empty <", "unescaped &" , "lacks \"action", "is not recognized!", "discarding unexpected"]
 let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute "]
@@ -187,6 +191,11 @@ let g:indent_guides_start_level = 2
 
 " Status Line {
 set laststatus=2
+
+" Syntastic Recommended settings
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
 
 " Broken down into easily includeable segments
 set statusline=%<%f\ " Filename
@@ -322,7 +331,7 @@ if has('gui_running')
 	set lines=40                " 40 lines of text instead of 24
 	if !exists("g:spf13_no_big_font")
 		if LINUX() && has("gui_running")
-			set guifont=Inconsolata\ Medium\ 12
+			set guifont=Inconsolata\ for\ Powerline\ Medium\ 12
 		elseif OSX() && has("gui_running")
 			set guifont=Inconsolata\ for\ Powerline:h14
 		elseif WINDOWS() && has("gui_running")
@@ -382,6 +391,8 @@ noremap <leader>- ddp
 noremap <leader>_ ddkP
 inoremap <leader><c-u> <esc>bveU$a
 nnoremap <leader><c-u> bveU
+
+nnoremap <C-S-n>
 
 nnoremap <leader>ev :vsplit $MYVIMRC<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>
