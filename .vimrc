@@ -121,6 +121,11 @@ let g:syntastic_check_on_wq = 0
 "let g:syntastic_javascript_checkers=['gjslint', 'jshint', 'jslint']
 "let g:syntastic_javascript_checkers=['jshint']
 "let g:syntastic_javascript_gjslint_args = '--strict'
+let g:syntastic_javascript_jslint_args = "--edition=latest"
+"let g:syntastic_javascript_checkers=['jslint']
+let g:syntastic_javascript_checkers=['jshint', 'jslint']
+let g:syntastic_css_checkers=['csslint']
+let g:syntastic_scss_checkers = ['scss_lint']
 let g:syntastic_cfml_checkers=['cflint']
 let g:syntastic_css_checkers=['csslint']
 let g:syntastic_html_checkers=['tidy', 'jshint']
@@ -391,8 +396,6 @@ noremap <leader>- ddp
 noremap <leader>_ ddkP
 inoremap <leader><c-u> <esc>bveU$a
 nnoremap <leader><c-u> bveU
-
-nnoremap <C-S-n>
 
 nnoremap <leader>ev :vsplit $MYVIMRC<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>
