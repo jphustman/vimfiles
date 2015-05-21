@@ -10,8 +10,9 @@ if [[ "$(uname)" == "Darwin" ]]; then
 	alias ls='ls -G'
 else
 	alias ls='ls --color=auto'
-	[[ $- = *i* ]] && source ~/Downloads/liquidprompt/liquidprompt;
 fi
+
+[[ $- = *i* ]] && source ~/Downloads/liquidprompt/liquidprompt;
 
 if [[ $OSTYPE != "cygwin" ]] || [[ $OSTYPE != "msys" ]]; then
 	export M2_HOME="/opt/maven"
