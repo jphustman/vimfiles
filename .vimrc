@@ -34,10 +34,12 @@ NeoBundle 'altercation/vim-colors-solarized'
 NeoBundle 'scrooloose/syntastic'
 NeoBundle 'cflint/cflint-syntastic'
 NeoBundle 'tpope/vim-surround'
+NeoBundle 'honza/vim-snippets'
 NeoBundle 'matchit.zip'
 NeoBundle 'jphustman/Align.vim'
 NeoBundle 'jphustman/SQLUtilities'
 NeoBundle 'jphustman/dbext.vim'
+NeoBundle 'joonty/vdebug.git'
 if !WINDOWS()
 	NeoBundle 'Lokaltog/powerline', {'rtp':'~/.vim/bundle/powerline/powerline/bindings/vim'}
 endif
@@ -68,6 +70,10 @@ NeoBundle 'groenewege/vim-less'
 NeoBundle 'pangloss/vim-javascript'
 NeoBundle 'briancollins/vim-jst'
 NeoBundle 'kchmck/vim-coffee-script'
+NeoBundle 'othree/javascript-libraries-syntax.vim'
+NeoBundle 'matthewsimo/angular-vim-snippets'
+NeoBundle 'claco/jasmine.vim'
+NeoBundle 'burnettk/vim-angular'
 
 " HTML
 NeoBundle 'amirh/HTML-AutoCloseTag'
@@ -113,18 +119,20 @@ NeoBundleCheck
 " }
 
 " Syntastic Config {
-"let g:syntastic_javascript_checkers=['gjslint', 'jshint', 'jslint']
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
 "let g:syntastic_javascript_gjslint_args = '--strict'
 let g:syntastic_javascript_jslint_args = "--edition=latest"
-let g:syntastic_javascript_checkers=['jslint']
+let g:syntastic_javascript_checkers=['jshint', 'jslint']
 let g:syntastic_css_checkers=['csslint']
 let g:syntastic_scss_checkers = ['scss_lint']
 let g:syntastic_cfml_checkers=['cflint']
+let g:syntastic_css_checkers=['csslint']
 let g:syntastic_html_checkers=['tidy', 'jshint']
-let g:syntastic_php_checkers=['php']
-let g:syntastic_vim_checkers=['vimlint']
 let g:syntastic_php_checkers=['php', 'phplint']
-let g:syntastic_check_on_open = 1
+let g:syntastic_vim_checkers=['vimlint']
 
 " let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute " ,"trimming empty <", "unescaped &" , "lacks \"action", "is not recognized!", "discarding unexpected"]
 let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute "]
@@ -157,6 +165,9 @@ if gitroot != ''
 endif
 
 set lazyredraw
+set viewoptions=folds,options,cursor,unix,slash
+
+
 
 " General
 if OSX()
@@ -187,13 +198,21 @@ let g:indent_guides_start_level = 2
 " Status Line {
 set laststatus=2
 
+" Syntastic Recommended settings
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
 " Broken down into easily includeable segments
 set statusline=%<%f\ " Filename
-set statusline+=%w%h%m%r " Options
-set statusline+=%{fugitive#statusline()} " Git Hotness
-set statusline+=\ [%{&ff}/%Y] " Filetype
-set statusline+=\ [%{getcwd()}] " Current dir
-set statusline+=%=%-14.(%l,%c%V%)\ %p%% " Right aligned file nav info
+set statusline+=%h%m%r" Options
+set statusline+=%{fugitive#statusline()}" Git Hotness
+set statusline+=%=%-14.(%l,%c%V%)\ %P"
+
+
+"set statusline+=\ [%{&ff}/%Y] " Filetype
+"set statusline+=\ [%{getcwd()}] " Current dir
+"set statusline+=%=%-14.(%l,%c%V%)\ %p%% " Right aligned file nav info
 " }
 
 " NeoComplCache {
@@ -318,9 +337,9 @@ if has('gui_running')
 	set lines=40                " 40 lines of text instead of 24
 	if !exists("g:spf13_no_big_font")
 		if LINUX() && has("gui_running")
-			set guifont=Inconsolata\ Medium\ 12
+			set guifont=Inconsolata\ for\ Powerline\ Medium\ 12
 		elseif OSX() && has("gui_running")
-			set guifont=Andale\ Mono:h13,Menlo\ Regular:h11,Consolas\ Regular:h12,Courier\ New\ Regular:h14
+			set guifont=Inconsolata\ for\ Powerline:h14
 		elseif WINDOWS() && has("gui_running")
 			set guifont=Andale_Mono:h10,Menlo:h10,Consolas:h10,Courier_New:h10
 		endif
@@ -358,6 +377,9 @@ set virtualedit=onemore
 
 set cursorline
 set tabpagemax=15
+
+" For when you forget to sudo.. Really write the file
+cmap w!! w !sudo tee % >/dev/null
 
 "set backup
 if has('persistent_undo')
@@ -405,10 +427,14 @@ endfunction
 
 nmap <leader>/ :nohlsearch<CR>
 
-map <c-J> <c-W>j<c-w>_
-map <c-K> <c-W>k<c-w>_
-map <c-L> <c-W>l<c-w>_
-map <c-H> <c-W>h<c-w>_
+"map <c-J> <c-W>j<c-w>_
+"map <c-K> <c-W>k<c-w>_
+"map <c-L> <c-W>l<c-w>_
+"map <c-H> <c-W>h<c-w>_
+map <c-J> <c-W>j
+map <c-K> <c-W>k
+map <c-L> <c-W>l
+map <c-H> <c-W>h
 
 nmap <leader>f0 :set foldlevel=0<CR>
 nmap <leader>f1 :set foldlevel=1<CR>
@@ -450,6 +476,7 @@ set scrolloff=3
 set foldenable
 set foldmethod=indent
 set foldlevel=1
+set foldclose=all
 
 " List chars (from Janus)
 set listchars=""            " Reset the listchars
