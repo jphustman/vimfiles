@@ -34,6 +34,7 @@ NeoBundle 'altercation/vim-colors-solarized'
 NeoBundle 'scrooloose/syntastic'
 NeoBundle 'cflint/cflint-syntastic'
 NeoBundle 'tpope/vim-surround'
+NeoBundle 'honza/vim-snippets'
 NeoBundle 'matchit.zip'
 NeoBundle 'jphustman/Align.vim'
 NeoBundle 'jphustman/SQLUtilities'
@@ -69,6 +70,10 @@ NeoBundle 'groenewege/vim-less'
 NeoBundle 'pangloss/vim-javascript'
 NeoBundle 'briancollins/vim-jst'
 NeoBundle 'kchmck/vim-coffee-script'
+NeoBundle 'othree/javascript-libraries-syntax.vim'
+NeoBundle 'matthewsimo/angular-vim-snippets'
+NeoBundle 'claco/jasmine.vim'
+NeoBundle 'burnettk/vim-angular'
 
 " HTML
 NeoBundle 'amirh/HTML-AutoCloseTag'
@@ -118,22 +123,15 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
-"let g:syntastic_javascript_checkers=['gjslint', 'jshint', 'jslint']
-"let g:syntastic_javascript_checkers=['jshint']
 "let g:syntastic_javascript_gjslint_args = '--strict'
 let g:syntastic_javascript_jslint_args = "--edition=latest"
-"let g:syntastic_javascript_checkers=['jslint']
 let g:syntastic_javascript_checkers=['jshint', 'jslint']
 let g:syntastic_css_checkers=['csslint']
 let g:syntastic_scss_checkers = ['scss_lint']
 let g:syntastic_cfml_checkers=['cflint']
 let g:syntastic_css_checkers=['csslint']
 let g:syntastic_html_checkers=['tidy', 'jshint']
-let g:syntastic_javascript_checkers=['jslint']
-let g:syntastic_javascript_jslint_args = "--edition=latest"
 let g:syntastic_php_checkers=['php', 'phplint']
-let g:syntastic_php_checkers=['php']
-let g:syntastic_scss_checkers = ['scss_lint']
 let g:syntastic_vim_checkers=['vimlint']
 
 " let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute " ,"trimming empty <", "unescaped &" , "lacks \"action", "is not recognized!", "discarding unexpected"]
@@ -167,6 +165,9 @@ if gitroot != ''
 endif
 
 set lazyredraw
+set viewoptions=folds,options,cursor,unix,slash
+
+
 
 " General
 if OSX()
@@ -377,6 +378,9 @@ set virtualedit=onemore
 set cursorline
 set tabpagemax=15
 
+" For when you forget to sudo.. Really write the file
+cmap w!! w !sudo tee % >/dev/null
+
 "set backup
 if has('persistent_undo')
 	set undofile
@@ -472,6 +476,7 @@ set scrolloff=3
 set foldenable
 set foldmethod=indent
 set foldlevel=1
+set foldclose=all
 
 " List chars (from Janus)
 set listchars=""            " Reset the listchars
