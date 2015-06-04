@@ -10,6 +10,7 @@ if [[ "$(uname)" == "Darwin" ]]; then
 	alias ls='ls -G'
 else
 	alias ls='ls --color=auto'
+	alias lnpm='lnpm.sh'
 fi
 
 [[ $- = *i* ]] && source ~/Downloads/liquidprompt/liquidprompt;
@@ -34,4 +35,8 @@ if [[ $OSTYPE != "cygwin" ]] || [[ $OSTYPE != "msys" ]]; then
 		## Print total size.
 		echo "$RESULT" | awk '{TOTAL=$1+TOTAL} END {printf("Total : %d KiB\n",TOTAL)}'
 	}
+fi
+
+if [[ "$(uname)" == "Linux" ]]; then
+	export LNPMDIR="/src/node_modules/"
 fi
