@@ -21,5 +21,8 @@ if [ "$(uname)" == "Darwin" ]; then
 	export PATH="/usr/local/sbin:$PATH:~/Downloads/apache-maven-3.3.3/bin"
 
 	export JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk1.8.0_05.jdk/Contents/Home"
+	export PATH="/usr/local/sbin:$PATH"
+	PHP_AUTOCONF="/usr/local/bin/autoconf"
+	source ~/.bash_aliases
 fi
 export PATH=/usr/local/bin:$PATH
