@@ -4,32 +4,40 @@
 " :NeoBundleClean(!)    - confirm (or auto-approve) removal of unused bundles
 "
 " Identify platform {
-	silent function! OSX()
-		return has('macunix')
-	endfunction
-	silent function! LINUX()
-		return has('unix') && !has('macunix') && !has('win32unix')
-	endfunction
-	silent function! WINDOWS()
-		return  (has('win16') || has('win32') || has('win64'))
-	endfunction
+silent function! OSX()
+    return has('macunix')
+endfunction
+silent function! LINUX()
+    return has('unix') && !has('macunix') && !has('win32unix')
+endfunction
+silent function! WINDOWS()
+    return  (has('win16') || has('win32') || has('win64'))
+endfunction
 " }
 
+" Note: Skip initialization for vim-tiny or vim-small.
+if 0 | endif
+
 if has('vim_starting')
-	set nocompatible    " Be iMproved
+    if &compatible
+        set nocompatible    " Be iMproved
+    endif
+
+    " Required:
 	set runtimepath+=~/.vim/bundle/neobundle.vim/
 endif
 
 
 " Bundles {
-filetype off
+" filetype off
 call neobundle#begin(expand('~/.vim/bundle/'))
 
 " Let NeoBundle manage NeoBundle
+" Required
 NeoBundleFetch 'Shougo/neobundle.vim'
 
 " My Bundles here:
-" NeoBundle 'git@github.com:jphustman/cf-utils.vim'
+NeoBundle 'git@github.com:jphustman/cf-utils.vim'
 NeoBundle 'altercation/vim-colors-solarized'
 NeoBundle 'scrooloose/syntastic'
 NeoBundle 'cflint/cflint-syntastic'
@@ -121,11 +129,12 @@ NeoBundleCheck
 " Syntastic Config {
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
 "let g:syntastic_javascript_gjslint_args = '--strict'
 let g:syntastic_javascript_jslint_args = "--edition=latest"
 let g:syntastic_javascript_checkers=['jshint', 'jslint']
+let g:syntastic_sh_checkers=['shellcheck']
 let g:syntastic_css_checkers=['csslint']
 let g:syntastic_scss_checkers = ['scss_lint']
 let g:syntastic_cfml_checkers=['cflint']

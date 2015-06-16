@@ -25,4 +25,7 @@ if [ "$(uname)" == "Darwin" ]; then
 	PHP_AUTOCONF="/usr/local/bin/autoconf"
 	source ~/.bash_aliases
 fi
-export PATH=/usr/local/bin:$PATH
+if [ "$(uname)" == "Linux" ]; then
+	export PATH="$PATH:/home/jphustman/lnpm.sh"
+fi
+export PATH="/usr/local/bin:$PATH"
