@@ -132,12 +132,14 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
 "let g:syntastic_javascript_gjslint_args = '--strict'
-let g:syntastic_javascript_jslint_args = "--edition=2015-05-01"
+"let g:syntastic_javascript_jslint_args = "--edition=latest"
 let g:syntastic_javascript_checkers=['jshint', 'jslint']
 let g:syntastic_sh_checkers=['shellcheck']
 let g:syntastic_css_checkers=['csslint']
 let g:syntastic_scss_checkers = ['scss_lint']
+let g:syntastic_cf_checkers=['cflint']
 let g:syntastic_cfml_checkers=['cflint']
+let g:syntastic_cfscript_checkers=['cflint']
 let g:syntastic_css_checkers=['csslint']
 let g:syntastic_html_checkers=['tidy', 'jshint']
 let g:syntastic_php_checkers=['php', 'phplint']
