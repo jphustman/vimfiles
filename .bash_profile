@@ -32,6 +32,7 @@ if [ "$(uname)" == "Darwin" ]; then
 
 
 fi
+
 if [ "$(uname)" == "Linux" ]; then
 	export PATH="$PATH:/home/jphustman/lnpm.sh"
 fi

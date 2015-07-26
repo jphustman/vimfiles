@@ -132,12 +132,14 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
 "let g:syntastic_javascript_gjslint_args = '--strict'
-let g:syntastic_javascript_jslint_args = "--edition=latest"
+"let g:syntastic_javascript_jslint_args = "--edition=latest"
 let g:syntastic_javascript_checkers=['jshint', 'jslint']
 let g:syntastic_sh_checkers=['shellcheck']
 let g:syntastic_css_checkers=['csslint']
 let g:syntastic_scss_checkers = ['scss_lint']
+let g:syntastic_cf_checkers=['cflint']
 let g:syntastic_cfml_checkers=['cflint']
+let g:syntastic_cfscript_checkers=['cflint']
 let g:syntastic_css_checkers=['csslint']
 let g:syntastic_html_checkers=['tidy', 'jshint']
 let g:syntastic_php_checkers=['php', 'phplint']
@@ -346,7 +348,7 @@ if has('gui_running')
 	set lines=40                " 40 lines of text instead of 24
 	if !exists("g:spf13_no_big_font")
 		if LINUX() && has("gui_running")
-			set guifont=Inconsolata\ for\ Powerline\ Medium\ 12
+			set guifont=Inconsolata\ for\ Powerline\ Medium\ 14
 		elseif OSX() && has("gui_running")
 			set guifont=Inconsolata\ for\ Powerline:h14
 		elseif WINDOWS() && has("gui_running")
@@ -374,7 +376,7 @@ set softtabstop=4
 set shiftwidth=4
 set noexpandtab
 set cindent
-autocmd FileType javascript,scss setlocal expandtab
+autocmd FileType javascript,scss set expandtab
 autocmd FileType scss set tabstop=2 softtabstop=2 shiftwidth=2
 
 " set nowrap
@@ -416,7 +418,8 @@ nnoremap <leader>sv :source $MYVIMRC<cr>
 nnoremap H O
 nnoremap L $
 
-nnoremap <F3> :set list!<CR>
+nmap <F2> :SyntasticCheck<CR>
+nmap <F3> :set list!<CR>
 
 nmap <F4> vii:sort i<cr>
 vnoremap <F4> :sort i<cr>
@@ -485,7 +488,7 @@ set scrolloff=3
 set foldenable
 set foldmethod=indent
 set foldlevel=1
-set foldclose=all
+"set foldclose=all
 
 " List chars (from Janus)
 set listchars=""            " Reset the listchars

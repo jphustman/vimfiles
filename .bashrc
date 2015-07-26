@@ -17,7 +17,7 @@ fi
 
 if [[ $OSTYPE != "cygwin" ]] || [[ $OSTYPE != "msys" ]]; then
 	export M2_HOME="/opt/maven"
-	export PATH="$(ruby -e 'print Gem.user_dir')/bin:$M2_HOME:$PATH:/opt/android-sdk/platform-tools:/opt/android-sdk/tools:~/.composer/vendor/bin:~/Downloads/apache-maven-3.3.3/bin"
+	export PATH="$(ruby -e 'print Gem.user_dir')/bin:$M2_HOME:$PATH:/opt/android-sdk/platform-tools:/opt/android-sdk/tools"
 	export CHROME_BIN="/bin/chromium"
 	#setxkbmap -option caps:escape
 
