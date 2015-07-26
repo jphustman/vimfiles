@@ -24,6 +24,13 @@ if [ "$(uname)" == "Darwin" ]; then
 	export PATH="/usr/local/sbin:$PATH"
 	PHP_AUTOCONF="/usr/local/bin/autoconf"
 	source ~/.bash_aliases
+
+
+
+	alias cdjthcc='cd ~/Documents/lucee-4.5.1.022-express/webapps/juneauthcc/jthcc/includes/themes/juneauthcc'
+
+
+
 fi
 if [ "$(uname)" == "Linux" ]; then
 	export PATH="$PATH:/home/jphustman/lnpm.sh"
