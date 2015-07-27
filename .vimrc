@@ -42,14 +42,16 @@ NeoBundle 'altercation/vim-colors-solarized'
 NeoBundle 'scrooloose/syntastic'
 NeoBundle 'cflint/cflint-syntastic'
 NeoBundle 'tpope/vim-surround'
-NeoBundle 'honza/vim-snippets'
 NeoBundle 'matchit.zip'
 NeoBundle 'jphustman/Align.vim'
 NeoBundle 'jphustman/SQLUtilities'
 NeoBundle 'jphustman/dbext.vim'
 NeoBundle 'joonty/vdebug.git'
+
 if !WINDOWS()
 	NeoBundle 'Lokaltog/powerline', {'rtp':'~/.vim/bundle/powerline/powerline/bindings/vim'}
+elseif WINDOWS()
+    NeoBundle 'bling/vim-airline'
 endif
 
 NeoBundle 'scrooloose/nerdcommenter'
@@ -63,14 +65,18 @@ NeoBundle 'VimRegEx.vim'
 NeoBundle 'justmao945/vim-clang'
 NeoBundle 'rhysd/vim-clang-format'
 
+"
+" Snippet Stuff
+NeoBundle 'honza/vim-snippets'
+
 if WINDOWS()
     NeoBundle 'Shougo/neocomplcache.vim'
-    NeoBundle 'bling/vim-airline'
-endif
-
-if OSX()
+    NeoBundle 'Shougo/neosnippet.vim'
+else
     NeoBundle 'Valloric/YouCompleteMe'
 endif
+
+NeoBundle 'SirVer/ultisnips'
 
 " javascript
 NeoBundle 'elzr/vim-json'
@@ -133,7 +139,7 @@ let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
 "let g:syntastic_javascript_gjslint_args = '--strict'
 "let g:syntastic_javascript_jslint_args = "--edition=latest"
-let g:syntastic_javascript_checkers=['jshint', 'jslint']
+let g:syntastic_javascript_checkers=['eslint', 'jslint', 'jshint']
 let g:syntastic_sh_checkers=['shellcheck']
 let g:syntastic_css_checkers=['csslint']
 let g:syntastic_scss_checkers = ['scss_lint']
@@ -209,16 +215,17 @@ let g:indent_guides_start_level = 2
 " Status Line {
 set laststatus=2
 
-" Syntastic Recommended settings
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
 " Broken down into easily includeable segments
 set statusline=%<%f\ " Filename
 set statusline+=%h%m%r" Options
 set statusline+=%{fugitive#statusline()}" Git Hotness
+set statusline+=[%{&fo}]
 set statusline+=%=%-14.(%l,%c%V%)\ %P"
+
+" Syntastic Recommended settings
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
 
 
 "set statusline+=\ [%{&ff}/%Y] " Filetype
@@ -419,6 +426,7 @@ nnoremap H O
 nnoremap L $
 
 nmap <F2> :SyntasticCheck<CR>
+nmap <S-F2> :SyntasticToggleMode<CR>
 nmap <F3> :set list!<CR>
 
 nmap <F4> vii:sort i<cr>

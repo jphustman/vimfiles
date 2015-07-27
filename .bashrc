@@ -13,8 +13,6 @@ else
 	alias lnpm='lnpm.sh'
 fi
 
-[[ $- = *i* ]] && source ~/Downloads/liquidprompt/liquidprompt;
-
 if [[ $OSTYPE != "cygwin" ]] || [[ $OSTYPE != "msys" ]]; then
 	export M2_HOME="/opt/maven"
 	export PATH="$(ruby -e 'print Gem.user_dir')/bin:$M2_HOME:$PATH:/opt/android-sdk/platform-tools:/opt/android-sdk/tools"
