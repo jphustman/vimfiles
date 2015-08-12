@@ -70,7 +70,8 @@ if WINDOWS()
     NeoBundle 'Shougo/neocomplcache.vim'
     NeoBundle 'Shougo/neosnippet.vim'
 else
-    NeoBundle 'Valloric/YouCompleteMe'
+    " There are other ways to install YouCompleteMe on Linux and Mac
+    " NeoBundle 'Valloric/YouCompleteMe'
 endif
 
 NeoBundle 'SirVer/ultisnips'
