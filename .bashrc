@@ -36,5 +36,6 @@ if [[ $OSTYPE != "cygwin" ]] || [[ $OSTYPE != "msys" ]]; then
 fi
 
 if [[ "$(uname)" == "Linux" ]]; then
+	alias eta='cd /srv/http/eta'
 	export LNPMDIR="/src/node_modules/"
 fi
