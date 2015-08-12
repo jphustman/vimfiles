@@ -15,9 +15,6 @@ silent function! WINDOWS()
 endfunction
 " }
 
-" Note: Skip initialization for vim-tiny or vim-small.
-if 0 | endif
-
 if has('vim_starting')
     if &compatible
         set nocompatible    " Be iMproved
@@ -139,7 +136,7 @@ let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
 "let g:syntastic_javascript_gjslint_args = '--strict'
 "let g:syntastic_javascript_jslint_args = "--edition=latest"
-let g:syntastic_javascript_checkers=['eslint', 'jslint', 'jshint']
+let g:syntastic_javascript_checkers=['eslint']
 let g:syntastic_sh_checkers=['shellcheck']
 let g:syntastic_css_checkers=['csslint']
 let g:syntastic_scss_checkers = ['scss_lint']
@@ -150,6 +147,13 @@ let g:syntastic_css_checkers=['csslint']
 let g:syntastic_html_checkers=['tidy', 'jshint']
 let g:syntastic_php_checkers=['php', 'phplint']
 let g:syntastic_vim_checkers=['vimlint']
+
+function! ESLintArgs()
+    let rules = findfile('.eslintrc', '.;')
+    return rules != '' ? '--rulesdir ' . shellescape(fnamemodify(rules, ':p:h')) : ''
+endfunction
+
+autocmd FileType javascript let b:syntastic_javascript_eslint_args = ESLintArgs()
 
 " let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute " ,"trimming empty <", "unescaped &" , "lacks \"action", "is not recognized!", "discarding unexpected"]
 let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute "]
@@ -185,6 +189,8 @@ set lazyredraw
 set viewoptions=folds,options,cursor,unix,slash
 
 
+" stop autocommenting
+autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
 " General
 if OSX()
