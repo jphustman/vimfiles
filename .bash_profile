@@ -25,6 +25,7 @@ if [ "$(uname)" == "Darwin" ]; then
 	PHP_AUTOCONF="/usr/local/bin/autoconf"
 	source ~/.bash_aliases
 
+	export CHROME_BIN="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"
 
 
 	alias cdjthcc='cd ~/Documents/lucee-4.5.1.022-express/webapps/juneauthcc/jthcc/includes/themes/juneauthcc'
