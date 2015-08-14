@@ -1,7 +1,8 @@
-" vim: set sw=4 ts=4 sts=4 et tw=78 foldmarker={,} foldlevel=0 foldmethod=marker:
+" vim: set sw=4 ts=4 sts=4 et tw=78 foldmarker={,} foldlevel=0
+" foldmethod=marker:
 " :NeoBundleList        - list configured bundles
 " :NeoBundleInstall(!)  - install (update) bundles
-" :NeoBundleClean(!)    - confirm (or auto-approve) removal of unused bundles
+" :NeoBundleClean(!)    - confirm (or auto-approve) removal of bundles
 "
 " Identify platform {
 silent function! OSX()
@@ -14,9 +15,6 @@ silent function! WINDOWS()
     return  (has('win16') || has('win32') || has('win64'))
 endfunction
 " }
-
-" Note: Skip initialization for vim-tiny or vim-small.
-if 0 | endif
 
 if has('vim_starting')
     if &compatible
@@ -42,14 +40,16 @@ NeoBundle 'altercation/vim-colors-solarized'
 NeoBundle 'scrooloose/syntastic'
 NeoBundle 'cflint/cflint-syntastic'
 NeoBundle 'tpope/vim-surround'
-NeoBundle 'honza/vim-snippets'
 NeoBundle 'matchit.zip'
 NeoBundle 'jphustman/Align.vim'
 NeoBundle 'jphustman/SQLUtilities'
 NeoBundle 'jphustman/dbext.vim'
 NeoBundle 'joonty/vdebug.git'
+
 if !WINDOWS()
 	NeoBundle 'Lokaltog/powerline', {'rtp':'~/.vim/bundle/powerline/powerline/bindings/vim'}
+elseif WINDOWS()
+    NeoBundle 'bling/vim-airline'
 endif
 
 NeoBundle 'scrooloose/nerdcommenter'
@@ -59,18 +59,26 @@ NeoBundle 'terryma/vim-multiple-cursors'
 NeoBundle 'nathanaelkane/vim-indent-guides'
 NeoBundle 'vsutil.vim'
 NeoBundle 'VimRegEx.vim'
+NeoBundle 'scrooloose/nerdtree'
+NeoBundle 'jistr/vim-nerdtree-tabs'
+
 
 NeoBundle 'justmao945/vim-clang'
 NeoBundle 'rhysd/vim-clang-format'
 
+"
+" Snippet Stuff
+NeoBundle 'honza/vim-snippets'
+
 if WINDOWS()
     NeoBundle 'Shougo/neocomplcache.vim'
-    NeoBundle 'bling/vim-airline'
+    NeoBundle 'Shougo/neosnippet.vim'
+else
+    " There are other ways to install YouCompleteMe on Linux and Mac
+    " NeoBundle 'Valloric/YouCompleteMe'
 endif
 
-if OSX()
-    NeoBundle 'Valloric/YouCompleteMe'
-endif
+NeoBundle 'SirVer/ultisnips'
 
 " javascript
 NeoBundle 'elzr/vim-json'
@@ -132,16 +140,27 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
 "let g:syntastic_javascript_gjslint_args = '--strict'
-let g:syntastic_javascript_jslint_args = "--edition=latest"
-let g:syntastic_javascript_checkers=['jshint', 'jslint']
+"let g:syntastic_javascript_jslint_args = "--edition=latest --fudge"
+"let g:syntastic_javascript_checkers=['eslint']
+"let g:syntastic_javascript_checkers=['jslint']
+let g:syntastic_javascript_checkers=['jshint']
 let g:syntastic_sh_checkers=['shellcheck']
 let g:syntastic_css_checkers=['csslint']
 let g:syntastic_scss_checkers = ['scss_lint']
+let g:syntastic_cf_checkers=['cflint']
 let g:syntastic_cfml_checkers=['cflint']
+let g:syntastic_cfscript_checkers=['cflint']
 let g:syntastic_css_checkers=['csslint']
 let g:syntastic_html_checkers=['tidy', 'jshint']
 let g:syntastic_php_checkers=['php', 'phplint']
 let g:syntastic_vim_checkers=['vimlint']
+
+function! ESLintArgs()
+    let rules = findfile('.eslintrc', '.;')
+    return rules != '' ? '--rulesdir ' . shellescape(fnamemodify(rules, ':p:h')) : ''
+endfunction
+
+autocmd FileType javascript let b:syntastic_javascript_eslint_args = ESLintArgs()
 
 " let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute " ,"trimming empty <", "unescaped &" , "lacks \"action", "is not recognized!", "discarding unexpected"]
 let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute "]
@@ -177,6 +196,8 @@ set lazyredraw
 set viewoptions=folds,options,cursor,unix,slash
 
 
+" stop autocommenting
+autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
 " General
 if OSX()
@@ -211,16 +232,17 @@ let g:indent_guides_start_level = 2
 " Status Line {
 set laststatus=2
 
-" Syntastic Recommended settings
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
 " Broken down into easily includeable segments
 set statusline=%<%f\ " Filename
 set statusline+=%h%m%r" Options
 set statusline+=%{fugitive#statusline()}" Git Hotness
+set statusline+=[%{&fo}]
 set statusline+=%=%-14.(%l,%c%V%)\ %P"
+
+" Syntastic Recommended settings
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
 
 
 "set statusline+=\ [%{&ff}/%Y] " Filetype
@@ -312,6 +334,42 @@ set statusline+=%=%-14.(%l,%c%V%)\ %P"
     endif
 " }
 
+
+" NerdTree {
+if isdirectory(expand("~/.vim/bundle/nerdtree"))
+
+    map <C-e> <plug>NERDTreeTabsToggle<CR>
+    map <leader>e :NERDTreeFind<CR>
+    nmap <leader>nt :NERDTreeFind<CR>
+
+    let g:NERDShutUp=1
+    let g:NERDTreeShowBookmarks=1
+    let g:NERDTreeIgnore=['\.py[cd]$', '\~$', '\.swo$', '\.swp$', '^\.git$', '^\.hg$', '^\.svn$', '\.bzr$']
+    let g:NERDTreeChDirMode=0
+    let g:NERDTreeQuitOnOpen=1
+    let g:NERDTreeMouseMode=2
+    let g:NERDTreeShowHidden=1
+    let g:NERDTreeKeepTreeInNewTab=1
+    let g:nerdtree_tabs_open_on_gui_startup=0
+
+endif
+" }
+
+" Initialize NERDTree as needed {
+function! NERDTreeInitAsNeeded()
+    redir => bufoutput
+    buffers!
+    redir END
+    let idx = stridx(bufoutput, "NERD_tree")
+    if idx > -1
+        NERDTreeMirror
+        NERDTreeFind
+        wincmd l
+    endif
+endfunction
+" }
+
+
 " YouCompleteMe {
 if OSX()
 
@@ -350,7 +408,7 @@ if has('gui_running')
 	set lines=40                " 40 lines of text instead of 24
 	if !exists("g:spf13_no_big_font")
 		if LINUX() && has("gui_running")
-			set guifont=Inconsolata\ for\ Powerline\ Medium\ 12
+			set guifont=Inconsolata\ for\ Powerline\ Medium\ 14
 		elseif OSX() && has("gui_running")
 			set guifont=Inconsolata\ for\ Powerline:h14
 		elseif WINDOWS() && has("gui_running")
@@ -378,7 +436,7 @@ set softtabstop=4
 set shiftwidth=4
 set noexpandtab
 set cindent
-autocmd FileType javascript,scss setlocal expandtab
+autocmd FileType javascript,scss set expandtab
 autocmd FileType scss set tabstop=2 softtabstop=2 shiftwidth=2
 
 " set nowrap
@@ -420,7 +478,9 @@ nnoremap <leader>sv :source $MYVIMRC<cr>
 nnoremap H O
 nnoremap L $
 
-nnoremap <F3> :set list!<CR>
+nmap <F2> :SyntasticCheck<CR>
+nmap <S-F2> :SyntasticToggleMode<CR>
+nmap <F3> :set list!<CR>
 
 nmap <F4> vii:sort i<cr>
 vnoremap <F4> :sort i<cr>
@@ -489,7 +549,7 @@ set scrolloff=3
 set foldenable
 set foldmethod=indent
 set foldlevel=1
-set foldclose=all
+"set foldclose=all
 
 " List chars (from Janus)
 set listchars=""            " Reset the listchars
