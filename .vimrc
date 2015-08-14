@@ -191,6 +191,10 @@ scriptencoding utf-8
 set columns=83
 set lines=40
 highlight ColorColumn ctermbg=darkgray
+set modeline
+set modelines=5
+
+
 
 let g:solarized_termcolors=256
 let g:solarized_termtrans=1
