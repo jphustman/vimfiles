@@ -347,7 +347,7 @@ if isdirectory(expand("~/.vim/bundle/nerdtree"))
     let g:NERDTreeShowBookmarks=1
     let g:NERDTreeIgnore=['\.py[cd]$', '\~$', '\.swo$', '\.swp$', '^\.git$', '^\.hg$', '^\.svn$', '\.bzr$']
     let g:NERDTreeChDirMode=0
-    let g:NERDTreeQuitOnOpen=1
+    let g:NERDTreeQuitOnOpen=0
     let g:NERDTreeMouseMode=2
     let g:NERDTreeShowHidden=1
     let g:NERDTreeKeepTreeInNewTab=1
