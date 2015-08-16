@@ -1,7 +1,8 @@
-" vim: set sw=4 ts=4 sts=4 et tw=78 foldmarker={,} foldlevel=0 foldmethod=marker:
+" vim: set sw=4 ts=4 sts=4 et tw=78 foldmarker={,} foldlevel=0
+" foldmethod=marker:
 " :NeoBundleList        - list configured bundles
 " :NeoBundleInstall(!)  - install (update) bundles
-" :NeoBundleClean(!)    - confirm (or auto-approve) removal of unused bundles
+" :NeoBundleClean(!)    - confirm (or auto-approve) removal of bundles
 "
 " Identify platform {
 silent function! OSX()
@@ -58,6 +59,9 @@ NeoBundle 'terryma/vim-multiple-cursors'
 NeoBundle 'nathanaelkane/vim-indent-guides'
 NeoBundle 'vsutil.vim'
 NeoBundle 'VimRegEx.vim'
+NeoBundle 'scrooloose/nerdtree'
+NeoBundle 'jistr/vim-nerdtree-tabs'
+
 
 NeoBundle 'justmao945/vim-clang'
 NeoBundle 'rhysd/vim-clang-format'
@@ -136,8 +140,10 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
 "let g:syntastic_javascript_gjslint_args = '--strict'
-"let g:syntastic_javascript_jslint_args = "--edition=latest"
-let g:syntastic_javascript_checkers=['eslint']
+"let g:syntastic_javascript_jslint_args = "--edition=latest --fudge"
+"let g:syntastic_javascript_checkers=['eslint']
+"let g:syntastic_javascript_checkers=['jslint']
+let g:syntastic_javascript_checkers=['jshint']
 let g:syntastic_sh_checkers=['shellcheck']
 let g:syntastic_css_checkers=['csslint']
 let g:syntastic_scss_checkers = ['scss_lint']
@@ -196,6 +202,7 @@ autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 " General
 if OSX()
 	set background=light
+	set guioptions+=T
 else
 	set background=dark
 endif
@@ -206,6 +213,10 @@ scriptencoding utf-8
 set columns=83
 set lines=40
 highlight ColorColumn ctermbg=darkgray
+set modeline
+set modelines=5
+
+
 
 let g:solarized_termcolors=256
 let g:solarized_termtrans=1
@@ -323,6 +334,42 @@ set statusline+=%*
         let g:neocomplcache_omni_patterns.go = '\h\w*\.\?'
     endif
 " }
+
+
+" NerdTree {
+if isdirectory(expand("~/.vim/bundle/nerdtree"))
+
+    map <C-e> <plug>NERDTreeTabsToggle<CR>
+    map <leader>e :NERDTreeFind<CR>
+    nmap <leader>nt :NERDTreeFind<CR>
+
+    let g:NERDShutUp=1
+    let g:NERDTreeShowBookmarks=1
+    let g:NERDTreeIgnore=['\.py[cd]$', '\~$', '\.swo$', '\.swp$', '^\.git$', '^\.hg$', '^\.svn$', '\.bzr$']
+    let g:NERDTreeChDirMode=0
+    let g:NERDTreeQuitOnOpen=1
+    let g:NERDTreeMouseMode=2
+    let g:NERDTreeShowHidden=1
+    let g:NERDTreeKeepTreeInNewTab=1
+    let g:nerdtree_tabs_open_on_gui_startup=0
+
+endif
+" }
+
+" Initialize NERDTree as needed {
+function! NERDTreeInitAsNeeded()
+    redir => bufoutput
+    buffers!
+    redir END
+    let idx = stridx(bufoutput, "NERD_tree")
+    if idx > -1
+        NERDTreeMirror
+        NERDTreeFind
+        wincmd l
+    endif
+endfunction
+" }
+
 
 " YouCompleteMe {
 if OSX()
@@ -473,6 +520,10 @@ nmap <leader>f6 :set foldlevel=6<CR>
 nmap <leader>f7 :set foldlevel=7<CR>
 nmap <leader>f8 :set foldlevel=8<CR>
 nmap <leader>f9 :set foldlevel=9<CR>
+nmap <leader>fman :set foldmethod=manual
+nmap <leader>fsyn :set foldmethod=syntax
+nmap <leader>find :set foldmethod=indent
+nmap <leader>fmark :set foldmethod=marker
 " }
 
 " Find merge conflict markers
