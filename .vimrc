@@ -143,7 +143,7 @@ let g:syntastic_check_on_wq = 0
 "let g:syntastic_javascript_jslint_args = "--edition=latest --fudge"
 "let g:syntastic_javascript_checkers=['eslint']
 "let g:syntastic_javascript_checkers=['jslint']
-let g:syntastic_javascript_checkers=['jshint']
+let g:syntastic_javascript_checkers=['jslint']
 let g:syntastic_sh_checkers=['shellcheck']
 let g:syntastic_css_checkers=['csslint']
 let g:syntastic_scss_checkers = ['scss_lint']
@@ -342,7 +342,7 @@ if isdirectory(expand("~/.vim/bundle/nerdtree"))
     let g:NERDTreeShowBookmarks=1
     let g:NERDTreeIgnore=['\.py[cd]$', '\~$', '\.swo$', '\.swp$', '^\.git$', '^\.hg$', '^\.svn$', '\.bzr$']
     let g:NERDTreeChDirMode=0
-    let g:NERDTreeQuitOnOpen=1
+    let g:NERDTreeQuitOnOpen=0
     let g:NERDTreeMouseMode=2
     let g:NERDTreeShowHidden=1
     let g:NERDTreeKeepTreeInNewTab=1
