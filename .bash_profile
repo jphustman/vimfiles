@@ -21,6 +21,17 @@ if [ "$(uname)" == "Darwin" ]; then
 	export PATH="/usr/local/sbin:$PATH:~/Downloads/apache-maven-3.3.3/bin"
 
 	export JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk1.8.0_05.jdk/Contents/Home"
+	export PATH="/usr/local/sbin:$PATH"
+	PHP_AUTOCONF="/usr/local/bin/autoconf"
+	source ~/.bash_aliases
+
+	export CHROME_BIN="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"
+
+
+	alias cdjthcc='cd ~/Documents/lucee-4.5.1.022-express/webapps/juneauthcc/jthcc/includes/themes/juneauthcc'
+
+
+
 fi
 
 if [ "$(uname)" == "Linux" ]; then
