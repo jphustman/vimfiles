@@ -210,7 +210,7 @@ syntax on
 set mouse=a
 set mousehide
 scriptencoding utf-8
-set columns=83
+set columns=120
 set lines=40
 highlight ColorColumn ctermbg=darkgray
 set modeline
