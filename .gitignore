@@ -2,9 +2,10 @@
 *
 
 # But not these files...
-!.gitignore
+!.bash_logout
+!.bash_profile
 !.bash_profile
 !.bashrc
-!.bash_logout
+!.gitignore
+!.jslintrc
 !.vimrc
-!.bash_profile

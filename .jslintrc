@@ -1,0 +1,7 @@
+{
+	"edition": latest,
+	"white": false,
+	"maxlen": 120,
+	"fudge": true
+}
+

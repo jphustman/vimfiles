@@ -39,3 +39,4 @@ if [[ "$(uname)" == "Linux" ]]; then
 	alias eta='cd /srv/http/eta'
 	export LNPMDIR="/src/node_modules/"
 fi
+source /usr/share/nvm/init-nvm.sh

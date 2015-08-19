@@ -140,7 +140,7 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
 "let g:syntastic_javascript_gjslint_args = '--strict'
-"let g:syntastic_javascript_jslint_args = "--edition=latest --fudge"
+let g:syntastic_javascript_jslint_args = "--edition=latest"
 "let g:syntastic_javascript_checkers=['eslint']
 "let g:syntastic_javascript_checkers=['jslint']
 let g:syntastic_javascript_checkers=['jslint']
@@ -436,8 +436,8 @@ set softtabstop=4
 set shiftwidth=4
 set noexpandtab
 set cindent
-autocmd FileType javascript,scss set expandtab
-autocmd FileType scss set tabstop=2 softtabstop=2 shiftwidth=2
+autocmd FileType javascript setlocal tabstop=4 softtabstop=4 shiftwidth=4 expandtab
+autocmd FileType scss setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
 
 " set nowrap
 set nojoinspaces
