@@ -214,7 +214,7 @@ syntax on
 set mouse=a
 set mousehide
 scriptencoding utf-8
-set columns=83
+set columns=120
 set lines=40
 highlight ColorColumn ctermbg=darkgray
 set modeline
@@ -347,7 +347,6 @@ if isdirectory(expand("~/.vim/bundle/nerdtree"))
     map <leader>e :NERDTreeFind<CR>
     nmap <leader>nt :NERDTreeFind<CR>
 
-    let g:NERDShutUp=1
     let g:NERDTreeShowBookmarks=1
     let g:NERDTreeIgnore=['\.py[cd]$', '\~$', '\.swo$', '\.swp$', '^\.git$', '^\.hg$', '^\.svn$', '\.bzr$']
     let g:NERDTreeChDirMode=0
@@ -355,7 +354,7 @@ if isdirectory(expand("~/.vim/bundle/nerdtree"))
     let g:NERDTreeMouseMode=2
     let g:NERDTreeShowHidden=1
     let g:NERDTreeKeepTreeInNewTab=1
-    let g:nerdtree_tabs_open_on_gui_startup=0
+    let g:nerdtree_tabs_open_on_gui_startup=1
 
 endif
 " }
@@ -434,8 +433,8 @@ set softtabstop=4
 set shiftwidth=4
 set noexpandtab
 set cindent
-autocmd FileType javascript,scss set expandtab
-autocmd FileType scss set tabstop=2 softtabstop=2 shiftwidth=2
+autocmd FileType javascript setlocal tabstop=4 softtabstop=4 shiftwidth=4 expandtab
+autocmd FileType scss setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
 
 " set nowrap
 set nojoinspaces
