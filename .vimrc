@@ -46,10 +46,10 @@ NeoBundle 'jphustman/SQLUtilities'
 NeoBundle 'jphustman/dbext.vim'
 NeoBundle 'joonty/vdebug.git'
 
-if !WINDOWS()
-	NeoBundle 'Lokaltog/powerline', {'rtp':'~/.vim/bundle/powerline/powerline/bindings/vim'}
-elseif WINDOWS()
+if WINDOWS()
     NeoBundle 'bling/vim-airline'
+else
+	NeoBundle 'Lokaltog/powerline', {'rtp':'~/.vim/bundle/powerline/powerline/bindings/vim'}
 endif
 
 NeoBundle 'scrooloose/nerdcommenter'
@@ -70,13 +70,16 @@ NeoBundle 'rhysd/vim-clang-format'
 " Snippet Stuff
 NeoBundle 'honza/vim-snippets'
 
+" There are other ways to install YouCompleteMe on Linux
 if WINDOWS()
     NeoBundle 'Shougo/neocomplcache.vim'
     NeoBundle 'Shougo/neosnippet.vim'
-else
-    " There are other ways to install YouCompleteMe on Linux and Mac
-    " NeoBundle 'Valloric/YouCompleteMe'
 endif
+
+if OSX()
+    NeoBundle 'Valloric/YouCompleteMe'
+endif
+
 
 NeoBundle 'SirVer/ultisnips'
 
@@ -107,6 +110,7 @@ NeoBundle 'klen/python-mode'
 NeoBundle 'python.vim'
 NeoBundle 'python_match.vim'
 NeoBundle 'pythoncomplete'
+
 
 
 " *css
@@ -140,10 +144,10 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
 "let g:syntastic_javascript_gjslint_args = '--strict'
-"let g:syntastic_javascript_jslint_args = "--edition=latest --fudge"
+let g:syntastic_javascript_jslint_args = "--edition=latest --fudge"
 "let g:syntastic_javascript_checkers=['eslint']
-"let g:syntastic_javascript_checkers=['jslint']
-let g:syntastic_javascript_checkers=['jshint']
+let g:syntastic_javascript_checkers=['jslint']
+"let g:syntastic_javascript_checkers=['jshint']
 let g:syntastic_sh_checkers=['shellcheck']
 let g:syntastic_css_checkers=['csslint']
 let g:syntastic_scss_checkers = ['scss_lint']
@@ -370,13 +374,6 @@ function! NERDTreeInitAsNeeded()
 endfunction
 " }
 
-
-" YouCompleteMe {
-if OSX()
-
-
-
-endif
 
 " vim-airline {
 if WINDOWS()
