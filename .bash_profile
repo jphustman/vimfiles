@@ -30,6 +30,8 @@ if [ "$(uname)" == "Darwin" ]; then
 
 	alias cdjthcc='cd ~/Documents/lucee-4.5.1.022-express/webapps/juneauthcc/jthcc/includes/themes/juneauthcc'
 
+	export PATH="$HOME/.node/bin:$PATH"
+
 
 
 fi
