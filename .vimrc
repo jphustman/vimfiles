@@ -211,6 +211,7 @@ else
 	set background=dark
 endif
 syntax on
+set spell
 set mouse=a
 set mousehide
 scriptencoding utf-8
@@ -516,10 +517,10 @@ nmap <leader>f6 :set foldlevel=6<CR>
 nmap <leader>f7 :set foldlevel=7<CR>
 nmap <leader>f8 :set foldlevel=8<CR>
 nmap <leader>f9 :set foldlevel=9<CR>
-nmap <leader>fman :set foldmethod=manual
-nmap <leader>fsyn :set foldmethod=syntax
-nmap <leader>find :set foldmethod=indent
-nmap <leader>fmark :set foldmethod=marker
+nmap <leader>fman :set foldmethod=manual<CR>
+nmap <leader>fsyn :set foldmethod=syntax<CR>
+nmap <leader>find :set foldmethod=indent<CR>
+nmap <leader>fmark :set foldmethod=marker<CR>
 " }
 
 " Find merge conflict markers
@@ -548,8 +549,8 @@ set scrolloff=3
 
 
 set foldenable
-set foldmethod=indent
-set foldlevel=1
+set foldmethod=syntax
+"set foldlevel=1
 "set foldclose=all
 
 " List chars (from Janus)
