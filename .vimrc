@@ -215,7 +215,7 @@ else
 	set background=dark
 endif
 syntax on
-set spell
+" set spell
 set mouse=a
 set mousehide
 scriptencoding utf-8
@@ -595,7 +595,7 @@ set scrolloff=3
 
 
 set foldenable
-set foldmethod=syntax
+set foldmethod=indent
 "set foldlevel=1
 "set foldclose=all
 
