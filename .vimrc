@@ -215,7 +215,7 @@ else
 	set background=dark
 endif
 syntax on
-" set spell
+set nospell
 set mouse=a
 set mousehide
 scriptencoding utf-8
