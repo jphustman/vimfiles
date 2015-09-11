@@ -1,10 +1,9 @@
-" vim: set sw=4 ts=4 sts=4 et tw=78 foldmarker={,} foldlevel=0
-" foldmethod=marker:
+" vim: set sw=4 ts=4 sts=4 et tw=78 foldmarker={,} foldlevel=0 foldmethod=marker spell:
 " :NeoBundleList        - list configured bundles
 " :NeoBundleInstall(!)  - install (update) bundles
 " :NeoBundleClean(!)    - confirm (or auto-approve) removal of bundles
 "
-" Identify platform {
+" spell Identify platform {
 silent function! OSX()
     return has('macunix')
 endfunction
@@ -69,6 +68,7 @@ NeoBundle 'rhysd/vim-clang-format'
 "
 " Snippet Stuff
 NeoBundle 'honza/vim-snippets'
+NeoBundle 'git://github.com/jphustman/ultisnippets'
 
 " There are other ways to install YouCompleteMe on Linux
 if WINDOWS()
@@ -172,6 +172,10 @@ let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute "]
 
 " }
 
+" UltiSnips {
+
+" }
+
 " Python {
 
 " Disable PyMode if python support not present
@@ -212,7 +216,7 @@ else
 	set background=dark
 endif
 syntax on
-set spell
+set nospell
 set mouse=a
 set mousehide
 scriptencoding utf-8
@@ -341,6 +345,47 @@ set statusline+=%*
     endif
 " }
 
+" YouCompleteMe and UltiSnips {
+if LINUX()
+	let g:acp_enableAtStartup = 0
+
+	" enable completion from tags
+	let g:ycm_collect_identifiers_from_tags_files = 1
+
+	" remap Ultisnips for compatibility for YCM
+	let g:UltiSnipsExpandTrigger = '<C-j>'
+	let g:UltiSnipsJumpForwardTrigger = '<C-j>'
+	let g:UltiSnipsJumpBackwardTrigger = '<C-k>'
+
+	" Enable omni completion.
+	autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+	autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+	autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+	autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+	autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+	autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
+	autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
+
+	" Haskell post write lint and check with ghcmod
+	" $ `cabal install ghcmod` if missing and ensure
+	" ~/.cabal/bin is in your $PATH.
+	if !executable("ghcmod")
+		autocmd BufWritePost *.hs GhcModCheckAndLintAsync
+	endif
+
+	" For snippet_complete marker.
+	if has('conceal')
+		set conceallevel=2 concealcursor=i
+	endif
+
+	" Disable the neosnippet preview candidate window
+	" When enabled, there can be too much visual noise
+	" especially when splits are used.
+	set completeopt-=preview
+
+endif
+" }
+
 
 " NerdTree {
 if isdirectory(expand("~/.vim/bundle/nerdtree"))
@@ -375,7 +420,6 @@ function! NERDTreeInitAsNeeded()
 endfunction
 " }
 
-
 " vim-airline {
 if WINDOWS()
     " Set configuration options for the statusline plugin vim-airline.
@@ -407,7 +451,7 @@ if has('gui_running')
 	set lines=40                " 40 lines of text instead of 24
 	if !exists("g:spf13_no_big_font")
 		if LINUX() && has("gui_running")
-			set guifont=Inconsolata\ for\ Powerline\ Medium\ 14
+			set guifont=Inconsolata\ for\ Powerline\ Medium\ 12
 		elseif OSX() && has("gui_running")
 			set guifont=Inconsolata\ for\ Powerline:h14
 		elseif WINDOWS() && has("gui_running")
@@ -527,6 +571,8 @@ nmap <leader>fmark :set foldmethod=marker<CR>
 " Find merge conflict markers
 map <leader>fc /\v^[<\|=>]{7}( .*\|$)<CR>
 
+" misc {
+
 iabbrev adn and
 iabbrev waht what
 iabbrev tehn then
@@ -550,7 +596,7 @@ set scrolloff=3
 
 
 set foldenable
-set foldmethod=syntax
+set foldmethod=indent
 "set foldlevel=1
 "set foldclose=all
 
@@ -574,7 +620,6 @@ function! Sorted(l)
 endfunction
 
 " }
-
 
 " JSON remove concealing
 let g:vim_json_syntax_conceal = 0
@@ -635,7 +680,7 @@ endfunction
 call InitializeDirectories()
 " }
 
-" remove trailing whitespace
+" remove trailing whitespace {
 autocmd FileType * autocmd BufWritePre <buffer> call StripTrailingWhitespace()
 function! StripTrailingWhitespace()
 	" save last search and cursor position
@@ -647,5 +692,5 @@ function! StripTrailingWhitespace()
 	let @/=_s
 	call cursor(l, c)
 endfunction
-
+" }
 
