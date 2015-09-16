@@ -78,6 +78,7 @@ endif
 
 if OSX()
     NeoBundle 'Valloric/YouCompleteMe'
+	NeoBundle 'rizzatti/dash.vim'
 endif
 
 
@@ -145,7 +146,7 @@ let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
 "let g:syntastic_javascript_gjslint_args = '--strict'
 let g:syntastic_javascript_jslint_args = "--edition=latest --fudge"
-"let g:syntastic_javascript_checkers=['eslint']
+let g:syntastic_javascript_checkers=['eslint', 'jshint', 'jslint']
 "let g:syntastic_javascript_checkers=['jslint']
 let g:syntastic_javascript_checkers=['jshint']
 let g:syntastic_sh_checkers=['shellcheck']
