@@ -67,6 +67,7 @@ NeoBundle 'rhysd/vim-clang-format'
 
 "
 " Snippet Stuff
+NeoBundle 'SirVer/ultisnips'
 NeoBundle 'honza/vim-snippets'
 NeoBundle 'git://github.com/jphustman/ultisnippets'
 
@@ -82,13 +83,10 @@ if OSX()
 endif
 
 
-NeoBundle 'SirVer/ultisnips'
-
 " javascript
 NeoBundle 'elzr/vim-json'
 NeoBundle 'groenewege/vim-less'
 NeoBundle 'pangloss/vim-javascript'
-NeoBundle 'briancollins/vim-jst'
 NeoBundle 'kchmck/vim-coffee-script'
 NeoBundle 'othree/javascript-libraries-syntax.vim'
 NeoBundle 'matthewsimo/angular-vim-snippets'
@@ -140,15 +138,14 @@ NeoBundleCheck
 " }
 
 " Syntastic Config {
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 0
-let g:syntastic_check_on_wq = 0
+"let g:syntastic_always_populate_loc_list = 1
+"let g:syntastic_auto_loc_list = 1
+"let g:syntastic_check_on_open = 0
+"let g:syntastic_check_on_wq = 0
 "let g:syntastic_javascript_gjslint_args = '--strict'
-let g:syntastic_javascript_jslint_args = "--edition=latest --fudge"
-let g:syntastic_javascript_checkers=['eslint', 'jshint', 'jslint']
-"let g:syntastic_javascript_checkers=['jslint']
-let g:syntastic_javascript_checkers=['jshint']
+"let g:syntastic_javascript_jslint_args = "--edition=latest --fudge=true"
+"let g:syntastic_javascript_checkers=['eslint', 'jshint', 'jslint']
+let g:syntastic_javascript_checkers=['jslint']
 let g:syntastic_sh_checkers=['shellcheck']
 let g:syntastic_css_checkers=['csslint']
 let g:syntastic_scss_checkers = ['scss_lint']
@@ -172,8 +169,16 @@ let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute "]
 
 " }
 
-" UltiSnips {
+" vim-javascript {
+let g:javascript_enable_domhtmlcss = 1
+" }
 
+" UltiSnips {
+"let g:UltiSnipsSnippetDirectories += "./UltiSnips"
+" }
+
+" NeoSnippet {
+"let g:neosnippet#snippets_directory += "./snippets"
 " }
 
 " Python {
