@@ -98,6 +98,7 @@ NeoBundle 'amirh/HTML-AutoCloseTag'
 NeoBundle 'hail2u/vim-css3-syntax'
 NeoBundle 'gorodinskiy/vim-coloresque'
 NeoBundle 'tpope/vim-haml'
+NeoBundle 'kaihendry/vim-html5'
 
 " PHP
 NeoBundle 'spf13/PIV' " PHP Integration for Vim
@@ -138,13 +139,14 @@ NeoBundleCheck
 " }
 
 " Syntastic Config {
-"let g:syntastic_always_populate_loc_list = 1
-"let g:syntastic_auto_loc_list = 1
-"let g:syntastic_check_on_open = 0
-"let g:syntastic_check_on_wq = 0
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 0
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
 "let g:syntastic_javascript_gjslint_args = '--strict'
 "let g:syntastic_javascript_jslint_args = "--edition=latest --fudge=true"
 "let g:syntastic_javascript_checkers=['eslint', 'jshint', 'jslint']
+
 let g:syntastic_javascript_checkers=['jslint']
 let g:syntastic_sh_checkers=['shellcheck']
 let g:syntastic_css_checkers=['csslint']
@@ -174,7 +176,7 @@ let g:javascript_enable_domhtmlcss = 1
 " }
 
 " UltiSnips {
-"let g:UltiSnipsSnippetDirectories += "./UltiSnips"
+
 " }
 
 " NeoSnippet {
