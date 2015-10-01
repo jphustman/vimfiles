@@ -19,6 +19,8 @@ if [[ $OSTYPE != "cygwin" ]] || [[ $OSTYPE != "msys" ]]; then
 	export CHROME_BIN="/bin/chromium"
 	#setxkbmap -option caps:escape
 
+	PATH="$(ruby -e 'print Gem.user_dir')/bin:$PATH"
+
 	pacman-size()
 	{
 		CMD="pacman -Si"
