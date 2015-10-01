@@ -140,14 +140,13 @@ NeoBundleCheck
 
 " Syntastic Config {
 let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 0
+let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 "let g:syntastic_javascript_gjslint_args = '--strict'
-"let g:syntastic_javascript_jslint_args = "--edition=latest --fudge=true"
+"let g:syntastic_javascript_jslint_args = "--edition=jslint-es6"
 "let g:syntastic_javascript_checkers=['eslint', 'jshint', 'jslint']
-
-let g:syntastic_javascript_checkers=['jslint']
+let g:syntastic_javascript_checkers=['eslint']
 let g:syntastic_sh_checkers=['shellcheck']
 let g:syntastic_css_checkers=['csslint']
 let g:syntastic_scss_checkers = ['scss_lint']
@@ -159,12 +158,12 @@ let g:syntastic_html_checkers=['tidy', 'jshint']
 let g:syntastic_php_checkers=['php', 'phplint']
 let g:syntastic_vim_checkers=['vimlint']
 
-function! ESLintArgs()
-    let rules = findfile('.eslintrc', '.;')
-    return rules != '' ? '--rulesdir ' . shellescape(fnamemodify(rules, ':p:h')) : ''
-endfunction
+"function! ESLintArgs()
+    "let rules = findfile('.eslintrc', '.;')
+    "return rules != '' ? '--rulesdir ' . shellescape(fnamemodify(rules, ':p:h')) : ''
+"endfunction
 
-autocmd FileType javascript let b:syntastic_javascript_eslint_args = ESLintArgs()
+"autocmd FileType javascript let b:syntastic_javascript_eslint_args = ESLintArgs()
 
 " let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute " ,"trimming empty <", "unescaped &" , "lacks \"action", "is not recognized!", "discarding unexpected"]
 let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute "]
