@@ -32,6 +32,13 @@ if [ "$(uname)" == "Darwin" ]; then
 
 	export PATH="$HOME/.node/bin:$PATH"
 
+	# nvm
+	export NVM_DIR=~/.nvm
+	source $(brew --prefix nvm)/nvm.sh
+
+	# rbenv
+	export RBENV_ROOT=/usr/local/var/rbenv
+	if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 
 
 fi

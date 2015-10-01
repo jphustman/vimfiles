@@ -15,7 +15,7 @@ fi
 
 if [[ $OSTYPE != "cygwin" ]] || [[ $OSTYPE != "msys" ]]; then
 	export M2_HOME="/opt/maven"
-	export PATH="$(ruby -e 'print Gem.user_dir')/bin:$M2_HOME:$PATH:/opt/android-sdk/platform-tools:/opt/android-sdk/tools"
+	export PATH="$M2_HOME:$PATH:/opt/android-sdk/platform-tools:/opt/android-sdk/tools"
 	export CHROME_BIN="/bin/chromium"
 	#setxkbmap -option caps:escape
 
@@ -39,4 +39,3 @@ if [[ "$(uname)" == "Linux" ]]; then
 	alias eta='cd /srv/http/eta'
 	export LNPMDIR="/src/node_modules/"
 fi
-source /usr/share/nvm/init-nvm.sh
