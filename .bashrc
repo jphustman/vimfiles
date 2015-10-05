@@ -11,6 +11,7 @@ if [[ "$(uname)" == "Darwin" ]]; then
 else
 	alias ls='ls --color=auto'
 	alias lnpm='lnpm.sh'
+	alias grep='grep -norw --color=auto'
 fi
 
 if [[ $OSTYPE != "cygwin" ]] || [[ $OSTYPE != "msys" ]]; then

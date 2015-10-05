@@ -139,8 +139,10 @@ NeoBundleCheck
 " }
 
 " Syntastic Config {
+let g:syntastic_enable_signs = 1
+let g:syntastic_quiet_messages = {'level': 'warnings'}
 let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
+let g:syntastic_auto_loc_list = 2
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 "let g:syntastic_javascript_gjslint_args = '--strict'
@@ -154,7 +156,7 @@ let g:syntastic_cf_checkers=['cflint']
 let g:syntastic_cfml_checkers=['cflint']
 let g:syntastic_cfscript_checkers=['cflint']
 let g:syntastic_css_checkers=['csslint']
-let g:syntastic_html_checkers=['tidy', 'jshint']
+let g:syntastic_html_checkers=['jshint', 'w3', 'validator', 'tidy']
 let g:syntastic_php_checkers=['php', 'phplint']
 let g:syntastic_vim_checkers=['vimlint']
 
@@ -221,13 +223,13 @@ if OSX()
 else
 	set background=dark
 endif
-syntax on
+syntax enable
 set nospell
 set mouse=a
 set mousehide
 scriptencoding utf-8
-set columns=120
-set lines=40
+"set columns=120
+"set lines=40
 highlight ColorColumn ctermbg=darkgray
 set modeline
 set modelines=5
@@ -250,11 +252,18 @@ let g:indent_guides_start_level = 2
 set laststatus=2
 
 " Broken down into easily includeable segments
-set statusline=%<%f\ " Filename
-set statusline+=%h%m%r" Options
-set statusline+=%{fugitive#statusline()}" Git Hotness
-set statusline+=[%{&fo}]
-set statusline+=%=%-14.(%l,%c%V%)\ %P"
+"set statusline=%<%f\ " Filename
+"set statusline+=%h%m%r" Options
+"set statusline+=%{fugitive#statusline()}" Git Hotness
+"set statusline+=[%{&fo}]
+"set statusline+=%=%-14.(%l,%c%V%)\ %P"
+
+" Janus
+set statusline=%f\ %m\ %r
+set statusline+=Line:%l/%L[%p%%]
+set statusline+=Col:%v
+set statusline+=Buf:#%n
+set statusline+=[%b][0x%B]
 
 " Syntastic Recommended settings
 set statusline+=%#warningmsg#
@@ -515,6 +524,31 @@ set shiftround
 let g:mapleader=","
 let g:maplocalleader=",,"
 
+
+" Wild settings (from Janus)
+" TODO: Investigate the precise meaning of these settings
+" set wildmode=list:longest,list:full
+
+" Disable output and VCS files
+set wildignore+=*.o,*.out,*.obj,.git,*.rbc,*.rbo,*.class,.svn,*.gem
+
+" Disable archive files
+set wildignore+=*.zip,*.tar.gz,*.tar.bz2,*.rar,*.tar.xz
+
+" Ignore bundler and sass cache
+set wildignore+=*/vendor/gems/*,*/vendor/cache/*,*/.bundle/*,*/.sass-cache/*
+
+" Ignore librarian-chef, vagrant, test-kitchen and Berkshelf cache
+set wildignore+=*/tmp/librarian/*,*/.vagrant/*,*/.kitchen/*,*/vendor/cookbooks/*
+
+" Ignore rails temporary asset caches
+set wildignore+=*/tmp/cache/assets/*/sprockets/*,*/tmp/cache/assets/*/sass/*
+
+" Disable temp and backup files
+set wildignore+=*.swp,*~,._*
+
+
+
 " Mappings {
 noremap <leader>- ddp
 noremap <leader>_ ddkP
@@ -594,8 +628,6 @@ set linespace=0
 set winminheight=0
 set ignorecase
 set smartcase
-set wildmenu
-set wildmode=list:longest,full
 set whichwrap=b,s,h,l,<,>,[,]
 set scrolljump=5
 set scrolloff=3
@@ -607,15 +639,15 @@ set foldmethod=indent
 "set foldclose=all
 
 " List chars (from Janus)
+set list
 set listchars=""            " Reset the listchars
-set listchars=tab:\ \       " a tab should display as "  ", trailing whitespace as "."
+set listchars=tab:\ \             " a tab should display as "  ", trailing whitespace as "."
 set listchars+=trail:.      " show trailing spaces as dots
 set listchars+=extends:>    " The character to show in the last column when wrap is
                             " off and the line continues beyond the right of the screen
 set listchars+=precedes:<   " The character to show in the last column when wrap is
                             " off and the line continues beyond the left of the screen
 
-"set list
 "set listchars=tab:¿\ ,trail:¿,extends:#,nbsp:. " Highlight problematic whitespace
 "set listchars+=precedes:<,extends:>
 
