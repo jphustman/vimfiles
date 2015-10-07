@@ -140,7 +140,7 @@ NeoBundleCheck
 
 " Syntastic Config {
 let g:syntastic_enable_signs = 1
-let g:syntastic_quiet_messages = {'level': 'warnings'}
+" let g:syntastic_quiet_messages = {'level': 'warnings'}
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 2
 let g:syntastic_check_on_open = 1
@@ -148,7 +148,7 @@ let g:syntastic_check_on_wq = 0
 "let g:syntastic_javascript_gjslint_args = '--strict'
 "let g:syntastic_javascript_jslint_args = "--edition=jslint-es6"
 "let g:syntastic_javascript_checkers=['eslint', 'jshint', 'jslint']
-let g:syntastic_javascript_checkers=['eslint']
+let g:syntastic_javascript_checkers=['jslint']
 let g:syntastic_sh_checkers=['shellcheck']
 let g:syntastic_css_checkers=['csslint']
 let g:syntastic_scss_checkers = ['scss_lint']
@@ -156,7 +156,7 @@ let g:syntastic_cf_checkers=['cflint']
 let g:syntastic_cfml_checkers=['cflint']
 let g:syntastic_cfscript_checkers=['cflint']
 let g:syntastic_css_checkers=['csslint']
-let g:syntastic_html_checkers=['jshint', 'w3', 'validator', 'tidy']
+let g:syntastic_html_checkers=['jshint']
 let g:syntastic_php_checkers=['php', 'phplint']
 let g:syntastic_vim_checkers=['vimlint']
 
@@ -208,31 +208,6 @@ let g:gitroot = substitute(system('git rev-parse --show-toplevel'), '[\n\r]', ''
 if gitroot != ''
 	let &tags = &tags . ',' . gitroot . '/.git/tags'
 endif
-
-set lazyredraw
-set viewoptions=folds,options,cursor,unix,slash
-
-
-" stop autocommenting
-autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
-
-" General
-if OSX()
-	set background=light
-	set guioptions+=T
-else
-	set background=dark
-endif
-syntax enable
-set nospell
-set mouse=a
-set mousehide
-scriptencoding utf-8
-"set columns=120
-"set lines=40
-highlight ColorColumn ctermbg=darkgray
-set modeline
-set modelines=5
 
 
 
@@ -401,7 +376,6 @@ if LINUX()
 endif
 " }
 
-
 " NerdTree {
 if isdirectory(expand("~/.vim/bundle/nerdtree"))
 
@@ -460,13 +434,13 @@ if WINDOWS()
 endif
 " }
 
-set showmode
 
+" Gui {
 if has('gui_running')
 	set lines=40                " 40 lines of text instead of 24
 	if !exists("g:spf13_no_big_font")
 		if LINUX() && has("gui_running")
-			set guifont=Inconsolata\ for\ Powerline\ Medium\ 12
+			set guifont=Source\ Code\ Pro\ 10
 		elseif OSX() && has("gui_running")
 			set guifont=Inconsolata\ for\ Powerline:h14
 		elseif WINDOWS() && has("gui_running")
@@ -479,7 +453,35 @@ else
 	endif
 	"set term=builtin_ansi       " Make arrow and other keys work
 endif
+" }
 
+" Variables {
+set lazyredraw
+set viewoptions=folds,options,cursor,unix,slash
+
+
+" stop autocommenting
+autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+
+" General
+if OSX()
+	set background=light
+	set guioptions+=T
+else
+	set background=dark
+endif
+syntax enable
+set nospell
+set mouse=a
+set mousehide
+scriptencoding utf-8
+"set columns=120
+"set lines=40
+highlight ColorColumn ctermbg=darkgray
+set modeline
+set modelines=5
+
+set showmode
 set ruler
 set rulerformat=%30(%=\:b%n%y%m%r%w\ %l,%c%V\ %P%)
 set showcmd
@@ -494,8 +496,6 @@ set softtabstop=4
 set shiftwidth=4
 set noexpandtab
 set cindent
-autocmd FileType javascript setlocal tabstop=4 softtabstop=4 shiftwidth=4 expandtab
-autocmd FileType scss setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
 
 " set nowrap
 set nojoinspaces
@@ -506,6 +506,10 @@ set virtualedit=onemore
 
 set cursorline
 set tabpagemax=15
+
+autocmd FileType javascript setlocal tabstop=4 softtabstop=4 shiftwidth=4 expandtab
+autocmd FileType scss setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
+" }
 
 " For when you forget to sudo.. Really write the file
 cmap w!! w !sudo tee % >/dev/null
@@ -563,6 +567,7 @@ nnoremap L $
 
 nmap <F2> :SyntasticCheck<CR>
 nmap <S-F2> :SyntasticToggleMode<CR>
+
 nmap <F3> :set list!<CR>
 
 nmap <F4> vii:sort i<cr>
@@ -571,6 +576,12 @@ vnoremap <F4> :sort i<cr>
 nmap <F8> :TagbarToggle<CR>
 
 map <F9> :call ToggleBGColor()<CR>
+
+nnoremap <leader>8 :lprev<CR>
+nnoremap <leader>9 :lnext<CR>
+
+
+
 function! ToggleBGColor ()
 	if (&background == 'light')
 		set background=dark
