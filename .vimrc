@@ -43,7 +43,6 @@ NeoBundle 'matchit.zip'
 NeoBundle 'jphustman/Align.vim'
 NeoBundle 'jphustman/SQLUtilities'
 NeoBundle 'jphustman/dbext.vim'
-NeoBundle 'joonty/vdebug.git'
 
 if WINDOWS()
     NeoBundle 'bling/vim-airline'
@@ -437,7 +436,7 @@ endif
 
 " Gui {
 if has('gui_running')
-	set lines=40                " 40 lines of text instead of 24
+	"set lines=40                " 40 lines of text instead of 24
 	if !exists("g:spf13_no_big_font")
 		if LINUX() && has("gui_running")
 			set guifont=Source\ Code\ Pro\ 10
@@ -450,6 +449,7 @@ if has('gui_running')
 else
 	if &term == 'xterm' || &term == 'screen'
 		set t_Co=256            " Enable 256 colors to stop the CSApprox warning and make xterm vim shine
+        set col
 	endif
 	"set term=builtin_ansi       " Make arrow and other keys work
 endif
@@ -467,9 +467,12 @@ autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 if OSX()
 	set background=light
 	set guioptions+=T
+elseif &term == "xterm"
+	set background=light
 else
 	set background=dark
 endif
+
 syntax enable
 set nospell
 set mouse=a
@@ -602,6 +605,8 @@ map <c-J> <c-W>j
 map <c-K> <c-W>k
 map <c-L> <c-W>l
 map <c-H> <c-W>h
+
+
 
 nmap <leader>f0 :set foldlevel=0<CR>
 nmap <leader>f1 :set foldlevel=1<CR>
