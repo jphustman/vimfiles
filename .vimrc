@@ -212,8 +212,8 @@ endif
 
 let g:solarized_termcolors=256
 let g:solarized_termtrans=1
-let g:solarized_contrast="normal"
-let g:solarized_visibility="normal"
+let g:solarized_contrast='normal'
+let g:solarized_visibility='normal'
 color solarized
 
 highlight clear SignColumn
@@ -420,7 +420,7 @@ if WINDOWS()
 
     " See `:echo g:airline_theme_map` for some more choices
     " Default in terminal vim is 'dark'
-    if isdirectory(expand("~/.vim/bundle/vim-airline/"))
+    if isdirectory(expand('~/.vim/bundle/vim-airline/'))
         if !exists('g:airline_theme')
             let g:airline_theme = 'solarized'
         endif
@@ -433,23 +433,31 @@ if WINDOWS()
 endif
 " }
 
+" General
+if OSX() |
+	set background=light
+	set guioptions+=T
+else
+	set background=dark
+endif
+
 
 " Gui {
 if has('gui_running')
 	"set lines=40                " 40 lines of text instead of 24
-	if !exists("g:spf13_no_big_font")
-		if LINUX() && has("gui_running")
+	if !exists('g:spf13_no_big_font')
+		if LINUX() && has('gui_running')
 			set guifont=Source\ Code\ Pro\ 10
-		elseif OSX() && has("gui_running")
+		elseif OSX() && has('gui_running')
 			set guifont=Inconsolata\ for\ Powerline:h14
-		elseif WINDOWS() && has("gui_running")
+		elseif WINDOWS() && has('gui_running')
 			set guifont=Andale_Mono:h10,Menlo:h10,Consolas:h10,Courier_New:h10
 		endif
 	endif
 else
 	if &term == 'xterm' || &term == 'screen'
 		set t_Co=256            " Enable 256 colors to stop the CSApprox warning and make xterm vim shine
-        set col
+		set background=light
 	endif
 	"set term=builtin_ansi       " Make arrow and other keys work
 endif
@@ -462,16 +470,6 @@ set viewoptions=folds,options,cursor,unix,slash
 
 " stop autocommenting
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
-
-" General
-if OSX()
-	set background=light
-	set guioptions+=T
-elseif &term == "xterm"
-	set background=light
-else
-	set background=dark
-endif
 
 syntax enable
 set nospell
@@ -491,7 +489,7 @@ set showcmd
 set visualbell
 set comments=sl:/*,mb:*,elx:*/
 
-set colorcolumn=72,79
+set colorcolumn=80
 "set textwidth=72
 "set wrapmargin=80
 set tabstop=4
@@ -528,8 +526,8 @@ set history=1000
 set number
 set sidescroll=5
 set shiftround
-let g:mapleader=","
-let g:maplocalleader=",,"
+let g:mapleader=','
+let g:maplocalleader=',,'
 
 
 " Wild settings (from Janus)
@@ -588,10 +586,10 @@ nnoremap <leader>9 :lnext<CR>
 function! ToggleBGColor ()
 	if (&background == 'light')
 		set background=dark
-		echo "background -> dark"
+		echo 'background -> dark'
 	else
 		set background=light
-		echo "background -> light"
+		echo 'background -> light'
 	endif
 endfunction
 
@@ -690,9 +688,9 @@ augroup project
 	autocmd!
 	autocmd BufRead,BufNewFile *.h,*.c set filetype=c.doxygen
 augroup END
-let &path.="src/include,/usr/include/AL,"
+let &path.='src/include,/usr/include/AL,'
 set includeexpr=substitute(v:fname,'\\.','/','g')
-let g:ycm_global_ycm_extra_conf = "~/.vim/.ycm_extra_conf.py"
+let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
 let g:ycm_key_list_select_completion=[]
 let g:ycm_key_list_previous_completion=[]
 "set makeprg=make\ -C\ ../build\ -j9
@@ -717,17 +715,17 @@ function! InitializeDirectories()
 
 	for [dirname, settingname] in items(dir_list)
 		let directory = common_dir . dirname . '/'
-		if exists("*mkdir")
+		if exists('*mkdir')
 			if !isdirectory(directory)
 				call mkdir(directory)
 			endif
 		endif
 		if !isdirectory(directory)
-			echo "Warning: Unable to create backup directory: " . directory
-			echo "Try: mkdir -p " . directory
+			echo 'Warning: Unable to create backup directory: ' . directory
+			echo 'Try: mkdir -p ' . directory
 		else
-			let directory = substitute(directory, " ", "\\\\ ", "g")
-			exec "set " . settingname . "=" . directory
+			let directory = substitute(directory, ' ', '\\\\ ', 'g')
+			exec 'set ' . settingname . '=' . directory
 		endif
 	endfor
 endfunction
@@ -739,8 +737,8 @@ autocmd FileType * autocmd BufWritePre <buffer> call StripTrailingWhitespace()
 function! StripTrailingWhitespace()
 	" save last search and cursor position
 	let _s=@/
-	let l = line(".")
-	let c = col(".")
+	let l = line('.')
+	let c = col('.')
 
 	%s/\s\+$//e
 	let @/=_s
