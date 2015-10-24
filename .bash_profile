@@ -40,9 +40,12 @@ if [ "$(uname)" == "Darwin" ]; then
 	export RBENV_ROOT=/usr/local/var/rbenv
 	if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 
-	export PATH="$HOME/.rbenv/bin:$PATH"
+	export PATH="$HOME/.rbenv/versions/2.2.3/bin:$PATH"
 	eval "$(rbenv init -)"
 
+	export ECLIPSE_HOME='/opt/homebrew-cask/Caskroom/eclipse-jee/4.5/Eclipse.app/Contents/Eclipse'
+
+	alias eclimd='$ECLIPSE_HOME/eclimd'
 fi
 
 if [ "$(uname)" == "Linux" ]; then

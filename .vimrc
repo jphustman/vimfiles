@@ -103,6 +103,8 @@ NeoBundle 'kaihendry/vim-html5'
 " PHP
 NeoBundle 'spf13/PIV' " PHP Integration for Vim
 NeoBundle 'blueyed/smarty.vim' " Smarty plugin for Vim
+NeoBundle 'arnaud-lb/vim-php-namespace'
+NeoBundle '2072/PHP-Indenting-for-VIm'
 NeoBundle 'stefanich/php.vim-html-enhanced'
 
 " Python
@@ -155,7 +157,7 @@ let g:syntastic_cfml_checkers=['cflint']
 let g:syntastic_cfscript_checkers=['cflint']
 let g:syntastic_css_checkers=['csslint']
 let g:syntastic_html_checkers=['tidy', 'jshint']
-let g:syntastic_php_checkers=['php', 'phplint']
+let g:syntastic_php_checkers=['php', 'phplint', 'jshint']
 let g:syntastic_vim_checkers=['vimlint']
 
 "function! ESLintArgs()
@@ -196,6 +198,13 @@ if isdirectory(expand("~/.vim/bundle/python-mode"))
     let g:pymode_rope = 0
 endif
 
+" }
+
+" PHP {
+if isdirectory(expand("~/.vim/bundle/PIV"))
+    let g:DisableAutoPHPFolding = 0
+    let g:PIVAutoClose = 0
+endif
 " }
 
 " let g:tagbar_ctags_bin='C:\Users\jphustman\Downloads\ctags58\ctags58\ctags.exe'
