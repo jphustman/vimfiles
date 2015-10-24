@@ -43,7 +43,6 @@ NeoBundle 'matchit.zip'
 NeoBundle 'jphustman/Align.vim'
 NeoBundle 'jphustman/SQLUtilities'
 NeoBundle 'jphustman/dbext.vim'
-NeoBundle 'joonty/vdebug.git'
 
 if WINDOWS()
     NeoBundle 'bling/vim-airline'
@@ -141,12 +140,14 @@ NeoBundleCheck
 " }
 
 " Syntastic Config {
+let g:syntastic_enable_signs = 1
+" let g:syntastic_quiet_messages = {'level': 'warnings'}
 let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
+let g:syntastic_auto_loc_list = 2
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 "let g:syntastic_javascript_gjslint_args = '--strict'
-"let g:syntastic_javascript_jslint_args = "--edition=jslint-es6"
+let g:syntastic_javascript_jslint_args = "--edition=latest"
 "let g:syntastic_javascript_checkers=['eslint', 'jshint', 'jslint']
 let g:syntastic_javascript_checkers=['eslint']
 let g:syntastic_sh_checkers=['shellcheck']
@@ -216,37 +217,12 @@ if gitroot != ''
 	let &tags = &tags . ',' . gitroot . '/.git/tags'
 endif
 
-set lazyredraw
-set viewoptions=folds,options,cursor,unix,slash
-
-
-" stop autocommenting
-autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
-
-" General
-if OSX()
-	set background=light
-	set guioptions+=T
-else
-	set background=dark
-endif
-syntax on
-set nospell
-set mouse=a
-set mousehide
-scriptencoding utf-8
-set columns=120
-set lines=40
-highlight ColorColumn ctermbg=darkgray
-set modeline
-set modelines=5
-
 
 
 let g:solarized_termcolors=256
 let g:solarized_termtrans=1
-let g:solarized_contrast="normal"
-let g:solarized_visibility="normal"
+let g:solarized_contrast='normal'
+let g:solarized_visibility='normal'
 color solarized
 
 highlight clear SignColumn
@@ -259,11 +235,18 @@ let g:indent_guides_start_level = 2
 set laststatus=2
 
 " Broken down into easily includeable segments
-set statusline=%<%f\ " Filename
-set statusline+=%h%m%r" Options
-set statusline+=%{fugitive#statusline()}" Git Hotness
-set statusline+=[%{&fo}]
-set statusline+=%=%-14.(%l,%c%V%)\ %P"
+"set statusline=%<%f\ " Filename
+"set statusline+=%h%m%r" Options
+"set statusline+=%{fugitive#statusline()}" Git Hotness
+"set statusline+=[%{&fo}]
+"set statusline+=%=%-14.(%l,%c%V%)\ %P"
+
+" Janus
+set statusline=%f\ %m\ %r
+set statusline+=Line:%l/%L[%p%%]
+set statusline+=Col:%v
+set statusline+=Buf:#%n
+set statusline+=[%b][0x%B]
 
 " Syntastic Recommended settings
 set statusline+=%#warningmsg#
@@ -401,7 +384,6 @@ if LINUX()
 endif
 " }
 
-
 " NerdTree {
 if isdirectory(expand("~/.vim/bundle/nerdtree"))
 
@@ -447,7 +429,7 @@ if WINDOWS()
 
     " See `:echo g:airline_theme_map` for some more choices
     " Default in terminal vim is 'dark'
-    if isdirectory(expand("~/.vim/bundle/vim-airline/"))
+    if isdirectory(expand('~/.vim/bundle/vim-airline/'))
         if !exists('g:airline_theme')
             let g:airline_theme = 'solarized'
         endif
@@ -460,33 +442,63 @@ if WINDOWS()
 endif
 " }
 
-set showmode
+" General
+if OSX() |
+	set background=light
+	set guioptions+=T
+else
+	set background=dark
+endif
 
+
+" Gui {
 if has('gui_running')
-	set lines=40                " 40 lines of text instead of 24
-	if !exists("g:spf13_no_big_font")
-		if LINUX() && has("gui_running")
-			set guifont=Inconsolata\ for\ Powerline\ Medium\ 12
-		elseif OSX() && has("gui_running")
+	"set lines=40                " 40 lines of text instead of 24
+	if !exists('g:spf13_no_big_font')
+		if LINUX() && has('gui_running')
+			set guifont=Source\ Code\ Pro\ 10
+		elseif OSX() && has('gui_running')
 			set guifont=Inconsolata\ for\ Powerline:h14
-		elseif WINDOWS() && has("gui_running")
+		elseif WINDOWS() && has('gui_running')
 			set guifont=Andale_Mono:h10,Menlo:h10,Consolas:h10,Courier_New:h10
 		endif
 	endif
 else
 	if &term == 'xterm' || &term == 'screen'
 		set t_Co=256            " Enable 256 colors to stop the CSApprox warning and make xterm vim shine
+		set background=light
 	endif
 	"set term=builtin_ansi       " Make arrow and other keys work
 endif
+" }
 
+" Variables {
+set lazyredraw
+set viewoptions=folds,options,cursor,unix,slash
+
+
+" stop autocommenting
+autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+
+syntax enable
+set nospell
+set mouse=a
+set mousehide
+scriptencoding utf-8
+"set columns=120
+"set lines=40
+highlight ColorColumn ctermbg=darkgray
+set modeline
+set modelines=5
+
+set showmode
 set ruler
 set rulerformat=%30(%=\:b%n%y%m%r%w\ %l,%c%V\ %P%)
 set showcmd
 set visualbell
 set comments=sl:/*,mb:*,elx:*/
 
-set colorcolumn=72,79
+set colorcolumn=80
 "set textwidth=72
 "set wrapmargin=80
 set tabstop=4
@@ -494,8 +506,6 @@ set softtabstop=4
 set shiftwidth=4
 set noexpandtab
 set cindent
-autocmd FileType javascript setlocal tabstop=4 softtabstop=4 shiftwidth=4 expandtab
-autocmd FileType scss setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
 
 " set nowrap
 set nojoinspaces
@@ -506,6 +516,10 @@ set virtualedit=onemore
 
 set cursorline
 set tabpagemax=15
+
+autocmd FileType javascript setlocal tabstop=4 softtabstop=4 shiftwidth=4 expandtab
+autocmd FileType scss setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
+" }
 
 " For when you forget to sudo.. Really write the file
 cmap w!! w !sudo tee % >/dev/null
@@ -521,8 +535,33 @@ set history=1000
 set number
 set sidescroll=5
 set shiftround
-let g:mapleader=","
-let g:maplocalleader=",,"
+let g:mapleader=','
+let g:maplocalleader=',,'
+
+
+" Wild settings (from Janus)
+" TODO: Investigate the precise meaning of these settings
+" set wildmode=list:longest,list:full
+
+" Disable output and VCS files
+set wildignore+=*.o,*.out,*.obj,.git,*.rbc,*.rbo,*.class,.svn,*.gem
+
+" Disable archive files
+set wildignore+=*.zip,*.tar.gz,*.tar.bz2,*.rar,*.tar.xz
+
+" Ignore bundler and sass cache
+set wildignore+=*/vendor/gems/*,*/vendor/cache/*,*/.bundle/*,*/.sass-cache/*
+
+" Ignore librarian-chef, vagrant, test-kitchen and Berkshelf cache
+set wildignore+=*/tmp/librarian/*,*/.vagrant/*,*/.kitchen/*,*/vendor/cookbooks/*
+
+" Ignore rails temporary asset caches
+set wildignore+=*/tmp/cache/assets/*/sprockets/*,*/tmp/cache/assets/*/sass/*
+
+" Disable temp and backup files
+set wildignore+=*.swp,*~,._*
+
+
 
 " Mappings {
 noremap <leader>- ddp
@@ -538,6 +577,7 @@ nnoremap L $
 
 nmap <F2> :SyntasticCheck<CR>
 nmap <S-F2> :SyntasticToggleMode<CR>
+
 nmap <F3> :set list!<CR>
 
 nmap <F4> vii:sort i<cr>
@@ -546,13 +586,19 @@ vnoremap <F4> :sort i<cr>
 nmap <F8> :TagbarToggle<CR>
 
 map <F9> :call ToggleBGColor()<CR>
+
+nnoremap <leader>8 :lprev<CR>
+nnoremap <leader>9 :lnext<CR>
+
+
+
 function! ToggleBGColor ()
 	if (&background == 'light')
 		set background=dark
-		echo "background -> dark"
+		echo 'background -> dark'
 	else
 		set background=light
-		echo "background -> light"
+		echo 'background -> light'
 	endif
 endfunction
 
@@ -566,6 +612,8 @@ map <c-J> <c-W>j
 map <c-K> <c-W>k
 map <c-L> <c-W>l
 map <c-H> <c-W>h
+
+
 
 nmap <leader>f0 :set foldlevel=0<CR>
 nmap <leader>f1 :set foldlevel=1<CR>
@@ -603,8 +651,6 @@ set linespace=0
 set winminheight=0
 set ignorecase
 set smartcase
-set wildmenu
-set wildmode=list:longest,full
 set whichwrap=b,s,h,l,<,>,[,]
 set scrolljump=5
 set scrolloff=3
@@ -616,15 +662,15 @@ set foldmethod=indent
 "set foldclose=all
 
 " List chars (from Janus)
+set list
 set listchars=""            " Reset the listchars
-set listchars=tab:\ \       " a tab should display as "  ", trailing whitespace as "."
+set listchars=tab:\ \             " a tab should display as "  ", trailing whitespace as "."
 set listchars+=trail:.      " show trailing spaces as dots
 set listchars+=extends:>    " The character to show in the last column when wrap is
                             " off and the line continues beyond the right of the screen
 set listchars+=precedes:<   " The character to show in the last column when wrap is
                             " off and the line continues beyond the left of the screen
 
-"set list
 "set listchars=tab:¿\ ,trail:¿,extends:#,nbsp:. " Highlight problematic whitespace
 "set listchars+=precedes:<,extends:>
 
@@ -651,9 +697,9 @@ augroup project
 	autocmd!
 	autocmd BufRead,BufNewFile *.h,*.c set filetype=c.doxygen
 augroup END
-let &path.="src/include,/usr/include/AL,"
+let &path.='src/include,/usr/include/AL,'
 set includeexpr=substitute(v:fname,'\\.','/','g')
-let g:ycm_global_ycm_extra_conf = "~/.vim/.ycm_extra_conf.py"
+let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
 let g:ycm_key_list_select_completion=[]
 let g:ycm_key_list_previous_completion=[]
 "set makeprg=make\ -C\ ../build\ -j9
@@ -678,17 +724,17 @@ function! InitializeDirectories()
 
 	for [dirname, settingname] in items(dir_list)
 		let directory = common_dir . dirname . '/'
-		if exists("*mkdir")
+		if exists('*mkdir')
 			if !isdirectory(directory)
 				call mkdir(directory)
 			endif
 		endif
 		if !isdirectory(directory)
-			echo "Warning: Unable to create backup directory: " . directory
-			echo "Try: mkdir -p " . directory
+			echo 'Warning: Unable to create backup directory: ' . directory
+			echo 'Try: mkdir -p ' . directory
 		else
-			let directory = substitute(directory, " ", "\\\\ ", "g")
-			exec "set " . settingname . "=" . directory
+			let directory = substitute(directory, ' ', '\\\\ ', 'g')
+			exec 'set ' . settingname . '=' . directory
 		endif
 	endfor
 endfunction
@@ -700,8 +746,8 @@ autocmd FileType * autocmd BufWritePre <buffer> call StripTrailingWhitespace()
 function! StripTrailingWhitespace()
 	" save last search and cursor position
 	let _s=@/
-	let l = line(".")
-	let c = col(".")
+	let l = line('.')
+	let c = col('.')
 
 	%s/\s\+$//e
 	let @/=_s
