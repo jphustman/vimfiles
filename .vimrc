@@ -43,6 +43,7 @@ NeoBundle 'matchit.zip'
 NeoBundle 'jphustman/Align.vim'
 NeoBundle 'jphustman/SQLUtilities'
 NeoBundle 'jphustman/dbext.vim'
+NeoBundle 'jlanzarotta/bufexplorer'
 
 if WINDOWS()
     NeoBundle 'bling/vim-airline'
@@ -398,7 +399,7 @@ if isdirectory(expand("~/.vim/bundle/nerdtree"))
     let g:NERDTreeMouseMode=2
     let g:NERDTreeShowHidden=1
     let g:NERDTreeKeepTreeInNewTab=1
-    let g:nerdtree_tabs_open_on_gui_startup=1
+    let g:nerdtree_tabs_open_on_gui_startup=0
 
 endif
 " }
