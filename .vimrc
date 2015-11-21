@@ -44,6 +44,7 @@ NeoBundle 'jphustman/Align.vim'
 NeoBundle 'jphustman/SQLUtilities'
 NeoBundle 'jphustman/dbext.vim'
 NeoBundle 'jlanzarotta/bufexplorer'
+NeoBundle 'jtratner/vim-flavored-markdown'
 
 if WINDOWS()
     NeoBundle 'bling/vim-airline'
@@ -219,6 +220,12 @@ if gitroot != ''
 	let &tags = &tags . ',' . gitroot . '/.git/tags'
 endif
 
+" Use flavored-markdown by default {
+augroup markdown
+    au!
+    au BufNewFile,BufRead *.md,*.markdown setlocal filetype=ghmarkdown
+augroup END
+" }
 
 
 let g:solarized_termcolors=256
