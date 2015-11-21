@@ -69,7 +69,7 @@ NeoBundle 'rhysd/vim-clang-format'
 " Snippet Stuff
 NeoBundle 'SirVer/ultisnips'
 NeoBundle 'honza/vim-snippets'
-NeoBundle 'git://github.com/jphustman/ultisnippets'
+NeoBundle 'jphustman/ultisnippets'
 
 " There are other ways to install YouCompleteMe on Linux
 if WINDOWS()
