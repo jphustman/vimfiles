@@ -44,6 +44,7 @@ NeoBundle 'jphustman/Align.vim'
 NeoBundle 'jphustman/SQLUtilities'
 NeoBundle 'jphustman/dbext.vim'
 NeoBundle 'jlanzarotta/bufexplorer'
+NeoBundle 'jtratner/vim-flavored-markdown'
 
 if WINDOWS()
     NeoBundle 'bling/vim-airline'
@@ -69,7 +70,7 @@ NeoBundle 'rhysd/vim-clang-format'
 " Snippet Stuff
 NeoBundle 'SirVer/ultisnips'
 NeoBundle 'honza/vim-snippets'
-NeoBundle 'git://github.com/jphustman/ultisnippets'
+NeoBundle 'jphustman/ultisnippets'
 
 " There are other ways to install YouCompleteMe on Linux
 if WINDOWS()
@@ -223,6 +224,12 @@ if gitroot != ''
 	let &tags = &tags . ',' . gitroot . '/.git/tags'
 endif
 
+" Use flavored-markdown by default {
+augroup markdown
+    au!
+    au BufNewFile,BufRead *.md,*.markdown setlocal filetype=ghmarkdown
+augroup END
+" }
 
 
 let g:solarized_termcolors=256
