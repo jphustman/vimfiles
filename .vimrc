@@ -210,6 +210,10 @@ if isdirectory(expand("~/.vim/bundle/PIV"))
 endif
 " }
 
+" ColdFusion {
+autocmd BufNewFile,FileType cfml,cfscript :set foldlevel=1
+" }
+
 " let g:tagbar_ctags_bin='C:\Users\jphustman\Downloads\ctags58\ctags58\ctags.exe'
 set tags=./tags;/,~/.vimtags
 
