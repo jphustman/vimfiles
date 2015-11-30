@@ -592,6 +592,8 @@ map <F9> :call ToggleBGColor()<CR>
 nnoremap <leader>8 :lprev<CR>
 nnoremap <leader>9 :lnext<CR>
 
+nnoremap <leader><Ctrl-M> :%s/<Ctrl-V><Ctrl-M>/\r/g
+nnoremap <leader>
 
 
 function! ToggleBGColor ()
@@ -689,7 +691,7 @@ let g:vim_json_syntax_conceal = 0
 
 " Ctrl-C and V for copypasta
 set pastetoggle=<F10>
-inoremap <C-v> <F10><C-r>+<F10>
+"inoremap <C-v> <F10><C-r>+<F10>
 vnoremap <C-c> "+y
 
 " C++ specific http://www.alexeyshmalko.com/2014/using-vim-as-c-cpp-ide/
