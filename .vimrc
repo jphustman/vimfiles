@@ -44,6 +44,7 @@ NeoBundle 'jphustman/Align.vim'
 NeoBundle 'jphustman/SQLUtilities'
 NeoBundle 'jphustman/dbext.vim'
 NeoBundle 'jlanzarotta/bufexplorer'
+NeoBundle 'jtratner/vim-flavored-markdown'
 
 if WINDOWS()
     NeoBundle 'bling/vim-airline'
@@ -210,6 +211,10 @@ if isdirectory(expand("~/.vim/bundle/PIV"))
 endif
 " }
 
+" ColdFusion {
+autocmd BufNewFile,FileType cfml,cfscript :set foldlevel=1
+" }
+
 " let g:tagbar_ctags_bin='C:\Users\jphustman\Downloads\ctags58\ctags58\ctags.exe'
 set tags=./tags;/,~/.vimtags
 
@@ -219,6 +224,12 @@ if gitroot != ''
 	let &tags = &tags . ',' . gitroot . '/.git/tags'
 endif
 
+" Use flavored-markdown by default {
+augroup markdown
+    au!
+    au BufNewFile,BufRead *.md,*.markdown setlocal filetype=ghmarkdown
+augroup END
+" }
 
 
 let g:solarized_termcolors=256
