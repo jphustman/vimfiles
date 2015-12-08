@@ -212,7 +212,7 @@ endif
 " }
 
 " ColdFusion {
-autocmd BufNewFile,FileType cfml,cfscript :set foldlevel=1
+"autocmd BufNewFile,FileType cfml,cfscript :set foldlevel=1
 " }
 
 " let g:tagbar_ctags_bin='C:\Users\jphustman\Downloads\ctags58\ctags58\ctags.exe'
@@ -601,11 +601,9 @@ nmap <F8> :TagbarToggle<CR>
 map <F9> :call ToggleBGColor()<CR>
 
 nnoremap <leader>8 :lprev<CR>
-nnoremap <leader>9 :lnext<CR>
+nnoremap <leader>9 :<CR>
 
-nnoremap <leader><Ctrl-M> :%s/<Ctrl-V><Ctrl-M>/\r/g
-nnoremap <leader>
-
+ nnoremap <leader> :%s//\r/g<CR>
 
 function! ToggleBGColor ()
 	if (&background == 'light')
@@ -700,7 +698,7 @@ endfunction
 " JSON remove concealing
 let g:vim_json_syntax_conceal = 0
 
-" Ctrl-C and V for copypasta
+" -C and V for copypasta
 set pastetoggle=<F10>
 "inoremap <C-v> <F10><C-r>+<F10>
 vnoremap <C-c> "+y
