@@ -530,8 +530,10 @@ set virtualedit=onemore
 set cursorline
 set tabpagemax=15
 
-autocmd FileType javascript setlocal tabstop=4 softtabstop=4 shiftwidth=4 expandtab
-autocmd FileType scss setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
+autocmd FileType javascript setlocal tabstop=2 shiftwidth=2 expandtab
+autocmd FileType scss setlocal ts=2 sw=2 expandtab
+autocmd FileType css setlocal ts=2 sw=2 expandtab
+autocmd FileType html setlocal ts=2 sw=2 expandtab
 " }
 
 " For when you forget to sudo.. Really write the file
