@@ -93,6 +93,7 @@ NeoBundle 'othree/javascript-libraries-syntax.vim'
 NeoBundle 'matthewsimo/angular-vim-snippets'
 NeoBundle 'claco/jasmine.vim'
 NeoBundle 'burnettk/vim-angular'
+NeoBundle 'ternjs/tern_for_vim'
 
 " HTML
 NeoBundle 'amirh/HTML-AutoCloseTag'
