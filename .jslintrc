@@ -2,6 +2,7 @@
 	"edition": latest,
 	"white": false,
 	"maxlen": 120,
+	"indent": 2,
 	"fudge": true
 }
 
