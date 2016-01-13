@@ -24,7 +24,6 @@ if has('vim_starting')
 	set runtimepath+=~/.vim/bundle/neobundle.vim/
 endif
 
-
 " Bundles {
 " filetype off
 call neobundle#begin(expand('~/.vim/bundle/'))
@@ -61,6 +60,15 @@ NeoBundle 'vsutil.vim'
 NeoBundle 'VimRegEx.vim'
 NeoBundle 'scrooloose/nerdtree'
 NeoBundle 'jistr/vim-nerdtree-tabs'
+NeoBundle 'Shougo/vimproc.vim', {
+            \ 'build' : {
+                \ 'windows' : 'tools\\update-dll-mingw',
+                \ 'cygwin' : 'make -f make_cygwin.mak',
+                \ 'mac' : 'make -f make_mac.mak',
+                \ 'linux' : 'make',
+                \ 'unix' : 'gmake',
+            \ },
+\ }
 
 
 NeoBundle 'justmao945/vim-clang'
@@ -94,6 +102,11 @@ NeoBundle 'matthewsimo/angular-vim-snippets'
 NeoBundle 'claco/jasmine.vim'
 NeoBundle 'burnettk/vim-angular'
 NeoBundle 'ternjs/tern_for_vim'
+
+" TypeScript
+NeoBundle 'leafgarland/typescript-vim'
+NeoBundle 'Quramy/tsuquyomi'
+
 
 " HTML
 NeoBundle 'amirh/HTML-AutoCloseTag'
@@ -149,11 +162,8 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 2
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
-let g:syntastic_aggregate_errors = 1
-"let g:syntastic_javascript_gjslint_args = '--strict'
-let g:syntastic_javascript_jslint_args = "--edition=latest"
-"let g:syntastic_javascript_checkers=['eslint', 'jshint', 'jslint']
-let g:syntastic_javascript_checkers=['eslint', 'jshint']
+"let g:syntastic_aggregate_errors = 0
+let g:syntastic_javascript_checkers=['eslint', 'jshint', 'jslint']
 let g:syntastic_sh_checkers=['shellcheck']
 let g:syntastic_css_checkers=['csslint']
 let g:syntastic_scss_checkers = ['scss_lint']
