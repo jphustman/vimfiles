@@ -101,6 +101,7 @@ NeoBundle 'othree/javascript-libraries-syntax.vim'
 NeoBundle 'matthewsimo/angular-vim-snippets'
 NeoBundle 'claco/jasmine.vim'
 NeoBundle 'burnettk/vim-angular'
+NeoBundle 'ternjs/tern_for_vim'
 
 " TypeScript
 NeoBundle 'leafgarland/typescript-vim'
