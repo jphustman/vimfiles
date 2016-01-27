@@ -104,6 +104,8 @@ NeoBundle 'burnettk/vim-angular'
 
 " TypeScript
 NeoBundle 'leafgarland/typescript-vim'
+NeoBundle 'clausreinke/typescript-tools.vim'
+
 NeoBundle 'Quramy/tsuquyomi'
 
 
@@ -173,6 +175,9 @@ let g:syntastic_css_checkers=['csslint']
 let g:syntastic_html_checkers=['tidy', 'jshint']
 let g:syntastic_php_checkers=['php', 'phplint', 'jshint']
 let g:syntastic_vim_checkers=['vimlint']
+let g:syntastic_typescript_checkers=['tslint']
+"let g:syntastic_typescript_checkers=['eslint']
+"let g:syntastic_typescript_checkers=['tsc']
 
 "function! ESLintArgs()
     "let rules = findfile('.eslintrc', '.;')
@@ -541,6 +546,7 @@ set cursorline
 set tabpagemax=15
 
 autocmd FileType javascript setlocal tabstop=2 shiftwidth=2 expandtab
+autocmd FileType typescript setlocal tabstop=2 shiftwidth=2 expandtab
 autocmd FileType scss setlocal ts=2 sw=2 expandtab
 autocmd FileType css setlocal ts=2 sw=2 expandtab
 autocmd FileType html setlocal ts=2 sw=2 expandtab
@@ -607,6 +613,9 @@ nmap <F3> :set list!<CR>
 
 nmap <F4> vii:sort i<cr>
 vnoremap <F4> :sort i<cr>
+
+nmap <F6> :lprev<cr>
+nmap <F7> :lnext<cr>
 
 nmap <F8> :TagbarToggle<CR>
 
