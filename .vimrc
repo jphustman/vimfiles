@@ -476,7 +476,8 @@ if OSX() |
 	set background=light
 	set guioptions+=T
 else
-	set background=dark
+    "set background=dark "linux
+	set background=light
 endif
 
 
