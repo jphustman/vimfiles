@@ -482,7 +482,6 @@ endif
 
 " Gui {
 if has('gui_running')
-	"set lines=40                " 40 lines of text instead of 24
 	if !exists('g:spf13_no_big_font')
 		if LINUX() && has('gui_running')
 			set guifont=Source\ Code\ Pro\ 10
@@ -514,8 +513,8 @@ set nospell
 set mouse=a
 set mousehide
 scriptencoding utf-8
-"set columns=120
-"set lines=40
+set columns=120
+set lines=40
 highlight ColorColumn ctermbg=darkgray
 set modeline
 set modelines=5
@@ -606,6 +605,9 @@ nnoremap <leader>sv :source $MYVIMRC<cr>
 
 nnoremap H O
 nnoremap L $
+
+" highlight line so you can find it quickly after scrolling away
+nnoremap <silent> <Leader>l ml:execute 'match Search /\%'.line('.').'l/'<CR>
 
 nmap <F2> :SyntasticCheck<CR>
 nmap <S-F2> :SyntasticToggleMode<CR>
