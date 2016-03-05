@@ -131,6 +131,8 @@ NeoBundle 'python.vim'
 NeoBundle 'python_match.vim'
 NeoBundle 'pythoncomplete'
 
+" ColdFusion
+NeoBundle 'jphustman/vim-coldfusion-snippets'
 
 
 " *css
@@ -166,7 +168,8 @@ let g:syntastic_auto_loc_list = 2
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 "let g:syntastic_aggregate_errors = 0
-let g:syntastic_javascript_checkers=['eslint', 'jshint', 'jslint']
+"let g:syntastic_javascript_checkers=['eslint', 'jshint', 'jslint']
+let g:syntastic_javascript_checkers=['jslint']
 let g:syntastic_sh_checkers=['shellcheck']
 let g:syntastic_css_checkers=['csslint']
 let g:syntastic_scss_checkers = ['scss_lint']
