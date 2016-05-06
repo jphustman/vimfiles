@@ -102,6 +102,14 @@ if OSX()
 endif
 
 
+" bufexplorer instructions {
+" be normal open
+" bt toggle open / close
+" bs force horizontal split open
+" bv force vertical split open
+" }
+
+
 " javascript
 NeoBundle 'elzr/vim-json'
 NeoBundle 'groenewege/vim-less'
