@@ -84,6 +84,8 @@ NeoBundle 'Raimondi/delimitMate'
 NeoBundle 'justmao945/vim-clang'
 NeoBundle 'rhysd/vim-clang-format'
 
+NeoBundle 'Chiel92/vim-autoformat'
+
 "
 " Snippet Stuff
 NeoBundle 'SirVer/ultisnips'
@@ -177,6 +179,10 @@ filetype plugin indent on    " Required!
 NeoBundleCheck
 " }
 
+" NERDCommenter Config {
+let g:NERDSpaceDelims = 1     " Add space between comment and code
+" }
+
 " Syntastic Config {
 let g:syntastic_enable_signs = 1
 " let g:syntastic_quiet_messages = {'level': 'warnings'}
@@ -215,6 +221,10 @@ let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute "]
 
 " vim-javascript {
 let g:javascript_enable_domhtmlcss = 1
+" }
+
+" vim-autoformat {
+
 " }
 
 " UltiSnips {
@@ -552,6 +562,9 @@ set autoread				" Autoread a file when it's changed from outside
 " stop autocommenting
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
+" json folding
+autocmd FileType json setlocal foldmethod=syntax
+
 syntax enable
 set nospell
 set mouse=a
@@ -866,7 +879,7 @@ endfunction
 " }
 
 " JSON remove concealing
-let g:vim_json_syntax_conceal = 0
+" let g:vim_json_syntax_conceal = 0
 
 " -C and V for copypasta
 set pastetoggle=<F10>
