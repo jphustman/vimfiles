@@ -12,6 +12,7 @@ else
 	alias ls='ls --color=auto'
 	alias lnpm='lnpm.sh'
 	alias grep='grep -norw --color=auto'
+  alias lg="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
 fi
 
 if [[ $OSTYPE != "cygwin" ]] || [[ $OSTYPE != "msys" ]]; then
