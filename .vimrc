@@ -192,7 +192,7 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 "let g:syntastic_aggregate_errors = 0
 "let g:syntastic_javascript_checkers=['eslint', 'jshint', 'jslint']
-let g:syntastic_javascript_checkers=['jslint']
+let g:syntastic_javascript_checkers=['jshint']
 let g:syntastic_sh_checkers=['shellcheck']
 let g:syntastic_css_checkers=['csslint']
 let g:syntastic_scss_checkers = ['scss_lint']
@@ -564,7 +564,7 @@ set autoread				" Autoread a file when it's changed from outside
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
 " json folding
-autocmd FileType json setlocal foldmethod=syntax
+autocmd FileType json setlocal foldmethod=syntax foldlevel=1
 
 syntax enable
 set nospell
@@ -721,6 +721,9 @@ nnoremap <leader>w :w!<cr>
 " e2e matching
 nnoremap <tab> %
 vnoremap <tab> %
+
+" Automatically place cursor after open bracket
+inoremap {<CR> {<CR>}<C-o>==<C-o>O
 
 " better and faster movement
 nnoremap j gj
@@ -882,7 +885,7 @@ endfunction
 " }
 
 " JSON remove concealing
-" let g:vim_json_syntax_conceal = 0
+let g:vim_json_syntax_conceal = 0
 
 " -C and V for copypasta
 set pastetoggle=<F10>
