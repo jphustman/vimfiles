@@ -51,15 +51,24 @@ if [ "$(uname)" == "Darwin" ]; then
 fi
 
 if [ "$(uname)" == "Linux" ]; then
-	export PATH="$PATH:/home/jphustman/lnpm.sh"
+  export PATH="$HOME/.node_modules/bin:$PATH"
+
+  export CHROME_BIN='/usr/bin/chromium'
 fi
-export PATH="/usr/local/bin:$PATH"
+
+
+#common aliases
+alias gs='git status'
+alias gf='git fetch'
+alias gp='git pull'
+
+# export PATH="/usr/local/bin:$PATH"
 
 ##
 # Your previous /Users/Jeremey/.bash_profile file was backed up as /Users/Jeremey/.bash_profile.macports-saved_2015-11-14_at_13:40:04
 ##
 
 # MacPorts Installer addition on 2015-11-14_at_13:40:04: adding an appropriate PATH variable for use with MacPorts.
-export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
+# export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
 # Finished adapting your PATH environment variable for use with MacPorts.
 
