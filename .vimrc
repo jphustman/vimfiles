@@ -52,6 +52,8 @@ NeoBundle 'jlanzarotta/bufexplorer'
 NeoBundle 'jtratner/vim-flavored-markdown'
 NeoBundle 'rstacruz/sparkup'
 
+NeoBundle 'editorconfig/editorconfig-vim'
+
 NeoBundle 'junegunn/goyo.vim'
 
 if WINDOWS()
@@ -190,7 +192,7 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 2
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
-"let g:syntastic_aggregate_errors = 0
+let g:syntastic_aggregate_errors = 1
 "let g:syntastic_javascript_checkers=['eslint', 'jshint', 'jslint']
 let g:syntastic_javascript_checkers=['jshint']
 let g:syntastic_sh_checkers=['shellcheck']
@@ -230,6 +232,9 @@ let g:javascript_enable_domhtmlcss = 1
 " UltiSnips {
     let g:UltiSnipsSnippetDirectories=['UltiSnips']
 " }
+
+" Editorconfig fugitive fix
+let g:EditorConfig_exclude_patterns=['fugitive://.*']
 
 " NeoSnippet {
 "let g:neosnippet#snippets_directory += "./snippets"
@@ -859,7 +864,6 @@ set foldenable
 " set list
 set listchars=""            " Reset listchars
 set listchars=nbsp:¬,eol:¶,tab:>-,extends:»,precedes:«,trail:.
-set relativenumber
 
 
 " Previous worked out ok
@@ -875,6 +879,16 @@ set relativenumber
 
 "set listchars=tab:?\ ,trail:?,extends:#,nbsp:. " Highlight problematic whitespace
 "set listchars+=precedes:<,extends:>
+
+function! NumberToggle()
+    if(&relativenumber == 1)
+        set norelativenumber
+    else
+        set relativenumber
+    endif
+endfunc
+
+nnoremap <C-m> :call NumberToggle()<cr>
 
 function! Sorted(l)
 	let new_list = deepcopy(a:l)
