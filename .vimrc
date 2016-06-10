@@ -206,8 +206,10 @@ let g:syntastic_html_checkers=['tidy', 'jshint']
 let g:syntastic_php_checkers=['php', 'phplint', 'jshint']
 let g:syntastic_vim_checkers=['vimlint']
 let g:syntastic_typescript_checkers=['tslint']
+let g:syntastic_typescript_tslint_args = "--config ~/tslint.json"
 "let g:syntastic_typescript_checkers=['eslint']
 "let g:syntastic_typescript_checkers=['tsc']
+
 
 "function! ESLintArgs()
     "let rules = findfile('.eslintrc', '.;')
@@ -232,9 +234,6 @@ let g:javascript_enable_domhtmlcss = 1
 " UltiSnips {
     let g:UltiSnipsSnippetDirectories=['UltiSnips']
 " }
-
-" Editorconfig fugitive fix
-let g:EditorConfig_exclude_patterns=['fugitive://.*']
 
 " NeoSnippet {
 "let g:neosnippet#snippets_directory += "./snippets"
@@ -550,7 +549,7 @@ else
 endif
 " }
 
-" Variables {
+" Settings {
 set complete+=kspell
 
 set ttyfast					" Smoother terminal connection
@@ -564,6 +563,48 @@ set viewoptions=folds,options,cursor,unix,slash
 
 set autoread				" Autoread a file when it's changed from outside
 
+set showmatch
+set matchtime=3
+
+set incsearch
+set hlsearch
+
+set backspace=indent,eol,start
+set linespace=0
+
+set winminheight=0
+set ignorecase
+set smartcase
+set whichwrap=b,s,h,l,<,>,[,]
+set scrolljump=5
+set scrolloff=3
+
+
+set foldlevelstart=0
+set foldenable
+"set foldmethod=indent
+"set foldclose=all
+
+" List chars (from Janus)
+" set list
+" set listchars=""            " Reset listchars
+" set listchars=nbsp:¬,eol:¶,tab:>-,extends:»,precedes:«,trail:.
+exec "set listchars=tab:\uBB\uBB,trail:\uB7,nbsp:~"
+set list
+
+" Previous worked out ok
+"set listchars=""            " Reset the listchars
+"set listchars=tab:\ \       " a tab should display as "  ", trailing whitespace as "."
+"set listchars+=trail:.      " show trailing spaces as dots
+"set listchars+=extends:?    " The character to show in the last column when wrap is
+                            " off and the line continues beyond the right of the screen
+"set listchars+=precedes:?   " The character to show in the last column when wrap is
+                            " off and the line continues beyond the left of the screen
+
+" End Previous worked out ok
+
+"set listchars=tab:?\ ,trail:?,extends:#,nbsp:. " Highlight problematic whitespace
+"set listchars+=precedes:<,extends:>
 
 " stop autocommenting
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
@@ -632,6 +673,8 @@ set smartindent
 
 
 
+set number
+set sidescroll=5
 
 
 
@@ -644,6 +687,9 @@ set virtualedit=onemore
 set cursorline
 set tabpagemax=15
 
+" }
+
+" autocommands {
 autocmd FileType javascript setlocal tabstop=2 shiftwidth=2 expandtab
 autocmd FileType typescript setlocal tabstop=2 shiftwidth=2 expandtab
 autocmd FileType scss setlocal ts=2 sw=2 expandtab
@@ -654,10 +700,11 @@ au BufRead, BufNewFile *.ts setlocal filetype=typescript
 
 " }
 
+
 " For when you forget to sudo.. Really write the file
 cmap w!! w !sudo tee % >/dev/null
 
-"set backup
+" set backup {
 if has('persistent_undo')
 	set undofile
 	set undolevels=1000
@@ -665,8 +712,9 @@ if has('persistent_undo')
 endif
 
 set history=1000
-set number
-set sidescroll=5
+
+" }
+
 let g:mapleader=','
 let g:maplocalleader=',,'
 
@@ -717,18 +765,12 @@ nnoremap <leader>sv :source $MYVIMRC<cr>
 
 nnoremap <leader><space> :Goyo<cr>
 
-" Rewire n and N to do the highlighting...
-nnoremap <silent> n n:call HLNext(0.2)<cr>
-nnoremap <silent> N N:call HLNext(0.2)<cr>
 
 " Fast Saving
 nnoremap <leader>w :w!<cr>
 " e2e matching
 nnoremap <tab> %
 vnoremap <tab> %
-
-" Automatically place cursor after open bracket
-inoremap {<CR> {<CR>}<C-o>==<C-o>O
 
 " better and faster movement
 nnoremap j gj
@@ -754,50 +796,6 @@ vnoremap <Space> za
 
 " Easy expansion
 cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h') . '/' : '%%'
-
-
-nnoremap H O
-nnoremap L $
-
-" highlight line so you can find it quickly after scrolling away
-nnoremap <silent> <Leader>l ml:execute 'match Search /\%'.line('.').'l/'<CR>
-
-nmap <F2> :SyntasticCheck<CR>
-nmap <S-F2> :SyntasticToggleMode<CR>
-
-nmap <F3> :set list!<CR>
-
-nmap <F4> vii:sort i<cr>
-vnoremap <F4> :sort i<cr>
-
-nmap <F6> :lprev<cr>
-nmap <F7> :lnext<cr>
-
-nmap <F8> :TagbarToggle<CR>
-
-map <F9> :call ToggleBGColor()<CR>
-
-nnoremap <leader>8 :lprev<CR>
-nnoremap <leader>9 :<CR>
-
-nnoremap <leader> :%s//\r/g<CR>
-
-
-" insert equals sign for faster assignments
-inoremap <c-l> <space>=<space>
-
-" function
-inoremap <c-f> function () {<cr>});<esc>O
-
-function! ToggleBGColor ()
-	if (&background == 'light')
-		set background=dark
-		echo 'background -> dark'
-	else
-		set background=light
-		echo 'background -> light'
-	endif
-endfunction
 
 nmap <leader>/ :nohlsearch<CR>
 
@@ -826,59 +824,61 @@ nmap <leader>fman :set foldmethod=manual<CR>
 nmap <leader>fsyn :set foldmethod=syntax<CR>
 nmap <leader>find :set foldmethod=indent<CR>
 nmap <leader>fmark :set foldmethod=marker<CR>
+
+nnoremap H O
+nnoremap L $
+
+" highlight line so you can find it quickly after scrolling away
+nnoremap <silent> <Leader>l ml:execute 'match Search /\%'.line('.').'l/'<CR>
+
+nmap <F2> :SyntasticCheck<CR>
+nmap <S-F2> :SyntasticToggleMode<CR>
+
+nmap <F3> :set list!<CR>
+
+nmap <F4> vii:sort i<cr>
+vnoremap <F4> :sort i<cr>
+
+nmap <F6> :lprev<cr>
+nmap <F7> :lnext<cr>
+
+nmap <F8> :TagbarToggle<CR>
+
+map <F9> :call ToggleBGColor()<CR>
+
+nnoremap <leader>8 :lprev<CR>
+nnoremap <leader>9 :<CR>
+
+nnoremap <leader> :%s//\r/g<CR>
+
+
+
+" insert equals sign for faster assignments
+inoremap <c-l> <space>=<space>
+
+
 " }
+
+" function
+inoremap <c-f> function () {<cr>});<esc>O
+
+" Automatically place cursor after open bracket
+inoremap {<CR> {<CR>}<C-o>==<C-o>O
+inoremap [<CR> [<CR>]<C-o>==<C-o>O
 
 " Find merge conflict markers
 map <leader>fc /\v^[<\|=>]{7}( .*\|$)<CR>
 
-" misc {
-
-iabbrev adn and
-iabbrev waht what
-iabbrev tehn then
-
-
-set showmatch
-set matchtime=3
-
-set incsearch
-set hlsearch
-
-set backspace=indent,eol,start
-set linespace=0
-
-set winminheight=0
-set ignorecase
-set smartcase
-set whichwrap=b,s,h,l,<,>,[,]
-set scrolljump=5
-set scrolloff=3
-
-
-set foldlevelstart=0
-set foldenable
-"set foldmethod=indent
-"set foldclose=all
-
-" List chars (from Janus)
-" set list
-set listchars=""            " Reset listchars
-set listchars=nbsp:¬,eol:¶,tab:>-,extends:»,precedes:«,trail:.
-
-
-" Previous worked out ok
-"set listchars=""            " Reset the listchars
-"set listchars=tab:\ \       " a tab should display as "  ", trailing whitespace as "."
-"set listchars+=trail:.      " show trailing spaces as dots
-"set listchars+=extends:?    " The character to show in the last column when wrap is
-                            " off and the line continues beyond the right of the screen
-"set listchars+=precedes:?   " The character to show in the last column when wrap is
-                            " off and the line continues beyond the left of the screen
-
-" End Previous worked out ok
-
-"set listchars=tab:?\ ,trail:?,extends:#,nbsp:. " Highlight problematic whitespace
-"set listchars+=precedes:<,extends:>
+" functions {
+function! ToggleBGColor ()
+	if (&background == 'light')
+		set background=dark
+		echo 'background -> dark'
+	else
+		set background=light
+		echo 'background -> light'
+	endif
+endfunction
 
 function! NumberToggle()
     if(&relativenumber == 1)
@@ -896,6 +896,12 @@ function! Sorted(l)
 	return new_list
 endfunction
 
+" }
+
+
+iabbrev adn and
+iabbrev waht what
+iabbrev tehn then
 " }
 
 " JSON remove concealing
@@ -957,17 +963,33 @@ endfunction
 call InitializeDirectories()
 " }
 
+" ===[ Highlight matches when jumping to next ]=== {
+" see https://ubuntuincident.wordpress.com/2013/12/13/vim-tricks-by-damian-conway/
+
+" This rewires n and N to do the highlighting...
+nnoremap <silent> n n:call HLNext(0.4)<cr>
+nnoremap <silent> N N:call HLNext(0.4)<cr>
+
+" OR ELSE ring the match in red...
 function! HLNext (blinktime)
-  highlight WhiteOnRed ctermfg=white ctermbg=red
+  highlight RedOnRed ctermfg=red ctermbg=red
   let [bufnum, lnum, col, off] = getpos('.')
   let matchlen = strlen(matchstr(strpart(getline('.'),col-1),@/))
-  let target_pat = '\c\%#'.@/
-  let ring = matchadd('WhiteOnRed', target_pat, 101)
+  echo matchlen
+  let ring_pat = (lnum > 1 ? '\%'.(lnum-1).'l\%>'.max([col-4,1]) .'v\%<'.(col+matchlen+3).'v.\|' : '')
+              \ . '\%'.lnum.'l\%>'.max([col-4,1]) .'v\%<'.col.'v.'
+              \ . '\|'
+              \ . '\%'.lnum.'l\%>'.max([col+matchlen-1,1]) .'v\%<'.(col+matchlen+3).'v.'
+              \ . '\|'
+              \ . '\%'.(lnum+1).'l\%>'.max([col-4,1]) .'v\%<'.(col+matchlen+3).'v.'
+  let ring = matchadd('RedOnRed', ring_pat, 101)
   redraw
   exec 'sleep ' . float2nr(a:blinktime * 1000) . 'm'
   call matchdelete(ring)
   redraw
 endfunction
+" }
+
 
 " remove trailing whitespace {
 autocmd FileType * autocmd BufWritePre <buffer> call StripTrailingWhitespace()
