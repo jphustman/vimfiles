@@ -4,10 +4,10 @@
 # But not these files...
 !.bash_logout
 !.bash_profile
-!.bash_profile
 !.bashrc
 !.gitignore
 !.jslintrc
+!README.md
+!tslint.json
 !.vimrc
 !.Xresources
-!README.md
