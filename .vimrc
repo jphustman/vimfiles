@@ -15,6 +15,7 @@ silent function! WINDOWS()
 endfunction
 " }
 
+
 if has('vim_starting')
     if &compatible
         set nocompatible    " Be iMproved
@@ -23,6 +24,11 @@ if has('vim_starting')
     " Required:
 	set runtimepath+=~/.vim/bundle/neobundle.vim/
 endif
+
+let g:netrw_liststyle=3
+scriptencoding utf-8                    " Character encoding
+
+set encoding=utf8
 
 " Bundles {
 " filetype off
@@ -45,6 +51,11 @@ NeoBundle 'jphustman/dbext.vim'
 NeoBundle 'jlanzarotta/bufexplorer'
 NeoBundle 'jtratner/vim-flavored-markdown'
 NeoBundle 'joonty/vdebug.git'
+NeoBundle 'rstacruz/sparkup'
+
+NeoBundle 'editorconfig/editorconfig-vim'
+
+NeoBundle 'junegunn/goyo.vim'
 
 if WINDOWS()
     NeoBundle 'bling/vim-airline'
@@ -71,9 +82,12 @@ NeoBundle 'Shougo/vimproc.vim', {
             \ },
 \ }
 
+NeoBundle 'Raimondi/delimitMate'
 
 NeoBundle 'justmao945/vim-clang'
 NeoBundle 'rhysd/vim-clang-format'
+
+NeoBundle 'Chiel92/vim-autoformat'
 
 "
 " Snippet Stuff
@@ -93,6 +107,14 @@ if OSX()
 endif
 
 
+" bufexplorer instructions {
+" be normal open
+" bt toggle open / close
+" bs force horizontal split open
+" bv force vertical split open
+" }
+
+
 " javascript
 NeoBundle 'elzr/vim-json'
 NeoBundle 'groenewege/vim-less'
@@ -106,6 +128,8 @@ NeoBundle 'ternjs/tern_for_vim'
 
 " TypeScript
 NeoBundle 'leafgarland/typescript-vim'
+NeoBundle 'clausreinke/typescript-tools.vim'
+
 NeoBundle 'Quramy/tsuquyomi'
 
 
@@ -129,6 +153,8 @@ NeoBundle 'python.vim'
 NeoBundle 'python_match.vim'
 NeoBundle 'pythoncomplete'
 
+" ColdFusion
+NeoBundle 'jphustman/vim-coldfusion-snippets'
 
 
 " *css
@@ -156,6 +182,10 @@ filetype plugin indent on    " Required!
 NeoBundleCheck
 " }
 
+" NERDCommenter Config {
+let g:NERDSpaceDelims = 1     " Add space between comment and code
+" }
+
 " Syntastic Config {
 let g:syntastic_enable_signs = 1
 " let g:syntastic_quiet_messages = {'level': 'warnings'}
@@ -163,8 +193,9 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 2
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
-"let g:syntastic_aggregate_errors = 0
-let g:syntastic_javascript_checkers=['eslint', 'jshint', 'jslint']
+let g:syntastic_aggregate_errors = 1
+"let g:syntastic_javascript_checkers=['eslint', 'jshint', 'jslint']
+let g:syntastic_javascript_checkers=['jshint']
 let g:syntastic_sh_checkers=['shellcheck']
 let g:syntastic_css_checkers=['csslint']
 let g:syntastic_scss_checkers = ['scss_lint']
@@ -175,6 +206,11 @@ let g:syntastic_css_checkers=['csslint']
 let g:syntastic_html_checkers=['tidy', 'jshint']
 let g:syntastic_php_checkers=['php', 'phplint', 'jshint']
 let g:syntastic_vim_checkers=['vimlint']
+let g:syntastic_typescript_checkers=['tslint']
+let g:syntastic_typescript_tslint_args = "--config ~/tslint.json"
+"let g:syntastic_typescript_checkers=['eslint']
+"let g:syntastic_typescript_checkers=['tsc']
+
 
 "function! ESLintArgs()
     "let rules = findfile('.eslintrc', '.;')
@@ -192,8 +228,12 @@ let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute "]
 let g:javascript_enable_domhtmlcss = 1
 " }
 
-" UltiSnips {
+" vim-autoformat {
 
+" }
+
+" UltiSnips {
+    let g:UltiSnipsSnippetDirectories=['UltiSnips']
 " }
 
 " NeoSnippet {
@@ -228,7 +268,7 @@ endif
 " }
 
 " let g:tagbar_ctags_bin='C:\Users\jphustman\Downloads\ctags58\ctags58\ctags.exe'
-set tags=./tags;/,~/.vimtags
+set tags=./tags;
 
 " Make tags placed in .git/tags file available in all levels of a repository
 let g:gitroot = substitute(system('git rev-parse --show-toplevel'), '[\n\r]', '', 'g')
@@ -257,7 +297,6 @@ highlight clear LineNr
 let g:indent_guides_start_level = 2
 
 " Status Line {
-set laststatus=2
 
 " Broken down into easily includeable segments
 "set statusline=%<%f\ " Filename
@@ -267,11 +306,12 @@ set laststatus=2
 "set statusline+=%=%-14.(%l,%c%V%)\ %P"
 
 " Janus
-set statusline=%f\ %m\ %r
-set statusline+=Line:%l/%L[%p%%]
-set statusline+=Col:%v
-set statusline+=Buf:#%n
+set statusline=%f\ %m\ %r%=\
+set statusline+=Line:%l/%L[%p%%]\
+set statusline+=Col:%v\
+set statusline+=Buf:#%n\
 set statusline+=[%b][0x%B]
+
 
 " Syntastic Recommended settings
 set statusline+=%#warningmsg#
@@ -406,6 +446,16 @@ if LINUX()
 	" especially when splits are used.
 	set completeopt-=preview
 
+    let g:ycm_server_use_vim_stdout=0
+    let g:ycm_server_keep_logfiles=1
+
+    " Typescript
+    if !exists("g:ycm_semantic_triggers")
+        let g:ycm_semantic_triggers = {}
+    endif
+    let g:ycm_semantic_triggers['typescript'] = ['.']
+    set completeopt-=preview
+
 endif
 " }
 
@@ -460,8 +510,8 @@ if WINDOWS()
         endif
         if !exists('g:airline_powerline_fonts')
             " Use the default set of separators with a few customizations
-            let g:airline_left_sep='›'  " Slightly fancier than '>'
-            let g:airline_right_sep='‹' " Slightly fancier than '<'
+            let g:airline_left_sep='?'  " Slightly fancier than '>'
+            let g:airline_right_sep='?' " Slightly fancier than '<'
         endif
     endif
 endif
@@ -470,18 +520,21 @@ endif
 " General
 if OSX() |
 	set background=light
-	set guioptions+=T
+	" set guioptions+=T
 else
-	set background=dark
+    set background=dark "linux
+	"set background=light
 endif
+
+set guioptions+=TlrLR
 
 
 " Gui {
 if has('gui_running')
-	"set lines=40                " 40 lines of text instead of 24
 	if !exists('g:spf13_no_big_font')
 		if LINUX() && has('gui_running')
-			set guifont=Source\ Code\ Pro\ 10
+			" set guifont=Source\ Code\ Pro\ 10
+            set guifont=Inconsolata-dz\ for\ Powerline,Medium\ 10
 		elseif OSX() && has('gui_running')
 			set guifont=Inconsolata\ for\ Powerline:h14
 		elseif WINDOWS() && has('gui_running')
@@ -497,42 +550,135 @@ else
 endif
 " }
 
-" Variables {
+" Settings {
+set complete+=kspell
+
+set ttyfast					" Smoother terminal connection
+set hidden					" Change buffer without saving
+set magic					" Better searching
 set lazyredraw
+
 set viewoptions=folds,options,cursor,unix,slash
 
 
+
+set autoread				" Autoread a file when it's changed from outside
+
+set showmatch
+set matchtime=3
+
+set incsearch
+set hlsearch
+
+set backspace=indent,eol,start
+set linespace=0
+
+set winminheight=0
+set ignorecase
+set smartcase
+set whichwrap=b,s,h,l,<,>,[,]
+set scrolljump=5
+set scrolloff=3
+
+
+set foldlevelstart=0
+set foldenable
+"set foldmethod=indent
+"set foldclose=all
+
+" List chars (from Janus)
+" set list
+" set listchars=""            " Reset listchars
+" set listchars=nbsp:Â¬,eol:Â¶,tab:>-,extends:Â»,precedes:Â«,trail:.
+exec "set listchars=tab:\uBB\uBB,trail:\uB7,nbsp:~"
+set list
+
+" Previous worked out ok
+"set listchars=""            " Reset the listchars
+"set listchars=tab:\ \       " a tab should display as "  ", trailing whitespace as "."
+"set listchars+=trail:.      " show trailing spaces as dots
+"set listchars+=extends:?    " The character to show in the last column when wrap is
+                            " off and the line continues beyond the right of the screen
+"set listchars+=precedes:?   " The character to show in the last column when wrap is
+                            " off and the line continues beyond the left of the screen
+
+" End Previous worked out ok
+
+"set listchars=tab:?\ ,trail:?,extends:#,nbsp:. " Highlight problematic whitespace
+"set listchars+=precedes:<,extends:>
+
 " stop autocommenting
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+
+" json folding
+autocmd FileType json setlocal foldmethod=syntax foldlevel=1
 
 syntax enable
 set nospell
 set mouse=a
 set mousehide
-scriptencoding utf-8
-"set columns=120
-"set lines=40
-highlight ColorColumn ctermbg=darkgray
+
+" set fileencoding=""
+" set fileencodings=""
+
+set columns=120
+set lines=40
 set modeline
 set modelines=5
 
-set showmode
+set showcmd
+set cmdheight=2
+set shortmess+=filmnrxoOtT              " Short messaging in commandline
+set laststatus=2                        " Windows always will have a status line
+set showtabline=2
+set noshowmode
+
+
 set ruler
 set rulerformat=%30(%=\:b%n%y%m%r%w\ %l,%c%V\ %P%)
-set showcmd
-set visualbell
 set comments=sl:/*,mb:*,elx:*/
 
-set colorcolumn=80
+
+highlight ColorColumn ctermbg=blue
+call matchadd('ColorColumn', '\%81v', 100)
+
+"set colorcolumn=80
 "set textwidth=72
 "set wrapmargin=80
-set tabstop=4
-set softtabstop=4
-set shiftwidth=4
-set noexpandtab
-set cindent
 
-" set nowrap
+
+
+set shiftround
+set shiftwidth=2
+set expandtab
+set tabstop=2
+set softtabstop=2
+set smarttab
+
+
+set tw=500
+set formatoptions=qrn1
+
+set noerrorbells
+set visualbell
+set t_vb=
+
+set title
+
+
+" set cindent
+set wrap
+set autoindent
+set smartindent
+
+
+
+
+set number
+set sidescroll=5
+
+
+
 set nojoinspaces
 set splitright
 set splitbelow
@@ -542,16 +688,24 @@ set virtualedit=onemore
 set cursorline
 set tabpagemax=15
 
+" }
+
+" autocommands {
 autocmd FileType javascript setlocal tabstop=2 shiftwidth=2 expandtab
+autocmd FileType typescript setlocal tabstop=2 shiftwidth=2 expandtab
 autocmd FileType scss setlocal ts=2 sw=2 expandtab
 autocmd FileType css setlocal ts=2 sw=2 expandtab
 autocmd FileType html setlocal ts=2 sw=2 expandtab
+
+au BufRead, BufNewFile *.ts setlocal filetype=typescript
+
 " }
+
 
 " For when you forget to sudo.. Really write the file
 cmap w!! w !sudo tee % >/dev/null
 
-"set backup
+" set backup {
 if has('persistent_undo')
 	set undofile
 	set undolevels=1000
@@ -559,11 +713,21 @@ if has('persistent_undo')
 endif
 
 set history=1000
-set number
-set sidescroll=5
-set shiftround
+
+" }
+
 let g:mapleader=','
 let g:maplocalleader=',,'
+
+" Wild settings (from Pascal Precht)
+set wildmenu                                      " Enable wild menu
+set wildmode=list:longest,full
+set wildignore+=.git,.svn                         " Version control
+set wildignore+=*.jpg,*.bmp,*.gif,*.png,*.jpeg    " binary images
+set wildignore+=*.o,*.obj,*.exe,*.dll,*.manifest  " compiled object files
+set wildignore+=*.sw?                             " Vim swap files
+set wildignore+=*.DS_Store                        " OSX bullshit
+set wildignore+=*.zip                             " zip
 
 
 " Wild settings (from Janus)
@@ -571,22 +735,22 @@ let g:maplocalleader=',,'
 " set wildmode=list:longest,list:full
 
 " Disable output and VCS files
-set wildignore+=*.o,*.out,*.obj,.git,*.rbc,*.rbo,*.class,.svn,*.gem
+" set wildignore+=*.o,*.out,*.obj,.git,*.rbc,*.rbo,*.class,.svn,*.gem
 
 " Disable archive files
-set wildignore+=*.zip,*.tar.gz,*.tar.bz2,*.rar,*.tar.xz
+" set wildignore+=*.zip,*.tar.gz,*.tar.bz2,*.rar,*.tar.xz
 
 " Ignore bundler and sass cache
-set wildignore+=*/vendor/gems/*,*/vendor/cache/*,*/.bundle/*,*/.sass-cache/*
+" set wildignore+=*/vendor/gems/*,*/vendor/cache/*,*/.bundle/*,*/.sass-cache/*
 
 " Ignore librarian-chef, vagrant, test-kitchen and Berkshelf cache
-set wildignore+=*/tmp/librarian/*,*/.vagrant/*,*/.kitchen/*,*/vendor/cookbooks/*
+" set wildignore+=*/tmp/librarian/*,*/.vagrant/*,*/.kitchen/*,*/vendor/cookbooks/*
 
 " Ignore rails temporary asset caches
-set wildignore+=*/tmp/cache/assets/*/sprockets/*,*/tmp/cache/assets/*/sass/*
+" set wildignore+=*/tmp/cache/assets/*/sprockets/*,*/tmp/cache/assets/*/sass/*
 
 " Disable temp and backup files
-set wildignore+=*.swp,*~,._*
+" set wildignore+=*.swp,*~,._*
 
 
 
@@ -599,35 +763,40 @@ nnoremap <leader><c-u> bveU
 nnoremap <leader>ev :vsplit $MYVIMRC<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>
 
-nnoremap H O
-nnoremap L $
 
-nmap <F2> :SyntasticCheck<CR>
-nmap <S-F2> :SyntasticToggleMode<CR>
+nnoremap <leader><space> :Goyo<cr>
 
-nmap <F3> :set list!<CR>
 
-nmap <F4> vii:sort i<cr>
-vnoremap <F4> :sort i<cr>
+" Fast Saving
+nnoremap <leader>w :w!<cr>
+" e2e matching
+nnoremap <tab> %
+vnoremap <tab> %
 
-nmap <F8> :TagbarToggle<CR>
+" better and faster movement
+nnoremap j gj
+nnoremap k gk
+nmap J 5j
+nmap K 5k
+xmap J 5j
+xmap K 5k
 
-map <F9> :call ToggleBGColor()<CR>
 
-nnoremap <leader>8 :lprev<CR>
-nnoremap <leader>9 :<CR>
+" Keep search pattern at the center of the screen
+nnoremap <silent> n nzz
+nnoremap <silent> N Nzz
+nnoremap <silent> * *zz
+nnoremap <silent> # #zz
+nnoremap <silent> g* g*zz
+nnoremap <silent> g# g#zz
 
- nnoremap <leader> :%s//\r/g<CR>
 
-function! ToggleBGColor ()
-	if (&background == 'light')
-		set background=dark
-		echo 'background -> dark'
-	else
-		set background=light
-		echo 'background -> light'
-	endif
-endfunction
+" Folding
+nnoremap <Space> za
+vnoremap <Space> za
+
+" Easy expansion
+cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h') . '/' : '%%'
 
 nmap <leader>/ :nohlsearch<CR>
 
@@ -656,50 +825,71 @@ nmap <leader>fman :set foldmethod=manual<CR>
 nmap <leader>fsyn :set foldmethod=syntax<CR>
 nmap <leader>find :set foldmethod=indent<CR>
 nmap <leader>fmark :set foldmethod=marker<CR>
+
+nnoremap H O
+nnoremap L $
+
+" highlight line so you can find it quickly after scrolling away
+nnoremap <silent> <Leader>l ml:execute 'match Search /\%'.line('.').'l/'<CR>
+
+nmap <F2> :SyntasticCheck<CR>
+nmap <S-F2> :SyntasticToggleMode<CR>
+
+nmap <F3> :set list!<CR>
+
+nmap <F4> vii:sort i<cr>
+vnoremap <F4> :sort i<cr>
+
+nmap <F6> :lprev<cr>
+nmap <F7> :lnext<cr>
+
+nmap <F8> :TagbarToggle<CR>
+
+map <F9> :call ToggleBGColor()<CR>
+
+nnoremap <leader>8 :lprev<CR>
+nnoremap <leader>9 :<CR>
+
+nnoremap <leader> :%s//\r/g<CR>
+
+
+
+" insert equals sign for faster assignments
+inoremap <c-l> <space>=<space>
+
+
 " }
+
+" function
+inoremap <c-f> function () {<cr>});<esc>O
+
+" Automatically place cursor after open bracket
+inoremap {<CR> {<CR>}<C-o>==<C-o>O
+inoremap [<CR> [<CR>]<C-o>==<C-o>O
 
 " Find merge conflict markers
 map <leader>fc /\v^[<\|=>]{7}( .*\|$)<CR>
 
-" misc {
+" functions {
+function! ToggleBGColor ()
+	if (&background == 'light')
+		set background=dark
+		echo 'background -> dark'
+	else
+		set background=light
+		echo 'background -> light'
+	endif
+endfunction
 
-iabbrev adn and
-iabbrev waht what
-iabbrev tehn then
+function! NumberToggle()
+    if(&relativenumber == 1)
+        set norelativenumber
+    else
+        set relativenumber
+    endif
+endfunc
 
-
-set showmatch
-set incsearch
-set hlsearch
-
-set backspace=indent,eol,start
-set linespace=0
-
-set winminheight=0
-set ignorecase
-set smartcase
-set whichwrap=b,s,h,l,<,>,[,]
-set scrolljump=5
-set scrolloff=3
-
-
-set foldenable
-set foldmethod=indent
-"set foldlevel=1
-"set foldclose=all
-
-" List chars (from Janus)
-set list
-set listchars=""            " Reset the listchars
-set listchars=tab:\ \             " a tab should display as "  ", trailing whitespace as "."
-set listchars+=trail:.      " show trailing spaces as dots
-set listchars+=extends:>    " The character to show in the last column when wrap is
-                            " off and the line continues beyond the right of the screen
-set listchars+=precedes:<   " The character to show in the last column when wrap is
-                            " off and the line continues beyond the left of the screen
-
-"set listchars=tab:¿\ ,trail:¿,extends:#,nbsp:. " Highlight problematic whitespace
-"set listchars+=precedes:<,extends:>
+nnoremap <C-m> :call NumberToggle()<cr>
 
 function! Sorted(l)
 	let new_list = deepcopy(a:l)
@@ -707,6 +897,12 @@ function! Sorted(l)
 	return new_list
 endfunction
 
+" }
+
+
+iabbrev adn and
+iabbrev waht what
+iabbrev tehn then
 " }
 
 " JSON remove concealing
@@ -767,6 +963,34 @@ function! InitializeDirectories()
 endfunction
 call InitializeDirectories()
 " }
+
+" ===[ Highlight matches when jumping to next ]=== {
+" see https://ubuntuincident.wordpress.com/2013/12/13/vim-tricks-by-damian-conway/
+
+" This rewires n and N to do the highlighting...
+nnoremap <silent> n n:call HLNext(0.4)<cr>
+nnoremap <silent> N N:call HLNext(0.4)<cr>
+
+" OR ELSE ring the match in red...
+function! HLNext (blinktime)
+  highlight RedOnRed ctermfg=red ctermbg=red
+  let [bufnum, lnum, col, off] = getpos('.')
+  let matchlen = strlen(matchstr(strpart(getline('.'),col-1),@/))
+  echo matchlen
+  let ring_pat = (lnum > 1 ? '\%'.(lnum-1).'l\%>'.max([col-4,1]) .'v\%<'.(col+matchlen+3).'v.\|' : '')
+              \ . '\%'.lnum.'l\%>'.max([col-4,1]) .'v\%<'.col.'v.'
+              \ . '\|'
+              \ . '\%'.lnum.'l\%>'.max([col+matchlen-1,1]) .'v\%<'.(col+matchlen+3).'v.'
+              \ . '\|'
+              \ . '\%'.(lnum+1).'l\%>'.max([col-4,1]) .'v\%<'.(col+matchlen+3).'v.'
+  let ring = matchadd('RedOnRed', ring_pat, 101)
+  redraw
+  exec 'sleep ' . float2nr(a:blinktime * 1000) . 'm'
+  call matchdelete(ring)
+  redraw
+endfunction
+" }
+
 
 " remove trailing whitespace {
 autocmd FileType * autocmd BufWritePre <buffer> call StripTrailingWhitespace()
