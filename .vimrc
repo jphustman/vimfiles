@@ -44,6 +44,7 @@ NeoBundle 'jphustman/SQLUtilities'
 NeoBundle 'jphustman/dbext.vim'
 NeoBundle 'jlanzarotta/bufexplorer'
 NeoBundle 'jtratner/vim-flavored-markdown'
+NeoBundle 'joonty/vdebug.git'
 
 if WINDOWS()
     NeoBundle 'bling/vim-airline'
