@@ -12,6 +12,7 @@ ln -s vimfiles/.bash_logout .bash_logout
 ln -s vimfiles/.bashrc .bashrc
 ln -s vimfiles/.Xresources .Xresources
 ln -s vimfiles/tslint.json tslint.json
+ln -s vimfiles/.tmux.conf .tmux.conf
 
 git clone git@github.com:Shougo/neobundle.vim .vim/bundle/neobundle.vim
 
