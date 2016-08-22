@@ -3,6 +3,8 @@
 #
 #[ -n "$PS1" ] && source ~/.bash_profile;
 
+PS1='\[\e]0;\w\a\]\n\[\e[32m\]\u@\h: \[\e[33m\]\w\[\e[0m\]\n\$ '
+
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 

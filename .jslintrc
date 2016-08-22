@@ -1,9 +1,11 @@
 {
     "evil": false,
+    "fudge": true,
     "indent": 4,
-    "vars": false,
+    "vars": true,
     "passfail": false,
     "plusplus": false,
+    "dangle": false,
     "predef": "module,require,angular"
 }
 

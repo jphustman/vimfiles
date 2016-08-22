@@ -22,7 +22,7 @@ if has('vim_starting')
     endif
 
     " Required:
-	set runtimepath+=~/.vim/bundle/neobundle.vim/
+    set runtimepath+=~/.vim/bundle/neobundle.vim/
 endif
 
 let g:netrw_liststyle=3
@@ -60,7 +60,7 @@ NeoBundle 'junegunn/goyo.vim'
 if WINDOWS()
     NeoBundle 'bling/vim-airline'
 else
-	NeoBundle 'Lokaltog/powerline', {'rtp':'~/.vim/bundle/powerline/powerline/bindings/vim'}
+    NeoBundle 'Lokaltog/powerline', {'rtp':'~/.vim/bundle/powerline/powerline/bindings/vim'}
 endif
 
 NeoBundle 'scrooloose/nerdcommenter'
@@ -89,6 +89,8 @@ NeoBundle 'rhysd/vim-clang-format'
 
 NeoBundle 'Chiel92/vim-autoformat'
 
+NeoBundle 'sukima/xmledit'
+
 "
 " Snippet Stuff
 NeoBundle 'SirVer/ultisnips'
@@ -103,7 +105,7 @@ endif
 
 if OSX()
     NeoBundle 'Valloric/YouCompleteMe'
-	NeoBundle 'rizzatti/dash.vim'
+    NeoBundle 'rizzatti/dash.vim'
 endif
 
 
@@ -195,7 +197,8 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 let g:syntastic_aggregate_errors = 1
 "let g:syntastic_javascript_checkers=['eslint', 'jshint', 'jslint']
-let g:syntastic_javascript_checkers=['jshint']
+let g:syntastic_javascript_checkers=['jslint']
+let g:syntastic_javascript_jslint_args='--config ~/jslint.conf'
 let g:syntastic_sh_checkers=['shellcheck']
 let g:syntastic_css_checkers=['csslint']
 let g:syntastic_scss_checkers = ['scss_lint']
@@ -208,6 +211,10 @@ let g:syntastic_php_checkers=['php', 'phplint', 'jshint']
 let g:syntastic_vim_checkers=['vimlint']
 let g:syntastic_typescript_checkers=['tslint']
 let g:syntastic_typescript_tslint_args = "--config ~/tslint.json"
+
+
+let g:syntastic_c_checkers=['clang_check', 'clang_tidy', 'gcc', 'make']
+let g:syntastic_c_check_header = 1
 "let g:syntastic_typescript_checkers=['eslint']
 "let g:syntastic_typescript_checkers=['tsc']
 
@@ -273,7 +280,7 @@ set tags=./tags;
 " Make tags placed in .git/tags file available in all levels of a repository
 let g:gitroot = substitute(system('git rev-parse --show-toplevel'), '[\n\r]', '', 'g')
 if gitroot != ''
-	let &tags = &tags . ',' . gitroot . '/.git/tags'
+    let &tags = &tags . ',' . gitroot . '/.git/tags'
 endif
 
 " Use flavored-markdown by default {
@@ -410,41 +417,41 @@ set statusline+=%*
 
 " YouCompleteMe and UltiSnips {
 if LINUX()
-	let g:acp_enableAtStartup = 0
+    let g:acp_enableAtStartup = 0
 
-	" enable completion from tags
-	let g:ycm_collect_identifiers_from_tags_files = 1
+    " enable completion from tags
+    let g:ycm_collect_identifiers_from_tags_files = 1
 
-	" remap Ultisnips for compatibility for YCM
-	let g:UltiSnipsExpandTrigger = '<C-j>'
-	let g:UltiSnipsJumpForwardTrigger = '<C-j>'
-	let g:UltiSnipsJumpBackwardTrigger = '<C-k>'
+    " remap Ultisnips for compatibility for YCM
+    let g:UltiSnipsExpandTrigger = '<C-j>'
+    let g:UltiSnipsJumpForwardTrigger = '<C-j>'
+    let g:UltiSnipsJumpBackwardTrigger = '<C-k>'
 
-	" Enable omni completion.
-	autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-	autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-	autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-	autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-	autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-	autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
-	autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
+    " Enable omni completion.
+    autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+    autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+    autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+    autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+    autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+    autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
+    autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
 
-	" Haskell post write lint and check with ghcmod
-	" $ `cabal install ghcmod` if missing and ensure
-	" ~/.cabal/bin is in your $PATH.
-	if !executable("ghcmod")
-		autocmd BufWritePost *.hs GhcModCheckAndLintAsync
-	endif
+    " Haskell post write lint and check with ghcmod
+    " $ `cabal install ghcmod` if missing and ensure
+    " ~/.cabal/bin is in your $PATH.
+    if !executable("ghcmod")
+        autocmd BufWritePost *.hs GhcModCheckAndLintAsync
+    endif
 
-	" For snippet_complete marker.
-	if has('conceal')
-		set conceallevel=2 concealcursor=i
-	endif
+    " For snippet_complete marker.
+    if has('conceal')
+        set conceallevel=2 concealcursor=i
+    endif
 
-	" Disable the neosnippet preview candidate window
-	" When enabled, there can be too much visual noise
-	" especially when splits are used.
-	set completeopt-=preview
+    " Disable the neosnippet preview candidate window
+    " When enabled, there can be too much visual noise
+    " especially when splits are used.
+    set completeopt-=preview
 
     let g:ycm_server_use_vim_stdout=0
     let g:ycm_server_keep_logfiles=1
@@ -519,11 +526,11 @@ endif
 
 " General
 if OSX() |
-	set background=light
-	" set guioptions+=T
+    set background=light
+    " set guioptions+=T
 else
     set background=dark "linux
-	"set background=light
+    "set background=light
 endif
 
 set guioptions+=TlrLR
@@ -531,38 +538,38 @@ set guioptions+=TlrLR
 
 " Gui {
 if has('gui_running')
-	if !exists('g:spf13_no_big_font')
-		if LINUX() && has('gui_running')
-			" set guifont=Source\ Code\ Pro\ 10
+    if !exists('g:spf13_no_big_font')
+        if LINUX() && has('gui_running')
+            " set guifont=Source\ Code\ Pro\ 10
             set guifont=Inconsolata-dz\ for\ Powerline,Medium\ 10
-		elseif OSX() && has('gui_running')
-			set guifont=Inconsolata\ for\ Powerline:h14
-		elseif WINDOWS() && has('gui_running')
-			set guifont=Andale_Mono:h10,Menlo:h10,Consolas:h10,Courier_New:h10
-		endif
-	endif
+        elseif OSX() && has('gui_running')
+            set guifont=Inconsolata\ for\ Powerline:h14
+        elseif WINDOWS() && has('gui_running')
+            set guifont=Andale_Mono:h10,Menlo:h10,Consolas:h10,Courier_New:h10
+        endif
+    endif
 else
-	if &term == 'xterm' || &term == 'screen'
-		set t_Co=256            " Enable 256 colors to stop the CSApprox warning and make xterm vim shine
-		set background=light
-	endif
-	"set term=builtin_ansi       " Make arrow and other keys work
+    if &term == 'xterm' || &term == 'screen'
+        set t_Co=256            " Enable 256 colors to stop the CSApprox warning and make xterm vim shine
+        set background=light
+    endif
+    "set term=builtin_ansi       " Make arrow and other keys work
 endif
 " }
 
 " Settings {
 set complete+=kspell
 
-set ttyfast					" Smoother terminal connection
-set hidden					" Change buffer without saving
-set magic					" Better searching
+set ttyfast                  " Smoother terminal connection
+set hidden                   " Change buffer without saving
+set magic                    " Better searching
 set lazyredraw
 
 set viewoptions=folds,options,cursor,unix,slash
 
 
 
-set autoread				" Autoread a file when it's changed from outside
+set autoread                " Autoread a file when it's changed from outside
 
 set showmatch
 set matchtime=3
@@ -691,7 +698,7 @@ set tabpagemax=15
 " }
 
 " autocommands {
-autocmd FileType javascript setlocal tabstop=2 shiftwidth=2 expandtab
+autocmd FileType javascript setlocal tabstop=4 shiftwidth=4 expandtab
 autocmd FileType typescript setlocal tabstop=2 shiftwidth=2 expandtab
 autocmd FileType scss setlocal ts=2 sw=2 expandtab
 autocmd FileType css setlocal ts=2 sw=2 expandtab
@@ -707,9 +714,9 @@ cmap w!! w !sudo tee % >/dev/null
 
 " set backup {
 if has('persistent_undo')
-	set undofile
-	set undolevels=1000
-	set undoreload=10000
+    set undofile
+    set undolevels=1000
+    set undoreload=10000
 endif
 
 set history=1000
@@ -755,6 +762,8 @@ set wildignore+=*.zip                             " zip
 
 
 " Mappings {
+imap jk <Esc>
+
 noremap <leader>- ddp
 noremap <leader>_ ddkP
 inoremap <leader><c-u> <esc>bveU$a
@@ -872,13 +881,13 @@ map <leader>fc /\v^[<\|=>]{7}( .*\|$)<CR>
 
 " functions {
 function! ToggleBGColor ()
-	if (&background == 'light')
-		set background=dark
-		echo 'background -> dark'
-	else
-		set background=light
-		echo 'background -> light'
-	endif
+    if (&background == 'light')
+        set background=dark
+        echo 'background -> dark'
+    else
+        set background=light
+        echo 'background -> light'
+    endif
 endfunction
 
 function! NumberToggle()
@@ -892,9 +901,9 @@ endfunc
 nnoremap <C-m> :call NumberToggle()<cr>
 
 function! Sorted(l)
-	let new_list = deepcopy(a:l)
-	call sort(new_list)
-	return new_list
+    let new_list = deepcopy(a:l)
+    call sort(new_list)
+    return new_list
 endfunction
 
 " }
@@ -917,8 +926,8 @@ vnoremap <C-c> "+y
 set exrc	" enable directory specific .vimrc
 set secure	"
 augroup project
-	autocmd!
-	autocmd BufRead,BufNewFile *.h,*.c set filetype=c.doxygen
+    autocmd!
+    autocmd BufRead,BufNewFile *.h,*.c set filetype=c.doxygen
 augroup END
 let &path.='src/include,/usr/include/AL,'
 set includeexpr=substitute(v:fname,'\\.','/','g')
@@ -932,34 +941,34 @@ au BufRead,BufNewFile *.ino,*.pde set filetype=arduino
 
 " \ RegularInitialize directories {
 function! InitializeDirectories()
-	let parent = $HOME
-	let prefix = 'vim'
-	let dir_list = {
-				\ 'backup': 'backupdir',
-				\ 'views': 'viewdir',
-				\ 'swap': 'directory' }
+    let parent = $HOME
+    let prefix = 'vim'
+    let dir_list = {
+                \ 'backup': 'backupdir',
+                \ 'views': 'viewdir',
+                \ 'swap': 'directory' }
 
-	if has('persistent_undo')
-		let dir_list['undo'] = 'undodir'
-	endif
+    if has('persistent_undo')
+        let dir_list['undo'] = 'undodir'
+    endif
 
-	let common_dir = parent . '/.' . prefix
+    let common_dir = parent . '/.' . prefix
 
-	for [dirname, settingname] in items(dir_list)
-		let directory = common_dir . dirname . '/'
-		if exists('*mkdir')
-			if !isdirectory(directory)
-				call mkdir(directory)
-			endif
-		endif
-		if !isdirectory(directory)
-			echo 'Warning: Unable to create backup directory: ' . directory
-			echo 'Try: mkdir -p ' . directory
-		else
-			let directory = substitute(directory, ' ', '\\\\ ', 'g')
-			exec 'set ' . settingname . '=' . directory
-		endif
-	endfor
+    for [dirname, settingname] in items(dir_list)
+        let directory = common_dir . dirname . '/'
+        if exists('*mkdir')
+            if !isdirectory(directory)
+                call mkdir(directory)
+            endif
+        endif
+        if !isdirectory(directory)
+            echo 'Warning: Unable to create backup directory: ' . directory
+            echo 'Try: mkdir -p ' . directory
+        else
+            let directory = substitute(directory, ' ', '\\\\ ', 'g')
+            exec 'set ' . settingname . '=' . directory
+        endif
+    endfor
 endfunction
 call InitializeDirectories()
 " }
@@ -995,14 +1004,14 @@ endfunction
 " remove trailing whitespace {
 autocmd FileType * autocmd BufWritePre <buffer> call StripTrailingWhitespace()
 function! StripTrailingWhitespace()
-	" save last search and cursor position
-	let _s=@/
-	let l = line('.')
-	let c = col('.')
+    " save last search and cursor position
+    let _s=@/
+    let l = line('.')
+    let c = col('.')
 
-	%s/\s\+$//e
-	let @/=_s
-	call cursor(l, c)
+    %s/\s\+$//e
+    let @/=_s
+    call cursor(l, c)
 endfunction
 " }
 
