@@ -22,167 +22,173 @@ if has('vim_starting')
     endif
 
     " Required:
-    set runtimepath+=~/.vim/bundle/neobundle.vim/
+    set runtimepath+=~/.vim/bundle/repos/github.com/Shougo/dein.vim
 endif
 
 let g:netrw_liststyle=3
 scriptencoding utf-8                    " Character encoding
-
 set encoding=utf8
 
 " Bundles {
-" filetype off
-call neobundle#begin(expand('~/.vim/bundle/'))
+    " Required:
+    call dein#begin(expand('~/.vim/bundle'))
 
-" Let NeoBundle manage NeoBundle
-" Required
-NeoBundleFetch 'Shougo/neobundle.vim'
+    " Let dein manage dein
+    " Required:
+    call dein#add('Shougo/dein.vim')
+    " call dein#add('Shougo/neocomplete.vim')
+    call dein#add('Shougo/neosnippet.vim')
+    call dein#add('Shougo/neosnippet-snippets')
 
-" My Bundles here:
-NeoBundle 'git@github.com:jphustman/cf-utils.vim'
-NeoBundle 'altercation/vim-colors-solarized'
-NeoBundle 'scrooloose/syntastic'
-NeoBundle 'cflint/cflint-syntastic'
-NeoBundle 'tpope/vim-surround'
-NeoBundle 'matchit.zip'
-NeoBundle 'jphustman/Align.vim'
-NeoBundle 'jphustman/SQLUtilities'
-NeoBundle 'jphustman/dbext.vim'
-NeoBundle 'jlanzarotta/bufexplorer'
-NeoBundle 'jtratner/vim-flavored-markdown'
-NeoBundle 'joonty/vdebug.git'
-NeoBundle 'rstacruz/sparkup'
+    " My Bundles here:
+    call dein#add('git@github.com:jphustman/cf-utils.vim')
+    call dein#add('altercation/vim-colors-solarized')
+    call dein#add('scrooloose/syntastic')
+    call dein#add('cflint/cflint-syntastic')
+    call dein#add('tpope/vim-surround')
+    call dein#add('matchit.zip')
+    call dein#add('jphustman/Align.vim')
+    call dein#add('jphustman/SQLUtilities')
+    call dein#add('jphustman/dbext.vim')
+    call dein#add('jlanzarotta/bufexplorer')
+    call dein#add('jtratner/vim-flavored-markdown')
+    call dein#add('joonty/vdebug.git')
+    call dein#add('rstacruz/sparkup')
 
-NeoBundle 'editorconfig/editorconfig-vim'
+    call dein#add('editorconfig/editorconfig-vim')
 
-NeoBundle 'junegunn/goyo.vim'
+    call dein#add('junegunn/goyo.vim')
 
-if WINDOWS()
-    NeoBundle 'bling/vim-airline'
-else
-    NeoBundle 'Lokaltog/powerline', {'rtp':'~/.vim/bundle/powerline/powerline/bindings/vim'}
-endif
+    if WINDOWS()
+        call dein#add('bling/vim-airline')
+    else
+        call dein#add('Lokaltog/powerline'), {'rtp':'~/.vim/bundle/powerline/powerline/bindings/vim'}
+    endif
 
-NeoBundle 'scrooloose/nerdcommenter'
-NeoBundle 'majutsushi/tagbar'
-NeoBundle 'tpope/vim-fugitive'
-NeoBundle 'terryma/vim-multiple-cursors'
-NeoBundle 'nathanaelkane/vim-indent-guides'
-NeoBundle 'vsutil.vim'
-NeoBundle 'VimRegEx.vim'
-NeoBundle 'scrooloose/nerdtree'
-NeoBundle 'jistr/vim-nerdtree-tabs'
-NeoBundle 'Shougo/vimproc.vim', {
-            \ 'build' : {
-                \ 'windows' : 'tools\\update-dll-mingw',
-                \ 'cygwin' : 'make -f make_cygwin.mak',
-                \ 'mac' : 'make -f make_mac.mak',
-                \ 'linux' : 'make',
-                \ 'unix' : 'gmake',
-            \ },
-\ }
+    call dein#add('scrooloose/nerdcommenter')
+    call dein#add('majutsushi/tagbar')
+    call dein#add('tpope/vim-fugitive')
+    call dein#add('terryma/vim-multiple-cursors')
+    call dein#add('nathanaelkane/vim-indent-guides')
+    call dein#add('vsutil.vim')
+    call dein#add('VimRegEx.vim')
+    call dein#add('scrooloose/nerdtree')
+    call dein#add('jistr/vim-nerdtree-tabs')
+    call dein#add('Shougo/vimproc.vim'), {
+                \ 'build' : {
+                    \ 'windows' : 'tools\\update-dll-mingw',
+                    \ 'cygwin' : 'make -f make_cygwin.mak',
+                    \ 'mac' : 'make -f make_mac.mak',
+                    \ 'linux' : 'make',
+                    \ 'unix' : 'gmake',
+                \ },
+    \ }
 
-NeoBundle 'Raimondi/delimitMate'
+    call dein#add('Raimondi/delimitMate')
 
-NeoBundle 'justmao945/vim-clang'
-NeoBundle 'rhysd/vim-clang-format'
+    call dein#add('justmao945/vim-clang')
+    call dein#add('rhysd/vim-clang-format')
 
-NeoBundle 'Chiel92/vim-autoformat'
+    call dein#add('Chiel92/vim-autoformat')
 
-NeoBundle 'sukima/xmledit'
+    call dein#add('sukima/xmledit')
 
-"
-" Snippet Stuff
-NeoBundle 'SirVer/ultisnips'
-NeoBundle 'honza/vim-snippets'
-NeoBundle 'jphustman/ultisnippets'
+    "
+    " Snippet Stuff
+    call dein#add('SirVer/ultisnips')
+    call dein#add('honza/vim-snippets')
+    call dein#add('jphustman/ultisnippets')
 
-" There are other ways to install YouCompleteMe on Linux
-if WINDOWS()
-    NeoBundle 'Shougo/neocomplcache.vim'
-    NeoBundle 'Shougo/neosnippet.vim'
-endif
+    " There are other ways to install YouCompleteMe on Linux
+    if WINDOWS()
+        call dein#add('Shougo/neocomplcache.vim')
+    endif
 
-if OSX()
-    NeoBundle 'Valloric/YouCompleteMe'
-    NeoBundle 'rizzatti/dash.vim'
-endif
-
-
-" bufexplorer instructions {
-" be normal open
-" bt toggle open / close
-" bs force horizontal split open
-" bv force vertical split open
-" }
+    if OSX()
+        call dein#add('Valloric/YouCompleteMe')
+        call dein#add('rizzatti/dash.vim')
+    endif
 
 
-" javascript
-NeoBundle 'elzr/vim-json'
-NeoBundle 'groenewege/vim-less'
-NeoBundle 'pangloss/vim-javascript'
-NeoBundle 'kchmck/vim-coffee-script'
-NeoBundle 'othree/javascript-libraries-syntax.vim'
-NeoBundle 'matthewsimo/angular-vim-snippets'
-NeoBundle 'claco/jasmine.vim'
-NeoBundle 'burnettk/vim-angular'
-NeoBundle 'ternjs/tern_for_vim'
-
-" TypeScript
-NeoBundle 'leafgarland/typescript-vim'
-NeoBundle 'clausreinke/typescript-tools.vim'
-
-NeoBundle 'Quramy/tsuquyomi'
+    " bufexplorer instructions {
+    " be normal open
+    " bt toggle open / close
+    " bs force horizontal split open
+    " bv force vertical split open
+    " }
 
 
-" HTML
-NeoBundle 'amirh/HTML-AutoCloseTag'
-NeoBundle 'hail2u/vim-css3-syntax'
-NeoBundle 'gorodinskiy/vim-coloresque'
-NeoBundle 'tpope/vim-haml'
-NeoBundle 'kaihendry/vim-html5'
+    " javascript
+    call dein#add('elzr/vim-json')
+    call dein#add('groenewege/vim-less')
+    call dein#add('pangloss/vim-javascript')
+    call dein#add('kchmck/vim-coffee-script')
+    call dein#add('othree/javascript-libraries-syntax.vim')
+    call dein#add('matthewsimo/angular-vim-snippets')
+    call dein#add('claco/jasmine.vim')
+    call dein#add('burnettk/vim-angular')
+    call dein#add('ternjs/tern_for_vim')
 
-" PHP
-NeoBundle 'spf13/PIV' " PHP Integration for Vim
-NeoBundle 'blueyed/smarty.vim' " Smarty plugin for Vim
-NeoBundle 'arnaud-lb/vim-php-namespace'
-NeoBundle '2072/PHP-Indenting-for-VIm'
-NeoBundle 'stefanich/php.vim-html-enhanced'
+    " TypeScript
+    call dein#add('leafgarland/typescript-vim')
+    call dein#add('clausreinke/typescript-tools.vim')
 
-" Python
-NeoBundle 'klen/python-mode'
-NeoBundle 'python.vim'
-NeoBundle 'python_match.vim'
-NeoBundle 'pythoncomplete'
-
-" ColdFusion
-NeoBundle 'jphustman/vim-coldfusion-snippets'
+    call dein#add('Quramy/tsuquyomi')
 
 
-" *css
-NeoBundle 'cakebaker/scss-syntax.vim'
+    " HTML
+    call dein#add('amirh/HTML-AutoCloseTag')
+    call dein#add('hail2u/vim-css3-syntax')
+    call dein#add('gorodinskiy/vim-coloresque')
+    call dein#add('tpope/vim-haml')
+    call dein#add('kaihendry/vim-html5')
+
+    " PHP
+    call dein#add('spf13/PIV') " PHP Integration for Vim
+    call dein#add('blueyed/smarty.vim') " Smarty plugin for Vim
+    call dein#add('arnaud-lb/vim-php-namespace')
+    call dein#add('2072/PHP-Indenting-for-VIm')
+    call dein#add('stefanich/php.vim-html-enhanced')
+
+    " Python
+    call dein#add('klen/python-mode')
+    call dein#add('python.vim')
+    call dein#add('python_match.vim')
+    call dein#add('pythoncomplete')
+
+    " ColdFusion
+    call dein#add('jphustman/vim-coldfusion-snippets')
 
 
-NeoBundle 'tpope/vim-markdown'
+    " *css
+    call dein#add('cakebaker/scss-syntax.vim')
 
-" Arduino
-NeoBundle 'sudar/vim-arduino-syntax'
-NeoBundle 'jplaut/vim-arduino-ino'
 
-NeoBundle 'ynkdir/vim-vimlparser'
-NeoBundle 'syngan/vim-vimlint', {
-    \ 'depends' : 'ynkdir/vim-vimlparser'}
+    call dein#add('tpope/vim-markdown')
 
-NeoBundle 'jphustman/VimIRC.vim'
+    " Arduino
+    call dein#add('sudar/vim-arduino-syntax')
+    call dein#add('jplaut/vim-arduino-ino')
 
-NeoBundle 'wikitopian/hardmode'
+    call dein#add('ynkdir/vim-vimlparser')
+    call dein#add('syngan/vim-vimlint'), {
+        \ 'depends' : 'ynkdir/vim-vimlparser'}
 
-call neobundle#end()
+    call dein#add('jphustman/VimIRC.vim')
 
-filetype plugin indent on    " Required!
+    call dein#add('wikitopian/hardmode')
 
-NeoBundleCheck
-" }
+    call dein#end()
+
+    filetype plugin indent on    " Required!
+    syntax enable
+
+    " If you want to install not installed plugins on startup.
+    if dein#check_install()
+        call dein#install()
+    endif
+
+" End dein scripts }
 
 " NERDCommenter Config {
 let g:NERDSpaceDelims = 1     " Add space between comment and code
@@ -621,7 +627,6 @@ autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 " json folding
 autocmd FileType json setlocal foldmethod=syntax foldlevel=1
 
-syntax enable
 set nospell
 set mouse=a
 set mousehide
