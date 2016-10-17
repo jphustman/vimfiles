@@ -62,7 +62,8 @@ set encoding=utf8
     if WINDOWS()
         call dein#add('bling/vim-airline')
     else
-        call dein#add('Lokaltog/powerline'), {'rtp':'~/.vim/bundle/powerline/powerline/bindings/vim'}
+        call dein#add('Lokaltog/powerline', {
+                    \ 'rtp': '~/.vim/bundle/repos/github.com/Lokaltog/powerline/powerline/bindings/vim'})
     endif
 
     call dein#add('scrooloose/nerdcommenter')
@@ -74,15 +75,15 @@ set encoding=utf8
     call dein#add('VimRegEx.vim')
     call dein#add('scrooloose/nerdtree')
     call dein#add('jistr/vim-nerdtree-tabs')
-    call dein#add('Shougo/vimproc.vim'), {
+    call dein#add('Shougo/vimproc.vim', {
                 \ 'build' : {
                     \ 'windows' : 'tools\\update-dll-mingw',
                     \ 'cygwin' : 'make -f make_cygwin.mak',
                     \ 'mac' : 'make -f make_mac.mak',
                     \ 'linux' : 'make',
-                    \ 'unix' : 'gmake',
-                \ },
-    \ }
+                    \ 'unix' : 'gmake'
+                    \ }
+    \ })
 
     call dein#add('Raimondi/delimitMate')
 
@@ -171,8 +172,8 @@ set encoding=utf8
     call dein#add('jplaut/vim-arduino-ino')
 
     call dein#add('ynkdir/vim-vimlparser')
-    call dein#add('syngan/vim-vimlint'), {
-        \ 'depends' : 'ynkdir/vim-vimlparser'}
+    call dein#add('syngan/vim-vimlint', {
+        \ 'depends' : 'ynkdir/vim-vimlparser'})
 
     call dein#add('jphustman/VimIRC.vim')
 
