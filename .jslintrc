@@ -1,8 +1,11 @@
 {
-	"edition": latest,
-	"white": false,
-	"maxlen": 120,
-	"indent": 2,
-	"fudge": true
+    "evil": false,
+    "fudge": true,
+    "indent": 4,
+    "vars": true,
+    "passfail": false,
+    "plusplus": false,
+    "dangle": false,
+    "predef": "module,require,angular"
 }
 

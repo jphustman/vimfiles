@@ -22,164 +22,174 @@ if has('vim_starting')
     endif
 
     " Required:
-	set runtimepath+=~/.vim/bundle/neobundle.vim/
+    set runtimepath+=~/.vim/bundle/repos/github.com/Shougo/dein.vim
 endif
 
 let g:netrw_liststyle=3
 scriptencoding utf-8                    " Character encoding
-
 set encoding=utf8
 
 " Bundles {
-" filetype off
-call neobundle#begin(expand('~/.vim/bundle/'))
+    " Required:
+    call dein#begin(expand('~/.vim/bundle'))
 
-" Let NeoBundle manage NeoBundle
-" Required
-NeoBundleFetch 'Shougo/neobundle.vim'
+    " Let dein manage dein
+    " Required:
+    call dein#add('Shougo/dein.vim')
+    " call dein#add('Shougo/neocomplete.vim')
+    call dein#add('Shougo/neosnippet.vim')
+    call dein#add('Shougo/neosnippet-snippets')
 
-" My Bundles here:
-NeoBundle 'git@github.com:jphustman/cf-utils.vim'
-NeoBundle 'altercation/vim-colors-solarized'
-NeoBundle 'scrooloose/syntastic'
-NeoBundle 'cflint/cflint-syntastic'
-NeoBundle 'tpope/vim-surround'
-NeoBundle 'matchit.zip'
-NeoBundle 'jphustman/Align.vim'
-NeoBundle 'jphustman/SQLUtilities'
-NeoBundle 'jphustman/dbext.vim'
-NeoBundle 'jlanzarotta/bufexplorer'
-NeoBundle 'jtratner/vim-flavored-markdown'
-NeoBundle 'rstacruz/sparkup'
+    " My Bundles here:
+    call dein#add('git@github.com:jphustman/cf-utils.vim')
+    call dein#add('altercation/vim-colors-solarized')
+    call dein#add('scrooloose/syntastic')
+    call dein#add('cflint/cflint-syntastic')
+    call dein#add('tpope/vim-surround')
+    call dein#add('matchit.zip')
+    call dein#add('jphustman/Align.vim')
+    call dein#add('jphustman/SQLUtilities')
+    call dein#add('jphustman/dbext.vim')
+    call dein#add('jlanzarotta/bufexplorer')
+    call dein#add('jtratner/vim-flavored-markdown')
+    call dein#add('joonty/vdebug.git')
+    call dein#add('rstacruz/sparkup')
 
-NeoBundle 'editorconfig/editorconfig-vim'
+    call dein#add('editorconfig/editorconfig-vim')
 
-NeoBundle 'junegunn/goyo.vim'
+    call dein#add('junegunn/goyo.vim')
 
-if WINDOWS()
-    NeoBundle 'bling/vim-airline'
-else
-	NeoBundle 'Lokaltog/powerline', {'rtp':'~/.vim/bundle/powerline/powerline/bindings/vim'}
-endif
+    if WINDOWS()
+        call dein#add('bling/vim-airline')
+    else
+        call dein#add('Lokaltog/powerline', {
+                    \ 'rtp': '~/.vim/bundle/repos/github.com/Lokaltog/powerline/powerline/bindings/vim'})
+    endif
 
-NeoBundle 'scrooloose/nerdcommenter'
-NeoBundle 'majutsushi/tagbar'
-NeoBundle 'tpope/vim-fugitive'
-NeoBundle 'terryma/vim-multiple-cursors'
-NeoBundle 'nathanaelkane/vim-indent-guides'
-NeoBundle 'vsutil.vim'
-NeoBundle 'VimRegEx.vim'
-NeoBundle 'scrooloose/nerdtree'
-NeoBundle 'jistr/vim-nerdtree-tabs'
-NeoBundle 'Shougo/vimproc.vim', {
-            \ 'build' : {
-                \ 'windows' : 'tools\\update-dll-mingw',
-                \ 'cygwin' : 'make -f make_cygwin.mak',
-                \ 'mac' : 'make -f make_mac.mak',
-                \ 'linux' : 'make',
-                \ 'unix' : 'gmake',
-            \ },
-\ }
+    call dein#add('scrooloose/nerdcommenter')
+    call dein#add('majutsushi/tagbar')
+    call dein#add('tpope/vim-fugitive')
+    call dein#add('terryma/vim-multiple-cursors')
+    call dein#add('nathanaelkane/vim-indent-guides')
+    call dein#add('vsutil.vim')
+    call dein#add('VimRegEx.vim')
+    call dein#add('scrooloose/nerdtree')
+    call dein#add('jistr/vim-nerdtree-tabs')
+    call dein#add('Shougo/vimproc.vim', {
+                \ 'build' : {
+                    \ 'windows' : 'tools\\update-dll-mingw',
+                    \ 'cygwin' : 'make -f make_cygwin.mak',
+                    \ 'mac' : 'make -f make_mac.mak',
+                    \ 'linux' : 'make',
+                    \ 'unix' : 'gmake'
+                    \ }
+    \ })
 
-NeoBundle 'Raimondi/delimitMate'
+    call dein#add('Raimondi/delimitMate')
 
-NeoBundle 'justmao945/vim-clang'
-NeoBundle 'rhysd/vim-clang-format'
+    call dein#add('justmao945/vim-clang')
+    call dein#add('rhysd/vim-clang-format')
 
-NeoBundle 'Chiel92/vim-autoformat'
+    call dein#add('Chiel92/vim-autoformat')
 
-"
-" Snippet Stuff
-NeoBundle 'SirVer/ultisnips'
-NeoBundle 'honza/vim-snippets'
-NeoBundle 'jphustman/ultisnippets'
+    call dein#add('sukima/xmledit')
 
-" There are other ways to install YouCompleteMe on Linux
-if WINDOWS()
-    NeoBundle 'Shougo/neocomplcache.vim'
-    NeoBundle 'Shougo/neosnippet.vim'
-endif
+    "
+    " Snippet Stuff
+    call dein#add('SirVer/ultisnips')
+    call dein#add('honza/vim-snippets')
+    call dein#add('jphustman/ultisnippets')
 
-if OSX()
-    NeoBundle 'Valloric/YouCompleteMe'
-	NeoBundle 'rizzatti/dash.vim'
-endif
+    " There are other ways to install YouCompleteMe on Linux
+    if WINDOWS()
+        call dein#add('Shougo/neocomplcache.vim')
+    endif
 
-
-" bufexplorer instructions {
-" be normal open
-" bt toggle open / close
-" bs force horizontal split open
-" bv force vertical split open
-" }
+    if OSX()
+        call dein#add('Valloric/YouCompleteMe')
+        call dein#add('rizzatti/dash.vim')
+    endif
 
 
-" javascript
-NeoBundle 'elzr/vim-json'
-NeoBundle 'groenewege/vim-less'
-NeoBundle 'pangloss/vim-javascript'
-NeoBundle 'kchmck/vim-coffee-script'
-NeoBundle 'othree/javascript-libraries-syntax.vim'
-NeoBundle 'matthewsimo/angular-vim-snippets'
-NeoBundle 'claco/jasmine.vim'
-NeoBundle 'burnettk/vim-angular'
-NeoBundle 'ternjs/tern_for_vim'
-
-" TypeScript
-NeoBundle 'leafgarland/typescript-vim'
-NeoBundle 'clausreinke/typescript-tools.vim'
-
-NeoBundle 'Quramy/tsuquyomi'
+    " bufexplorer instructions {
+    " be normal open
+    " bt toggle open / close
+    " bs force horizontal split open
+    " bv force vertical split open
+    " }
 
 
-" HTML
-NeoBundle 'amirh/HTML-AutoCloseTag'
-NeoBundle 'hail2u/vim-css3-syntax'
-NeoBundle 'gorodinskiy/vim-coloresque'
-NeoBundle 'tpope/vim-haml'
-NeoBundle 'kaihendry/vim-html5'
+    " javascript
+    call dein#add('elzr/vim-json')
+    call dein#add('groenewege/vim-less')
+    call dein#add('pangloss/vim-javascript')
+    call dein#add('kchmck/vim-coffee-script')
+    call dein#add('othree/javascript-libraries-syntax.vim')
+    call dein#add('matthewsimo/angular-vim-snippets')
+    call dein#add('claco/jasmine.vim')
+    call dein#add('burnettk/vim-angular')
+    call dein#add('ternjs/tern_for_vim')
 
-" PHP
-NeoBundle 'spf13/PIV' " PHP Integration for Vim
-NeoBundle 'blueyed/smarty.vim' " Smarty plugin for Vim
-NeoBundle 'arnaud-lb/vim-php-namespace'
-NeoBundle '2072/PHP-Indenting-for-VIm'
-NeoBundle 'stefanich/php.vim-html-enhanced'
+    " TypeScript
+    call dein#add('leafgarland/typescript-vim')
+    call dein#add('clausreinke/typescript-tools.vim')
 
-" Python
-NeoBundle 'klen/python-mode'
-NeoBundle 'python.vim'
-NeoBundle 'python_match.vim'
-NeoBundle 'pythoncomplete'
-
-" ColdFusion
-NeoBundle 'jphustman/vim-coldfusion-snippets'
+    call dein#add('Quramy/tsuquyomi')
 
 
-" *css
-NeoBundle 'cakebaker/scss-syntax.vim'
+    " HTML
+    call dein#add('amirh/HTML-AutoCloseTag')
+    call dein#add('hail2u/vim-css3-syntax')
+    call dein#add('gorodinskiy/vim-coloresque')
+    call dein#add('tpope/vim-haml')
+    call dein#add('kaihendry/vim-html5')
+
+    " PHP
+    call dein#add('spf13/PIV') " PHP Integration for Vim
+    call dein#add('blueyed/smarty.vim') " Smarty plugin for Vim
+    call dein#add('arnaud-lb/vim-php-namespace')
+    call dein#add('2072/PHP-Indenting-for-VIm')
+    call dein#add('stefanich/php.vim-html-enhanced')
+
+    " Python
+    call dein#add('klen/python-mode')
+    call dein#add('python.vim')
+    call dein#add('python_match.vim')
+    call dein#add('pythoncomplete')
+
+    " ColdFusion
+    call dein#add('jphustman/vim-coldfusion-snippets')
 
 
-NeoBundle 'tpope/vim-markdown'
+    " *css
+    call dein#add('cakebaker/scss-syntax.vim')
 
-" Arduino
-NeoBundle 'sudar/vim-arduino-syntax'
-NeoBundle 'jplaut/vim-arduino-ino'
 
-NeoBundle 'ynkdir/vim-vimlparser'
-NeoBundle 'syngan/vim-vimlint', {
-    \ 'depends' : 'ynkdir/vim-vimlparser'}
+    call dein#add('tpope/vim-markdown')
 
-NeoBundle 'jphustman/VimIRC.vim'
+    " Arduino
+    call dein#add('sudar/vim-arduino-syntax')
+    call dein#add('jplaut/vim-arduino-ino')
 
-NeoBundle 'wikitopian/hardmode'
+    call dein#add('ynkdir/vim-vimlparser')
+    call dein#add('syngan/vim-vimlint', {
+        \ 'depends' : 'ynkdir/vim-vimlparser'})
 
-call neobundle#end()
+    call dein#add('jphustman/VimIRC.vim')
 
-filetype plugin indent on    " Required!
+    call dein#add('wikitopian/hardmode')
 
-NeoBundleCheck
-" }
+    call dein#end()
+
+    filetype plugin indent on    " Required!
+    syntax enable
+
+    " If you want to install not installed plugins on startup.
+    if dein#check_install()
+        call dein#install()
+    endif
+
+" End dein scripts }
 
 " NERDCommenter Config {
 let g:NERDSpaceDelims = 1     " Add space between comment and code
@@ -194,7 +204,8 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 let g:syntastic_aggregate_errors = 1
 "let g:syntastic_javascript_checkers=['eslint', 'jshint', 'jslint']
-let g:syntastic_javascript_checkers=['jshint']
+let g:syntastic_javascript_checkers=['jslint']
+let g:syntastic_javascript_jslint_args='--config ~/jslint.conf'
 let g:syntastic_sh_checkers=['shellcheck']
 let g:syntastic_css_checkers=['csslint']
 let g:syntastic_scss_checkers = ['scss_lint']
@@ -206,8 +217,14 @@ let g:syntastic_html_checkers=['tidy', 'jshint']
 let g:syntastic_php_checkers=['php', 'phplint', 'jshint']
 let g:syntastic_vim_checkers=['vimlint']
 let g:syntastic_typescript_checkers=['tslint']
+let g:syntastic_typescript_tslint_args = "--config ~/tslint.json"
+
+
+let g:syntastic_c_checkers=['clang_check', 'clang_tidy', 'gcc', 'make']
+let g:syntastic_c_check_header = 1
 "let g:syntastic_typescript_checkers=['eslint']
 "let g:syntastic_typescript_checkers=['tsc']
+
 
 "function! ESLintArgs()
     "let rules = findfile('.eslintrc', '.;')
@@ -232,9 +249,6 @@ let g:javascript_enable_domhtmlcss = 1
 " UltiSnips {
     let g:UltiSnipsSnippetDirectories=['UltiSnips']
 " }
-
-" Editorconfig fugitive fix
-let g:EditorConfig_exclude_patterns=['fugitive://.*']
 
 " NeoSnippet {
 "let g:neosnippet#snippets_directory += "./snippets"
@@ -273,7 +287,7 @@ set tags=./tags;
 " Make tags placed in .git/tags file available in all levels of a repository
 let g:gitroot = substitute(system('git rev-parse --show-toplevel'), '[\n\r]', '', 'g')
 if gitroot != ''
-	let &tags = &tags . ',' . gitroot . '/.git/tags'
+    let &tags = &tags . ',' . gitroot . '/.git/tags'
 endif
 
 " Use flavored-markdown by default {
@@ -410,41 +424,41 @@ set statusline+=%*
 
 " YouCompleteMe and UltiSnips {
 if LINUX()
-	let g:acp_enableAtStartup = 0
+    let g:acp_enableAtStartup = 0
 
-	" enable completion from tags
-	let g:ycm_collect_identifiers_from_tags_files = 1
+    " enable completion from tags
+    let g:ycm_collect_identifiers_from_tags_files = 1
 
-	" remap Ultisnips for compatibility for YCM
-	let g:UltiSnipsExpandTrigger = '<C-j>'
-	let g:UltiSnipsJumpForwardTrigger = '<C-j>'
-	let g:UltiSnipsJumpBackwardTrigger = '<C-k>'
+    " remap Ultisnips for compatibility for YCM
+    let g:UltiSnipsExpandTrigger = '<C-j>'
+    let g:UltiSnipsJumpForwardTrigger = '<C-j>'
+    let g:UltiSnipsJumpBackwardTrigger = '<C-k>'
 
-	" Enable omni completion.
-	autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-	autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-	autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-	autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-	autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-	autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
-	autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
+    " Enable omni completion.
+    autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+    autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+    autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+    autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+    autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+    autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
+    autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
 
-	" Haskell post write lint and check with ghcmod
-	" $ `cabal install ghcmod` if missing and ensure
-	" ~/.cabal/bin is in your $PATH.
-	if !executable("ghcmod")
-		autocmd BufWritePost *.hs GhcModCheckAndLintAsync
-	endif
+    " Haskell post write lint and check with ghcmod
+    " $ `cabal install ghcmod` if missing and ensure
+    " ~/.cabal/bin is in your $PATH.
+    if !executable("ghcmod")
+        autocmd BufWritePost *.hs GhcModCheckAndLintAsync
+    endif
 
-	" For snippet_complete marker.
-	if has('conceal')
-		set conceallevel=2 concealcursor=i
-	endif
+    " For snippet_complete marker.
+    if has('conceal')
+        set conceallevel=2 concealcursor=i
+    endif
 
-	" Disable the neosnippet preview candidate window
-	" When enabled, there can be too much visual noise
-	" especially when splits are used.
-	set completeopt-=preview
+    " Disable the neosnippet preview candidate window
+    " When enabled, there can be too much visual noise
+    " especially when splits are used.
+    set completeopt-=preview
 
     let g:ycm_server_use_vim_stdout=0
     let g:ycm_server_keep_logfiles=1
@@ -519,11 +533,11 @@ endif
 
 " General
 if OSX() |
-	set background=light
-	" set guioptions+=T
+    set background=light
+    " set guioptions+=T
 else
     set background=dark "linux
-	"set background=light
+    "set background=light
 endif
 
 set guioptions+=TlrLR
@@ -531,40 +545,82 @@ set guioptions+=TlrLR
 
 " Gui {
 if has('gui_running')
-	if !exists('g:spf13_no_big_font')
-		if LINUX() && has('gui_running')
-			" set guifont=Source\ Code\ Pro\ 10
-            " set guifont=Inconsolata-dz\ for\ Powerline\ Medium\ 10,Inconsolata\ Medium\ 12,Source\ Code\ 12
+    if !exists('g:spf13_no_big_font')
+        if LINUX() && has('gui_running')
+            " set guifont=Source\ Code\ Pro\ 10
+            " set guifont=Inconsolata-dz\ for\ Powerline,Medium\ 10
             set guifont=Inconsolata\ Medium\ 12
-		elseif OSX() && has('gui_running')
-			set guifont=Inconsolata\ for\ Powerline:h14
-		elseif WINDOWS() && has('gui_running')
-			set guifont=Andale_Mono:h10,Menlo:h10,Consolas:h10,Courier_New:h10
-		endif
-	endif
+        elseif OSX() && has('gui_running')
+            set guifont=Inconsolata\ for\ Powerline:h14
+        elseif WINDOWS() && has('gui_running')
+            set guifont=Andale_Mono:h10,Menlo:h10,Consolas:h10,Courier_New:h10
+        endif
+    endif
 else
-	if &term == 'xterm' || &term == 'screen'
-		set t_Co=256            " Enable 256 colors to stop the CSApprox warning and make xterm vim shine
-		set background=light
-	endif
-	"set term=builtin_ansi       " Make arrow and other keys work
+    if &term == 'xterm' || &term == 'screen'
+        set t_Co=256            " Enable 256 colors to stop the CSApprox warning and make xterm vim shine
+        set background=light
+    endif
+    "set term=builtin_ansi       " Make arrow and other keys work
 endif
 " }
 
-" Variables {
+" Settings {
 set complete+=kspell
 
-set ttyfast					" Smoother terminal connection
-set hidden					" Change buffer without saving
-set magic					" Better searching
+set ttyfast                  " Smoother terminal connection
+set hidden                   " Change buffer without saving
+set magic                    " Better searching
 set lazyredraw
 
 set viewoptions=folds,options,cursor,unix,slash
 
 
 
-set autoread				" Autoread a file when it's changed from outside
+set autoread                " Autoread a file when it's changed from outside
 
+set showmatch
+set matchtime=3
+
+set incsearch
+set hlsearch
+
+set backspace=indent,eol,start
+set linespace=0
+
+set winminheight=0
+set ignorecase
+set smartcase
+set whichwrap=b,s,h,l,<,>,[,]
+set scrolljump=5
+set scrolloff=3
+
+
+set foldlevelstart=0
+set foldenable
+"set foldmethod=indent
+"set foldclose=all
+
+" List chars (from Janus)
+" set list
+" set listchars=""            " Reset listchars
+" set listchars=nbsp:¬,eol:¶,tab:>-,extends:»,precedes:«,trail:.
+exec "set listchars=tab:\uBB\uBB,trail:\uB7,nbsp:~"
+set list
+
+" Previous worked out ok
+"set listchars=""            " Reset the listchars
+"set listchars=tab:\ \       " a tab should display as "  ", trailing whitespace as "."
+"set listchars+=trail:.      " show trailing spaces as dots
+"set listchars+=extends:?    " The character to show in the last column when wrap is
+                            " off and the line continues beyond the right of the screen
+"set listchars+=precedes:?   " The character to show in the last column when wrap is
+                            " off and the line continues beyond the left of the screen
+
+" End Previous worked out ok
+
+"set listchars=tab:?\ ,trail:?,extends:#,nbsp:. " Highlight problematic whitespace
+"set listchars+=precedes:<,extends:>
 
 " stop autocommenting
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
@@ -572,7 +628,6 @@ autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 " json folding
 autocmd FileType json setlocal foldmethod=syntax foldlevel=1
 
-syntax enable
 set nospell
 set mouse=a
 set mousehide
@@ -633,6 +688,8 @@ set smartindent
 
 
 
+set number
+set sidescroll=5
 
 
 
@@ -645,7 +702,10 @@ set virtualedit=onemore
 set cursorline
 set tabpagemax=15
 
-autocmd FileType javascript setlocal tabstop=2 shiftwidth=2 expandtab
+" }
+
+" autocommands {
+autocmd FileType javascript setlocal tabstop=4 shiftwidth=4 expandtab
 autocmd FileType typescript setlocal tabstop=2 shiftwidth=2 expandtab
 autocmd FileType scss setlocal ts=2 sw=2 expandtab
 autocmd FileType css setlocal ts=2 sw=2 expandtab
@@ -655,19 +715,21 @@ au BufRead, BufNewFile *.ts setlocal filetype=typescript
 
 " }
 
+
 " For when you forget to sudo.. Really write the file
 cmap w!! w !sudo tee % >/dev/null
 
-"set backup
+" set backup {
 if has('persistent_undo')
-	set undofile
-	set undolevels=1000
-	set undoreload=10000
+    set undofile
+    set undolevels=1000
+    set undoreload=10000
 endif
 
 set history=1000
-set number
-set sidescroll=5
+
+" }
+
 let g:mapleader=','
 let g:maplocalleader=',,'
 
@@ -707,6 +769,8 @@ set wildignore+=*.zip                             " zip
 
 
 " Mappings {
+imap jk <Esc>
+
 noremap <leader>- ddp
 noremap <leader>_ ddkP
 inoremap <leader><c-u> <esc>bveU$a
@@ -718,18 +782,12 @@ nnoremap <leader>sv :source $MYVIMRC<cr>
 
 nnoremap <leader><space> :Goyo<cr>
 
-" Rewire n and N to do the highlighting...
-nnoremap <silent> n n:call HLNext(0.2)<cr>
-nnoremap <silent> N N:call HLNext(0.2)<cr>
 
 " Fast Saving
 nnoremap <leader>w :w!<cr>
 " e2e matching
 nnoremap <tab> %
 vnoremap <tab> %
-
-" Automatically place cursor after open bracket
-inoremap {<CR> {<CR>}<C-o>==<C-o>O
 
 " better and faster movement
 nnoremap j gj
@@ -755,50 +813,6 @@ vnoremap <Space> za
 
 " Easy expansion
 cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h') . '/' : '%%'
-
-
-nnoremap H O
-nnoremap L $
-
-" highlight line so you can find it quickly after scrolling away
-nnoremap <silent> <Leader>l ml:execute 'match Search /\%'.line('.').'l/'<CR>
-
-nmap <F2> :SyntasticCheck<CR>
-nmap <S-F2> :SyntasticToggleMode<CR>
-
-nmap <F3> :set list!<CR>
-
-nmap <F4> vii:sort i<cr>
-vnoremap <F4> :sort i<cr>
-
-nmap <F6> :lprev<cr>
-nmap <F7> :lnext<cr>
-
-nmap <F8> :TagbarToggle<CR>
-
-map <F9> :call ToggleBGColor()<CR>
-
-nnoremap <leader>8 :lprev<CR>
-nnoremap <leader>9 :<CR>
-
-nnoremap <leader> :%s//\r/g<CR>
-
-
-" insert equals sign for faster assignments
-inoremap <c-l> <space>=<space>
-
-" function
-inoremap <c-f> function () {<cr>});<esc>O
-
-function! ToggleBGColor ()
-	if (&background == 'light')
-		set background=dark
-		echo 'background -> dark'
-	else
-		set background=light
-		echo 'background -> light'
-	endif
-endfunction
 
 nmap <leader>/ :nohlsearch<CR>
 
@@ -827,59 +841,61 @@ nmap <leader>fman :set foldmethod=manual<CR>
 nmap <leader>fsyn :set foldmethod=syntax<CR>
 nmap <leader>find :set foldmethod=indent<CR>
 nmap <leader>fmark :set foldmethod=marker<CR>
+
+nnoremap H O
+nnoremap L $
+
+" highlight line so you can find it quickly after scrolling away
+nnoremap <silent> <Leader>l ml:execute 'match Search /\%'.line('.').'l/'<CR>
+
+nmap <F2> :SyntasticCheck<CR>
+nmap <S-F2> :SyntasticToggleMode<CR>
+
+nmap <F3> :set list!<CR>
+
+nmap <F4> vii:sort i<cr>
+vnoremap <F4> :sort i<cr>
+
+nmap <F6> :lprev<cr>
+nmap <F7> :lnext<cr>
+
+nmap <F8> :TagbarToggle<CR>
+
+map <F9> :call ToggleBGColor()<CR>
+
+nnoremap <leader>8 :lprev<CR>
+nnoremap <leader>9 :<CR>
+
+nnoremap <leader> :%s//\r/g<CR>
+
+
+
+" insert equals sign for faster assignments
+inoremap <c-l> <space>=<space>
+
+
 " }
+
+" function
+inoremap <c-f> function () {<cr>});<esc>O
+
+" Automatically place cursor after open bracket
+inoremap {<CR> {<CR>}<C-o>==<C-o>O
+inoremap [<CR> [<CR>]<C-o>==<C-o>O
 
 " Find merge conflict markers
 map <leader>fc /\v^[<\|=>]{7}( .*\|$)<CR>
 
-" misc {
-
-iabbrev adn and
-iabbrev waht what
-iabbrev tehn then
-
-
-set showmatch
-set matchtime=3
-
-set incsearch
-set hlsearch
-
-set backspace=indent,eol,start
-set linespace=0
-
-set winminheight=0
-set ignorecase
-set smartcase
-set whichwrap=b,s,h,l,<,>,[,]
-set scrolljump=5
-set scrolloff=3
-
-
-set foldlevelstart=0
-set foldenable
-"set foldmethod=indent
-"set foldclose=all
-
-" List chars (from Janus)
-" set list
-set listchars=""            " Reset listchars
-set listchars=nbsp:¬,eol:¶,tab:>-,extends:»,precedes:«,trail:.
-
-
-" Previous worked out ok
-"set listchars=""            " Reset the listchars
-"set listchars=tab:\ \       " a tab should display as "  ", trailing whitespace as "."
-"set listchars+=trail:.      " show trailing spaces as dots
-"set listchars+=extends:?    " The character to show in the last column when wrap is
-                            " off and the line continues beyond the right of the screen
-"set listchars+=precedes:?   " The character to show in the last column when wrap is
-                            " off and the line continues beyond the left of the screen
-
-" End Previous worked out ok
-
-"set listchars=tab:?\ ,trail:?,extends:#,nbsp:. " Highlight problematic whitespace
-"set listchars+=precedes:<,extends:>
+" functions {
+function! ToggleBGColor ()
+    if (&background == 'light')
+        set background=dark
+        echo 'background -> dark'
+    else
+        set background=light
+        echo 'background -> light'
+    endif
+endfunction
 
 function! NumberToggle()
     if(&relativenumber == 1)
@@ -892,11 +908,17 @@ endfunc
 nnoremap <C-m> :call NumberToggle()<cr>
 
 function! Sorted(l)
-	let new_list = deepcopy(a:l)
-	call sort(new_list)
-	return new_list
+    let new_list = deepcopy(a:l)
+    call sort(new_list)
+    return new_list
 endfunction
 
+" }
+
+
+iabbrev adn and
+iabbrev waht what
+iabbrev tehn then
 " }
 
 " JSON remove concealing
@@ -911,8 +933,8 @@ vnoremap <C-c> "+y
 set exrc	" enable directory specific .vimrc
 set secure	"
 augroup project
-	autocmd!
-	autocmd BufRead,BufNewFile *.h,*.c set filetype=c.doxygen
+    autocmd!
+    autocmd BufRead,BufNewFile *.h,*.c set filetype=c.doxygen
 augroup END
 let &path.='src/include,/usr/include/AL,'
 set includeexpr=substitute(v:fname,'\\.','/','g')
@@ -926,61 +948,77 @@ au BufRead,BufNewFile *.ino,*.pde set filetype=arduino
 
 " \ RegularInitialize directories {
 function! InitializeDirectories()
-	let parent = $HOME
-	let prefix = 'vim'
-	let dir_list = {
-				\ 'backup': 'backupdir',
-				\ 'views': 'viewdir',
-				\ 'swap': 'directory' }
+    let parent = $HOME
+    let prefix = 'vim'
+    let dir_list = {
+                \ 'backup': 'backupdir',
+                \ 'views': 'viewdir',
+                \ 'swap': 'directory' }
 
-	if has('persistent_undo')
-		let dir_list['undo'] = 'undodir'
-	endif
+    if has('persistent_undo')
+        let dir_list['undo'] = 'undodir'
+    endif
 
-	let common_dir = parent . '/.' . prefix
+    let common_dir = parent . '/.' . prefix
 
-	for [dirname, settingname] in items(dir_list)
-		let directory = common_dir . dirname . '/'
-		if exists('*mkdir')
-			if !isdirectory(directory)
-				call mkdir(directory)
-			endif
-		endif
-		if !isdirectory(directory)
-			echo 'Warning: Unable to create backup directory: ' . directory
-			echo 'Try: mkdir -p ' . directory
-		else
-			let directory = substitute(directory, ' ', '\\\\ ', 'g')
-			exec 'set ' . settingname . '=' . directory
-		endif
-	endfor
+    for [dirname, settingname] in items(dir_list)
+        let directory = common_dir . dirname . '/'
+        if exists('*mkdir')
+            if !isdirectory(directory)
+                call mkdir(directory)
+            endif
+        endif
+        if !isdirectory(directory)
+            echo 'Warning: Unable to create backup directory: ' . directory
+            echo 'Try: mkdir -p ' . directory
+        else
+            let directory = substitute(directory, ' ', '\\\\ ', 'g')
+            exec 'set ' . settingname . '=' . directory
+        endif
+    endfor
 endfunction
 call InitializeDirectories()
 " }
 
+" ===[ Highlight matches when jumping to next ]=== {
+" see https://ubuntuincident.wordpress.com/2013/12/13/vim-tricks-by-damian-conway/
+
+" This rewires n and N to do the highlighting...
+nnoremap <silent> n n:call HLNext(0.4)<cr>
+nnoremap <silent> N N:call HLNext(0.4)<cr>
+
+" OR ELSE ring the match in red...
 function! HLNext (blinktime)
-  highlight WhiteOnRed ctermfg=white ctermbg=red
+  highlight RedOnRed ctermfg=red ctermbg=red
   let [bufnum, lnum, col, off] = getpos('.')
   let matchlen = strlen(matchstr(strpart(getline('.'),col-1),@/))
-  let target_pat = '\c\%#'.@/
-  let ring = matchadd('WhiteOnRed', target_pat, 101)
+  echo matchlen
+  let ring_pat = (lnum > 1 ? '\%'.(lnum-1).'l\%>'.max([col-4,1]) .'v\%<'.(col+matchlen+3).'v.\|' : '')
+              \ . '\%'.lnum.'l\%>'.max([col-4,1]) .'v\%<'.col.'v.'
+              \ . '\|'
+              \ . '\%'.lnum.'l\%>'.max([col+matchlen-1,1]) .'v\%<'.(col+matchlen+3).'v.'
+              \ . '\|'
+              \ . '\%'.(lnum+1).'l\%>'.max([col-4,1]) .'v\%<'.(col+matchlen+3).'v.'
+  let ring = matchadd('RedOnRed', ring_pat, 101)
   redraw
   exec 'sleep ' . float2nr(a:blinktime * 1000) . 'm'
   call matchdelete(ring)
   redraw
 endfunction
+" }
+
 
 " remove trailing whitespace {
 autocmd FileType * autocmd BufWritePre <buffer> call StripTrailingWhitespace()
 function! StripTrailingWhitespace()
-	" save last search and cursor position
-	let _s=@/
-	let l = line('.')
-	let c = col('.')
+    " save last search and cursor position
+    let _s=@/
+    let l = line('.')
+    let c = col('.')
 
-	%s/\s\+$//e
-	let @/=_s
-	call cursor(l, c)
+    %s/\s\+$//e
+    let @/=_s
+    call cursor(l, c)
 endfunction
 " }
 
