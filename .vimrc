@@ -731,7 +731,6 @@ set history=1000
 " }
 
 let g:mapleader=','
-let g:maplocalleader=',,'
 
 " Wild settings (from Pascal Precht)
 set wildmenu                                      " Enable wild menu
