@@ -14,7 +14,10 @@ ln -s vimfiles/.Xresources .Xresources
 ln -s vimfiles/tslint.json tslint.json
 ln -s vimfiles/.tmux.conf .tmux.conf
 
-git clone git@github.com:Shougo/neobundle.vim .vim/bundle/neobundle.vim
+git clone git@github.com:Shougo/dein.vim .vim/bundle/repos/github.com/Shougo/dein.vim
 
-vim +NeoBundleInstall!
+vim
+
+call dein#update() to update
+call dein#install() to install
 ```
