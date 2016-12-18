@@ -1,7 +1,5 @@
 " vim: set sw=4 ts=4 sts=4 et tw=78 foldmarker={,} foldlevel=0 foldmethod=marker spell:
-" :NeoBundleList        - list configured bundles
-" :NeoBundleInstall(!)  - install (update) bundles
-" :NeoBundleClean(!)    - confirm (or auto-approve) removal of bundles
+" :call dein#install()  - install (update) bundles
 "
 " spell Identify platform {
 silent function! OSX()
