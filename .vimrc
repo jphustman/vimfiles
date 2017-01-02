@@ -34,7 +34,6 @@ set encoding=utf8
     " Let dein manage dein
     " Required:
     call dein#add('Shougo/dein.vim')
-    " call dein#add('Shougo/neocomplete.vim')
     call dein#add('Shougo/neosnippet.vim')
     call dein#add('Shougo/neosnippet-snippets')
 
@@ -73,15 +72,7 @@ set encoding=utf8
     call dein#add('VimRegEx.vim')
     call dein#add('scrooloose/nerdtree')
     call dein#add('jistr/vim-nerdtree-tabs')
-    call dein#add('Shougo/vimproc.vim', {
-                \ 'build' : {
-                    \ 'windows' : 'tools\\update-dll-mingw',
-                    \ 'cygwin' : 'make -f make_cygwin.mak',
-                    \ 'mac' : 'make -f make_mac.mak',
-                    \ 'linux' : 'make',
-                    \ 'unix' : 'gmake'
-                    \ }
-    \ })
+    call dein#add('Shougo/vimproc.vim', {'build' : 'make' })
 
     call dein#add('Raimondi/delimitMate')
 
@@ -136,7 +127,7 @@ set encoding=utf8
 
 
     " HTML
-    call dein#add('amirh/HTML-AutoCloseTag')
+    call dein#add('HTML-AutoCloseTag')
     call dein#add('hail2u/vim-css3-syntax')
     call dein#add('gorodinskiy/vim-coloresque')
     call dein#add('tpope/vim-haml')
