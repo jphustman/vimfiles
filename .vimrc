@@ -781,6 +781,7 @@ nnoremap <leader>sv :source $MYVIMRC<cr>
 
 nnoremap <leader><space> :Goyo<cr>
 
+nnoremap <leader>sc :SyntasticCheck<cr>
 
 " Fast Saving
 nnoremap <leader>w :w!<cr>
