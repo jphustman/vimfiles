@@ -452,6 +452,8 @@ if LINUX()
     let g:ycm_server_use_vim_stdout=0
     let g:ycm_server_keep_logfiles=1
 
+    let g:ycm_server_python_interpreter=3
+
     " Typescript
     if !exists("g:ycm_semantic_triggers")
         let g:ycm_semantic_triggers = {}
@@ -538,7 +540,7 @@ if has('gui_running')
         if LINUX() && has('gui_running')
             " set guifont=Source\ Code\ Pro\ 10
             " set guifont=Inconsolata-dz\ for\ Powerline,Medium\ 10
-            set guifont=Inconsolata\ Medium\ 12
+            set guifont=Inconsolata\ Medium\ 10
         elseif OSX() && has('gui_running')
             set guifont=Inconsolata\ for\ Powerline:h14
         elseif WINDOWS() && has('gui_running')
@@ -927,7 +929,7 @@ augroup project
 augroup END
 let &path.='src/include,/usr/include/AL,'
 set includeexpr=substitute(v:fname,'\\.','/','g')
-let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
+let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
 let g:ycm_key_list_select_completion=[]
 let g:ycm_key_list_previous_completion=[]
 "set makeprg=make\ -C\ ../build\ -j9
