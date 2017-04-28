@@ -198,6 +198,7 @@ let g:syntastic_javascript_jslint_args='--config ~/jslint.conf'
 let g:syntastic_sh_checkers=['shellcheck']
 let g:syntastic_css_checkers=['csslint']
 let g:syntastic_scss_checkers = ['scss_lint']
+let g:syntastic_scss_scss_lint_args='--config ~/scsslint.conf'
 let g:syntastic_cf_checkers=['cflint']
 let g:syntastic_cfml_checkers=['cflint']
 let g:syntastic_cfscript_checkers=['cflint']
@@ -452,7 +453,7 @@ if LINUX()
     let g:ycm_server_use_vim_stdout=0
     let g:ycm_server_keep_logfiles=1
 
-    let g:ycm_server_python_interpreter=3
+    " let g:ycm_server_python_interpreter=3
 
     " Typescript
     if !exists("g:ycm_semantic_triggers")
