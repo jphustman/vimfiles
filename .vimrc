@@ -43,7 +43,7 @@ set encoding=utf8
     call dein#add('scrooloose/syntastic')
     call dein#add('cflint/cflint-syntastic')
     call dein#add('tpope/vim-surround')
-    call dein#add('matchit.zip')
+    call dein#add('vim-scripts/matchit.zip')
     call dein#add('jphustman/Align.vim')
     call dein#add('jphustman/SQLUtilities')
     call dein#add('jphustman/dbext.vim')
@@ -68,8 +68,8 @@ set encoding=utf8
     call dein#add('tpope/vim-fugitive')
     call dein#add('terryma/vim-multiple-cursors')
     call dein#add('nathanaelkane/vim-indent-guides')
-    call dein#add('vsutil.vim')
-    call dein#add('VimRegEx.vim')
+    call dein#add('vim-scripts/vsutil.vim')
+    call dein#add('vim-scripts/VimRegEx.vim')
     call dein#add('scrooloose/nerdtree')
     call dein#add('jistr/vim-nerdtree-tabs')
     call dein#add('Shougo/vimproc.vim', {'build' : 'make' })
@@ -127,7 +127,7 @@ set encoding=utf8
 
 
     " HTML
-    call dein#add('HTML-AutoCloseTag')
+    call dein#add('vim-scripts/HTML-AutoCloseTag')
     call dein#add('hail2u/vim-css3-syntax')
     call dein#add('gorodinskiy/vim-coloresque')
     call dein#add('tpope/vim-haml')
@@ -142,9 +142,9 @@ set encoding=utf8
 
     " Python
     call dein#add('klen/python-mode')
-    call dein#add('python.vim')
-    call dein#add('python_match.vim')
-    call dein#add('pythoncomplete')
+    call dein#add('vim-scripts/python.vim')
+    call dein#add('vim-scripts/python_match.vim')
+    call dein#add('vim-scripts/pythoncomplete')
 
     " ColdFusion
     call dein#add('jphustman/vim-coldfusion-snippets')

@@ -47,6 +47,11 @@ if [[ "$(uname)" == "Linux" ]]; then
   export LNPMDIR="/src/node_modules/"
 fi
 
+if [[ "$(uname)" == "SunOS" ]]; then
+  alias vim='/usr/local/bin/vim'
+  alias gvim='/usr/local/bin/vim -g'
+fi
+
 # Finally, run tmux!
 # if command -v tmux>/dev/null; then
 #   [[ ! $TERM =~ "screen" ]] && [ -z $TMUX ] && exec tmux
