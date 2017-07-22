@@ -662,7 +662,7 @@ set smarttab
 
 
 set tw=500
-set formatoptions=qrn1
+"set formatoptions=qrn1
 
 set noerrorbells
 set visualbell
