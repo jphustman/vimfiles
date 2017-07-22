@@ -29,146 +29,150 @@ set encoding=utf8
 
 " Bundles {
     " Required:
-    call dein#begin(expand('~/.vim/bundle'))
+    if dein#load_state('~/.vim/bundle')
+        call dein#begin(expand('~/.vim/bundle'))
 
-    " Let dein manage dein
-    " Required:
-    call dein#add('Shougo/dein.vim')
-    call dein#add('Shougo/neosnippet.vim')
-    call dein#add('Shougo/neosnippet-snippets')
+        " Let dein manage dein
+        " Required:
+        call dein#add('Shougo/dein.vim')
+        call dein#add('Shougo/neosnippet.vim')
+        call dein#add('Shougo/neosnippet-snippets')
 
-    " My Bundles here:
-    call dein#add('git@github.com:jphustman/cf-utils.vim')
-    call dein#add('altercation/vim-colors-solarized')
-    call dein#add('scrooloose/syntastic')
-    call dein#add('cflint/cflint-syntastic')
-    call dein#add('tpope/vim-surround')
-    call dein#add('matchit.zip')
-    call dein#add('jphustman/Align.vim')
-    call dein#add('jphustman/SQLUtilities')
-    call dein#add('jphustman/dbext.vim')
-    call dein#add('jlanzarotta/bufexplorer')
-    call dein#add('jtratner/vim-flavored-markdown')
-    call dein#add('joonty/vdebug.git')
-    call dein#add('rstacruz/sparkup')
+        " My Bundles here:
+        call dein#add('git@github.com:jphustman/cf-utils.vim')
+        call dein#add('altercation/vim-colors-solarized')
+        call dein#add('scrooloose/syntastic')
+        call dein#add('cflint/cflint-syntastic')
+        call dein#add('tpope/vim-surround')
+        call dein#add('vim-scripts/matchit.zip')
+        call dein#add('jphustman/Align.vim')
+        call dein#add('jphustman/SQLUtilities')
+        call dein#add('jphustman/dbext.vim')
+        call dein#add('jlanzarotta/bufexplorer')
+        call dein#add('jtratner/vim-flavored-markdown')
+        call dein#add('joonty/vdebug.git')
+        call dein#add('rstacruz/sparkup')
 
-    call dein#add('editorconfig/editorconfig-vim')
+        call dein#add('editorconfig/editorconfig-vim')
 
-    call dein#add('junegunn/goyo.vim')
+        call dein#add('junegunn/goyo.vim')
 
-    if WINDOWS()
-        call dein#add('bling/vim-airline')
-    else
-        call dein#add('Lokaltog/powerline', {
-                    \ 'rtp': '~/.vim/bundle/repos/github.com/Lokaltog/powerline/powerline/bindings/vim'})
+        if WINDOWS()
+            call dein#add('bling/vim-airline')
+        else
+            call dein#add('Lokaltog/powerline', {
+                        \ 'rtp': '~/.vim/bundle/repos/github.com/Lokaltog/powerline/powerline/bindings/vim'})
+        endif
+
+        call dein#add('scrooloose/nerdcommenter')
+        call dein#add('majutsushi/tagbar')
+        call dein#add('tpope/vim-fugitive')
+        call dein#add('terryma/vim-multiple-cursors')
+        call dein#add('nathanaelkane/vim-indent-guides')
+        call dein#add('vim-scripts/vsutil.vim')
+        call dein#add('vim-scripts/VimRegEx.vim')
+        call dein#add('scrooloose/nerdtree')
+        call dein#add('jistr/vim-nerdtree-tabs')
+        call dein#add('Shougo/vimproc.vim', {'build' : 'make' })
+
+        call dein#add('Raimondi/delimitMate')
+
+        call dein#add('justmao945/vim-clang')
+        call dein#add('rhysd/vim-clang-format')
+
+        call dein#add('Chiel92/vim-autoformat')
+
+        call dein#add('sukima/xmledit')
+
+        "
+        " Snippet Stuff
+        call dein#add('SirVer/ultisnips')
+        call dein#add('honza/vim-snippets')
+        call dein#add('jphustman/ultisnippets')
+
+        " There are other ways to install YouCompleteMe on Linux
+        if WINDOWS()
+            call dein#add('Shougo/neocomplcache.vim')
+        endif
+
+        if OSX()
+            call dein#add('Valloric/YouCompleteMe')
+            call dein#add('rizzatti/dash.vim')
+        endif
+
+
+        " bufexplorer instructions {
+        " be normal open
+        " bt toggle open / close
+        " bs force horizontal split open
+        " bv force vertical split open
+        " }
+
+
+        " javascript
+        call dein#add('elzr/vim-json')
+        call dein#add('groenewege/vim-less')
+        call dein#add('pangloss/vim-javascript')
+        call dein#add('kchmck/vim-coffee-script')
+        call dein#add('othree/javascript-libraries-syntax.vim')
+        call dein#add('matthewsimo/angular-vim-snippets')
+        call dein#add('claco/jasmine.vim')
+        call dein#add('burnettk/vim-angular')
+        call dein#add('ternjs/tern_for_vim')
+
+        " TypeScript
+        call dein#add('leafgarland/typescript-vim')
+        call dein#add('clausreinke/typescript-tools.vim')
+
+        call dein#add('Quramy/tsuquyomi')
+
+
+        " HTML
+        call dein#add('vim-scripts/HTML-AutoCloseTag')
+        call dein#add('hail2u/vim-css3-syntax')
+        call dein#add('gorodinskiy/vim-coloresque')
+        call dein#add('tpope/vim-haml')
+        call dein#add('kaihendry/vim-html5')
+
+        " PHP
+        call dein#add('spf13/PIV') " PHP Integration for Vim
+        call dein#add('blueyed/smarty.vim') " Smarty plugin for Vim
+        call dein#add('arnaud-lb/vim-php-namespace')
+        call dein#add('2072/PHP-Indenting-for-VIm')
+        call dein#add('stefanich/php.vim-html-enhanced')
+        call dein#add('beyondwords/vim-twig')
+
+        " Python
+        call dein#add('klen/python-mode')
+        call dein#add('vim-scripts/python.vim')
+        call dein#add('vim-scripts/python_match.vim')
+        call dein#add('vim-scripts/pythoncomplete')
+
+        " ColdFusion
+        call dein#add('jphustman/vim-coldfusion-snippets')
+
+
+        " *css
+        call dein#add('cakebaker/scss-syntax.vim')
+
+
+        call dein#add('tpope/vim-markdown')
+
+        " Arduino
+        call dein#add('sudar/vim-arduino-syntax')
+        call dein#add('jplaut/vim-arduino-ino')
+
+        call dein#add('ynkdir/vim-vimlparser')
+        call dein#add('syngan/vim-vimlint', {
+            \ 'depends' : 'ynkdir/vim-vimlparser'})
+
+        call dein#add('jphustman/VimIRC.vim')
+
+        call dein#add('wikitopian/hardmode')
+
+        call dein#end()
+        call dein#save_state()
     endif
-
-    call dein#add('scrooloose/nerdcommenter')
-    call dein#add('majutsushi/tagbar')
-    call dein#add('tpope/vim-fugitive')
-    call dein#add('terryma/vim-multiple-cursors')
-    call dein#add('nathanaelkane/vim-indent-guides')
-    call dein#add('vsutil.vim')
-    call dein#add('VimRegEx.vim')
-    call dein#add('scrooloose/nerdtree')
-    call dein#add('jistr/vim-nerdtree-tabs')
-    call dein#add('Shougo/vimproc.vim', {'build' : 'make' })
-
-    call dein#add('Raimondi/delimitMate')
-
-    call dein#add('justmao945/vim-clang')
-    call dein#add('rhysd/vim-clang-format')
-
-    call dein#add('Chiel92/vim-autoformat')
-
-    call dein#add('sukima/xmledit')
-
-    "
-    " Snippet Stuff
-    call dein#add('SirVer/ultisnips')
-    call dein#add('honza/vim-snippets')
-    call dein#add('jphustman/ultisnippets')
-
-    " There are other ways to install YouCompleteMe on Linux
-    if WINDOWS()
-        call dein#add('Shougo/neocomplcache.vim')
-    endif
-
-    if OSX()
-        call dein#add('Valloric/YouCompleteMe')
-        call dein#add('rizzatti/dash.vim')
-    endif
-
-
-    " bufexplorer instructions {
-    " be normal open
-    " bt toggle open / close
-    " bs force horizontal split open
-    " bv force vertical split open
-    " }
-
-
-    " javascript
-    call dein#add('elzr/vim-json')
-    call dein#add('groenewege/vim-less')
-    call dein#add('pangloss/vim-javascript')
-    call dein#add('kchmck/vim-coffee-script')
-    call dein#add('othree/javascript-libraries-syntax.vim')
-    call dein#add('matthewsimo/angular-vim-snippets')
-    call dein#add('claco/jasmine.vim')
-    call dein#add('burnettk/vim-angular')
-    call dein#add('ternjs/tern_for_vim')
-
-    " TypeScript
-    call dein#add('leafgarland/typescript-vim')
-    call dein#add('clausreinke/typescript-tools.vim')
-
-    call dein#add('Quramy/tsuquyomi')
-
-
-    " HTML
-    call dein#add('HTML-AutoCloseTag')
-    call dein#add('hail2u/vim-css3-syntax')
-    call dein#add('gorodinskiy/vim-coloresque')
-    call dein#add('tpope/vim-haml')
-    call dein#add('kaihendry/vim-html5')
-
-    " PHP
-    call dein#add('spf13/PIV') " PHP Integration for Vim
-    call dein#add('blueyed/smarty.vim') " Smarty plugin for Vim
-    call dein#add('arnaud-lb/vim-php-namespace')
-    call dein#add('2072/PHP-Indenting-for-VIm')
-    call dein#add('stefanich/php.vim-html-enhanced')
-
-    " Python
-    call dein#add('klen/python-mode')
-    call dein#add('python.vim')
-    call dein#add('python_match.vim')
-    call dein#add('pythoncomplete')
-
-    " ColdFusion
-    call dein#add('jphustman/vim-coldfusion-snippets')
-
-
-    " *css
-    call dein#add('cakebaker/scss-syntax.vim')
-
-
-    call dein#add('tpope/vim-markdown')
-
-    " Arduino
-    call dein#add('sudar/vim-arduino-syntax')
-    call dein#add('jplaut/vim-arduino-ino')
-
-    call dein#add('ynkdir/vim-vimlparser')
-    call dein#add('syngan/vim-vimlint', {
-        \ 'depends' : 'ynkdir/vim-vimlparser'})
-
-    call dein#add('jphustman/VimIRC.vim')
-
-    call dein#add('wikitopian/hardmode')
-
-    call dein#end()
 
     filetype plugin indent on    " Required!
     syntax enable
@@ -198,6 +202,7 @@ let g:syntastic_javascript_jslint_args='--config ~/jslint.conf'
 let g:syntastic_sh_checkers=['shellcheck']
 let g:syntastic_css_checkers=['csslint']
 let g:syntastic_scss_checkers = ['scss_lint']
+let g:syntastic_scss_scss_lint_args='--config ~/scsslint.conf'
 let g:syntastic_cf_checkers=['cflint']
 let g:syntastic_cfml_checkers=['cflint']
 let g:syntastic_cfscript_checkers=['cflint']
@@ -286,12 +291,12 @@ augroup markdown
 augroup END
 " }
 
-
+set t_Co=16
 let g:solarized_termcolors=256
 let g:solarized_termtrans=1
 let g:solarized_contrast='normal'
 let g:solarized_visibility='normal'
-color solarized
+colorscheme solarized
 
 highlight clear SignColumn
 highlight clear LineNr
@@ -452,7 +457,7 @@ if LINUX()
     let g:ycm_server_use_vim_stdout=0
     let g:ycm_server_keep_logfiles=1
 
-    let g:ycm_server_python_interpreter=3
+    " let g:ycm_server_python_interpreter=3
 
     " Typescript
     if !exists("g:ycm_semantic_triggers")

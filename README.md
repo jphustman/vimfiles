@@ -4,6 +4,10 @@ git clone git@github.com:jphustman/vimfiles
 ```
 Backup and merge in the following existing dotfiles
 
+vim:
+configure --enable-gui=gtk2 --enable-pythoninterp
+
+
 ```
 ln -s vimfiles/.vimrc .vimrc
 ln -s vimfiles/.jslintrc .jslintrc
