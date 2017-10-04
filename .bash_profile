@@ -48,6 +48,15 @@ if [ "$(uname)" == "Darwin" ]; then
   export ECLIPSE_HOME='/opt/homebrew-cask/Caskroom/eclipse-jee/4.5/Eclipse.app/Contents/Eclipse'
 
   alias eclimd='$ECLIPSE_HOME/eclimd'
+
+  # MacPorts Installer addition on 2016-12-11_at_16:18:58: adding an appropriate PATH variable for use with MacPorts.
+  export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
+  # Finished adapting your PATH environment variable for use with MacPorts.
+
+  # Setting PATH for Python 2.7
+  # The original version is saved in .bash_profile.pysave
+  PATH="/Library/Frameworks/Python.framework/Versions/2.7/bin:${PATH}"
+  export PATH
 fi
 
 if [ "$(uname)" == "Linux" ]; then
@@ -58,29 +67,16 @@ if [ "$(uname)" == "Linux" ]; then
   export SVN_EDITOR='vim'
 fi
 
+if [ "$(uname)" == "SunOS" ]; then
+  export RUBY_BIN=/usr/ruby/2.1/bin
+  export PATH=$RUBY_BIN:/usr/local/bin:/usr/bin:/usr/sbin
+fi
 
 #common aliases
 alias gs='git status'
 alias gf='git fetch'
 alias gp='git pull'
 
-# export PATH="/usr/local/bin:$PATH"
-
-##
-# Your previous /Users/Jeremey/.bash_profile file was backed up as /Users/Jeremey/.bash_profile.macports-saved_2015-11-14_at_13:40:04
-##
-
-# MacPorts Installer addition on 2015-11-14_at_13:40:04: adding an appropriate PATH variable for use with MacPorts.
-# export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
-# Finished adapting your PATH environment variable for use with MacPorts.
 
 
-# MacPorts Installer addition on 2016-12-11_at_16:18:58: adding an appropriate PATH variable for use with MacPorts.
-export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
-# Finished adapting your PATH environment variable for use with MacPorts.
 
-
-# Setting PATH for Python 2.7
-# The original version is saved in .bash_profile.pysave
-PATH="/Library/Frameworks/Python.framework/Versions/2.7/bin:${PATH}"
-export PATH

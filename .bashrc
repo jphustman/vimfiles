@@ -48,11 +48,5 @@ if [[ "$(uname)" == "Linux" ]]; then
 fi
 
 if [[ "$(uname)" == "SunOS" ]]; then
-  alias vim='/usr/local/bin/vim'
-  alias gvim='/usr/local/bin/vim -g'
+  alias cmsdocs='cd /opt/oracle/webserver7/https-dotcmsdev_dot_soa_alaska_gov/docs/web'
 fi
-
-# Finally, run tmux!
-# if command -v tmux>/dev/null; then
-#   [[ ! $TERM =~ "screen" ]] && [ -z $TMUX ] && exec tmux
-# fi
