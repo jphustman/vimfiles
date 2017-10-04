@@ -5,6 +5,10 @@
 silent function! OSX()
     return has('macunix')
 endfunction
+silent function! SOLARIS()
+    let os = substitute(system('uname'), "\n", "", "")
+    return (os == "SunOS")
+endfunction
 silent function! LINUX()
     return has('unix') && !has('macunix') && !has('win32unix')
 endfunction
@@ -546,6 +550,9 @@ if has('gui_running')
             " set guifont=Source\ Code\ Pro\ 10
             " set guifont=Inconsolata-dz\ for\ Powerline,Medium\ 10
             set guifont=Inconsolata\ Medium\ 10
+            if SOLARIS()
+              set guifont=Inconsolata\ Medium\ 12
+            endif
         elseif OSX() && has('gui_running')
             set guifont=Inconsolata\ for\ Powerline:h14
         elseif WINDOWS() && has('gui_running')
