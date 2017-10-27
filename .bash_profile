@@ -69,8 +69,7 @@ fi
 
 if [ "$(uname)" == "SunOS" ]; then
   export RUBY_BIN=/usr/ruby/2.1/bin
-  export DRUPAL=/opt/oracle/webserver7/https-dotcmsdev.dot.soa.alaska.gov/docs/vendor/bin
-  export PATH=$DRUPAL:$RUBY:/usr/local/bin:/usr/bin:/usr/sbin
+  export PATH=$RUBY_BIN:/usr/local/bin:/usr/bin:/usr/sbin
 fi
 
 #common aliases
