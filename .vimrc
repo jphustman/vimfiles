@@ -280,13 +280,13 @@ endif
 " }
 
 " let g:tagbar_ctags_bin='C:\Users\jphustman\Downloads\ctags58\ctags58\ctags.exe'
-set tags=./tags;
+" set tags=./tags;
 
 " Make tags placed in .git/tags file available in all levels of a repository
-let g:gitroot = substitute(system('git rev-parse --show-toplevel'), '[\n\r]', '', 'g')
-if gitroot != ''
-    let &tags = &tags . ',' . gitroot . '/.git/tags'
-endif
+" let g:gitroot = substitute(system('git rev-parse --show-toplevel'), '[\n\r]', '', 'g')
+" if gitroot != ''
+"    let &tags = &tags . ',' . gitroot . '/.git/tags'
+" endif
 
 " Use flavored-markdown by default {
 augroup markdown
