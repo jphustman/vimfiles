@@ -2,7 +2,6 @@
 # ~/.bash_profile
 #
 
-[[ -f ~/.bashrc ]] && . ~/.bashrc
 
 if [ "$(uname)" == "Darwin" ]; then
   alias mvim="/Applications/MacVim.app/contents/MacOS/MacVim"
@@ -80,3 +79,4 @@ alias gp='git pull'
 
 
 
+[[ -f ~/.bashrc ]] && . ~/.bashrc
