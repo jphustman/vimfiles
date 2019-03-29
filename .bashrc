@@ -48,5 +48,5 @@ if [[ "$(uname)" == "Linux" ]]; then
 fi
 
 if [[ "$(uname)" == "SunOS" ]]; then
-  alias cmsdocs='cd /opt/oracle/webserver7/https-dotcmsdev.dot.soa.alaska.gov/docs/web'
+  alias cmsdocs='cd /opt/dotcmsdev/docroot'
 fi

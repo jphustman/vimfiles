@@ -69,7 +69,7 @@ set encoding=utf8
         endif
 
         call dein#add('scrooloose/nerdcommenter')
-        call dein#add('majutsushi/tagbar')
+        " call dein#add('majutsushi/tagbar')
         call dein#add('tpope/vim-fugitive')
         call dein#add('terryma/vim-multiple-cursors')
         call dein#add('nathanaelkane/vim-indent-guides')
