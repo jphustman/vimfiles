@@ -7,6 +7,11 @@ Backup and merge in the following existing dotfiles
 vim:
 configure --enable-gui=gtk2 --enable-pythoninterp
 
+Need:
+https://aur.archlinux.org/packages/python-powerline-git/
+
+# Arch Linux
+sudo pacman -S gvim ctags ruby ack
 
 ```
 ln -s vimfiles/.vimrc .vimrc

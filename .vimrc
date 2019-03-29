@@ -24,7 +24,7 @@ if has('vim_starting')
     endif
 
     " Required:
-    set runtimepath+=~/.vim/bundle/repos/github.com/Shougo/dein.vim
+    set runtimepath+=~/.cache/dein/repos/github.com/Shougo/dein.vim
 endif
 
 let g:netrw_liststyle=3
@@ -33,8 +33,8 @@ set encoding=utf8
 
 " Bundles {
     " Required:
-    if dein#load_state('~/.vim/bundle')
-        call dein#begin(expand('~/.vim/bundle'))
+    if dein#load_state('~/.cache/dein')
+        call dein#begin(expand('~/.cache/dein'))
 
         " Let dein manage dein
         " Required:
@@ -64,8 +64,8 @@ set encoding=utf8
         if WINDOWS()
             call dein#add('bling/vim-airline')
         else
-            call dein#add('Lokaltog/powerline', {
-                        \ 'rtp': '~/.vim/bundle/repos/github.com/Lokaltog/powerline/powerline/bindings/vim'})
+            call dein#add('powerline/powerline', {
+                        \ 'rtp': '~/.cache/dein/repos/github.com/powerline/powerline/powerline/bindings/vim'})
         endif
 
         call dein#add('scrooloose/nerdcommenter')
@@ -259,7 +259,7 @@ if !has('python')
     let g:pymode = 0
 endif
 
-if isdirectory(expand("~/.vim/bundle/python-mode"))
+if isdirectory(expand("~/.cache/dein/repos/github.com/klen/python-mode"))
     let g:pymode_lint_checkers = ['pyflakes']
     let g:pymode_trim_whitespaces = 0
     let g:pymode_options = 0
@@ -269,7 +269,7 @@ endif
 " }
 
 " PHP {
-if isdirectory(expand("~/.vim/bundle/PIV"))
+if isdirectory(expand("~cache/dein/repos/github.com/spf13/PIV"))
     let g:DisableAutoPHPFolding = 0
     let g:PIVAutoClose = 0
 endif
@@ -474,7 +474,7 @@ endif
 " }
 
 " NerdTree {
-if isdirectory(expand("~/.vim/bundle/nerdtree"))
+if isdirectory(expand("~/.cache/dein/repos/github.com/scrooloose/nerdtree"))
 
     map <C-e> <plug>NERDTreeTabsToggle<CR>
     map <leader>e :NERDTreeFind<CR>
@@ -518,7 +518,7 @@ if WINDOWS()
 
     " See `:echo g:airline_theme_map` for some more choices
     " Default in terminal vim is 'dark'
-    if isdirectory(expand('~/.vim/bundle/vim-airline/'))
+    if isdirectory(expand('~/.cache/dein/repos/github.com/bling/vim-airline/'))
         if !exists('g:airline_theme')
             let g:airline_theme = 'solarized'
         endif
@@ -890,7 +890,7 @@ inoremap [<CR> [<CR>]<C-o>==<C-o>O
 map <leader>fc /\v^[<\|=>]{7}( .*\|$)<CR>
 
 " functions {
-function! ToggleBGColor ()
+function! ToggleBGColor()
     if (&background == 'light')
         set background=dark
         echo 'background -> dark'
