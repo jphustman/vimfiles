@@ -44,7 +44,9 @@ fi
 if [[ "$(uname)" == "Linux" ]]; then
   alias http='cd /srv/http'
   alias eta='cd /srv/http/eta'
+  alias whcih='which'
   export LNPMDIR="/src/node_modules/"
+  export PATH="/opt/lampp/bin:/opt/lampp/htdocs/kl7jrc.us/vendor/drush/drush:$PATH"
 fi
 
 if [[ "$(uname)" == "SunOS" ]]; then
