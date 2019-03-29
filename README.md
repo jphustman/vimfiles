@@ -13,6 +13,11 @@ https://aur.archlinux.org/packages/python-powerline-git/
 # Arch Linux
 sudo pacman -S gvim ctags ruby ack
 
+
+Will need powerline fonts from
+https://github.com/powerline/fonts
+
+
 ```
 ln -s vimfiles/.vimrc .vimrc
 ln -s vimfiles/.jslintrc .jslintrc

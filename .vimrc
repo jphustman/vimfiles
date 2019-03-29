@@ -54,7 +54,9 @@ set encoding=utf8
         call dein#add('jphustman/dbext.vim')
         call dein#add('jlanzarotta/bufexplorer')
         call dein#add('jtratner/vim-flavored-markdown')
-        call dein#add('joonty/vdebug.git')
+        if has('python3')
+            call dein#add('joonty/vdebug.git')
+        endif
         call dein#add('rstacruz/sparkup')
 
         call dein#add('editorconfig/editorconfig-vim')
@@ -63,6 +65,10 @@ set encoding=utf8
 
         if WINDOWS()
             call dein#add('bling/vim-airline')
+        elseif OSX()
+            call dein#add('powerline/powerline', {
+                        \ 'rtp': '~/.cache/dein/repos/github.com/powerline/powerline/powerline/bindings/vim'})
+        elseif SOLARIS()
         else
             call dein#add('powerline/powerline', {
                         \ 'rtp': '~/.cache/dein/repos/github.com/powerline/powerline/powerline/bindings/vim'})
