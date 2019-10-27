@@ -65,11 +65,7 @@ set encoding=utf8
 
         if WINDOWS()
             call dein#add('bling/vim-airline')
-        elseif OSX()
-            call dein#add('powerline/powerline', {
-                        \ 'rtp': '~/.cache/dein/repos/github.com/powerline/powerline/powerline/bindings/vim'})
-        elseif SOLARIS()
-        else
+        elseif OSX() || SOLARIS() || LINUX()
             call dein#add('powerline/powerline', {
                         \ 'rtp': '~/.cache/dein/repos/github.com/powerline/powerline/powerline/bindings/vim'})
         endif
@@ -96,7 +92,9 @@ set encoding=utf8
 
         "
         " Snippet Stuff
-        call dein#add('SirVer/ultisnips')
+        if LINUX() || OSX() || SOLARIS()
+            call dein#add('SirVer/ultisnips')
+        endif
         call dein#add('honza/vim-snippets')
         call dein#add('jphustman/ultisnippets')
 
@@ -538,19 +536,12 @@ endif
 " }
 
 " General
-if OSX() |
-    set background=light
-    " set guioptions+=T
-else
-    set background=dark "linux
-    "set background=light
-endif
 
 set guioptions+=TlrLR
 
-
 " Gui {
 if has('gui_running')
+    set background=dark
     if !exists('g:spf13_no_big_font')
         if LINUX() && has('gui_running')
             " set guifont=Source\ Code\ Pro\ 10
@@ -560,6 +551,7 @@ if has('gui_running')
               set guifont=Inconsolata\ Medium\ 12
             endif
         elseif OSX() && has('gui_running')
+            set background=light
             set guifont=Inconsolata\ for\ Powerline:h14
         elseif WINDOWS() && has('gui_running')
             set guifont=Andale_Mono:h10,Menlo:h10,Consolas:h10,Courier_New:h10
