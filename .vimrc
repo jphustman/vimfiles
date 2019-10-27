@@ -70,6 +70,8 @@ set encoding=utf8
                         \ 'rtp': '~/.cache/dein/repos/github.com/powerline/powerline/powerline/bindings/vim'})
         endif
 
+        call dein#add('vobornik/vim-mql4')
+
         call dein#add('scrooloose/nerdcommenter')
         " call dein#add('majutsushi/tagbar')
         call dein#add('tpope/vim-fugitive')
