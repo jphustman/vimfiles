@@ -894,9 +894,9 @@ map <F9> :call ToggleBGColor()<CR>
 nnoremap <leader>8 :lprev<CR>
 nnoremap <leader>9 :<CR>
 
-nnoremap <leader>
- :%s/
-/\r/g<CR>
+
+" Supposedto clear the Ctrl-M's but for some reason messes up when added to git
+" nnoremap <leader> :%s//\r/g<CR>
 
 
 
