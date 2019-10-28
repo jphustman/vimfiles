@@ -54,7 +54,9 @@ set encoding=utf8
         call dein#add('jphustman/dbext.vim')
         call dein#add('jlanzarotta/bufexplorer')
         call dein#add('jtratner/vim-flavored-markdown')
-        call dein#add('joonty/vdebug.git')
+        if has('python3')
+            call dein#add('joonty/vdebug.git')
+        endif
         call dein#add('rstacruz/sparkup')
 
         call dein#add('editorconfig/editorconfig-vim')
@@ -63,7 +65,7 @@ set encoding=utf8
 
         if WINDOWS()
             call dein#add('bling/vim-airline')
-        else
+        elseif OSX() || SOLARIS() || LINUX()
             call dein#add('powerline/powerline', {
                         \ 'rtp': '~/.cache/dein/repos/github.com/powerline/powerline/powerline/bindings/vim'})
         endif
@@ -90,7 +92,9 @@ set encoding=utf8
 
         "
         " Snippet Stuff
-        call dein#add('SirVer/ultisnips')
+        if LINUX() || OSX() || SOLARIS()
+            call dein#add('SirVer/ultisnips')
+        endif
         call dein#add('honza/vim-snippets')
         call dein#add('jphustman/ultisnippets')
 
@@ -564,6 +568,7 @@ set guioptions+=TlrLR
 
 " Gui {
 if has('gui_running')
+    set background=dark
     if !exists('g:spf13_no_big_font')
         if LINUX() && has('gui_running')
             " set guifont=Source\ Code\ Pro\ 10
@@ -573,6 +578,7 @@ if has('gui_running')
               set guifont=Inconsolata\ Medium\ 12
             endif
         elseif OSX() && has('gui_running')
+            set background=light
             set guifont=Inconsolata\ for\ Powerline:h14
         elseif WINDOWS() && has('gui_running')
             set guifont=Andale_Mono:h10,Menlo:h10,Consolas:h10,Courier_New:h10
@@ -888,7 +894,9 @@ map <F9> :call ToggleBGColor()<CR>
 nnoremap <leader>8 :lprev<CR>
 nnoremap <leader>9 :<CR>
 
-nnoremap <leader> :%s//\r/g<CR>
+nnoremap <leader>
+ :%s/
+/\r/g<CR>
 
 
 
@@ -1043,4 +1051,3 @@ function! StripTrailingWhitespace()
     call cursor(l, c)
 endfunction
 " }
-
