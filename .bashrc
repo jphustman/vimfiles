@@ -13,7 +13,7 @@ if [[ "$(uname)" == "Darwin" ]]; then
 else
   alias ls='ls --color=auto'
   alias lnpm='lnpm.sh'
-  alias grep='grep -norw --color=auto'
+  alias grep='grep -now --color=auto'
   alias lg="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
 fi
 
@@ -46,7 +46,7 @@ if [[ "$(uname)" == "Linux" ]]; then
   alias eta='cd /srv/http/eta'
   alias whcih='which'
   export LNPMDIR="/src/node_modules/"
-  export PATH="/opt/lampp/bin:/opt/lampp/htdocs/kl7jrc.us/vendor/drush/drush:$PATH"
+  export PATH="/opt/lampp/bin:/opt/lampp/htdocs/kl7jrc.us/vendor/drush/drush:/opt/python273/bin:$PATH"
 fi
 
 if [[ "$(uname)" == "SunOS" ]]; then
