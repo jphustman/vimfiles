@@ -151,6 +151,7 @@ set encoding=utf8
         call dein#add('vim-scripts/python.vim')
         call dein#add('vim-scripts/python_match.vim')
         call dein#add('vim-scripts/pythoncomplete')
+        call dein#add('hdima/python-syntax')
 
         " ColdFusion
         call dein#add('jphustman/vim-coldfusion-snippets')
@@ -161,6 +162,10 @@ set encoding=utf8
 
 
         call dein#add('tpope/vim-markdown')
+
+
+        " MT4
+        call dein#add('vobornik/vim-mql4')
 
         " Arduino
         call dein#add('sudar/vim-arduino-syntax')
@@ -212,6 +217,7 @@ let g:syntastic_cfml_checkers=['cflint']
 let g:syntastic_cfscript_checkers=['cflint']
 let g:syntastic_css_checkers=['csslint']
 let g:syntastic_html_checkers=['tidy', 'jshint']
+let g:syntastic_enable_perl_checker = 1
 let g:syntastic_php_checkers=['php', 'phplint', 'jshint']
 let g:syntastic_vim_checkers=['vimlint']
 let g:syntastic_typescript_checkers=['tslint']
@@ -265,6 +271,19 @@ if isdirectory(expand("~/.cache/dein/repos/github.com/klen/python-mode"))
     let g:pymode_options = 0
     let g:pymode_rope = 0
 endif
+
+let python_highlight_all = 1
+
+"function Py2()
+"    let g:syntastic_python_python_exec = '/usr/local/bin/python2.6'
+"endfunction
+
+"function Py3()
+"    let g:syntastic_python_python_exec = '/usr/bin/python3'
+"endfunction
+
+"call Py2()
+
 
 " }
 
