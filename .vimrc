@@ -1,4 +1,4 @@
-" vim: set sw=4 ts=4 sts=4 et tw=78 foldmarker={,} foldlevel=0 foldmethod=marker spell:
+﻿" vim: set sw=4 ts=4 sts=4 et tw=78 foldmarker={,} foldlevel=0 foldmethod=marker spell:
 " :call dein#install()  - install (update) bundles
 "
 " spell Identify platform {
@@ -6,8 +6,8 @@ silent function! OSX()
     return has('macunix')
 endfunction
 silent function! SOLARIS()
-    let os = substitute(system('uname'), "\n", "", "")
-    return (os == "SunOS")
+    " let os = substitute(system('uname'), "\n", "", "")
+    " return (os == "SunOS")
 endfunction
 silent function! LINUX()
     return has('unix') && !has('macunix') && !has('win32unix')
@@ -17,6 +17,7 @@ silent function! WINDOWS()
 endfunction
 " }
 
+set verbosefile=vimout.txt
 
 if has('vim_starting')
     if &compatible
@@ -43,7 +44,7 @@ set encoding=utf8
         call dein#add('Shougo/neosnippet-snippets')
 
         " My Bundles here:
-        call dein#add('git@github.com:jphustman/cf-utils.vim')
+        " call dein#add('git@github.com:jphustman/cf-utils.vim')
         call dein#add('altercation/vim-colors-solarized')
         call dein#add('scrooloose/syntastic')
         call dein#add('cflint/cflint-syntastic')
@@ -64,7 +65,8 @@ set encoding=utf8
         call dein#add('junegunn/goyo.vim')
 
         if WINDOWS()
-            call dein#add('bling/vim-airline')
+            call dein#add('vim-airline/vim-airline')
+            call dein#add('vim-airline/vim-airline-themes')
         elseif OSX() || SOLARIS() || LINUX()
             call dein#add('powerline/powerline', {
                         \ 'rtp': '~/.cache/dein/repos/github.com/powerline/powerline/powerline/bindings/vim'})
@@ -541,7 +543,7 @@ if WINDOWS()
 
     " See `:echo g:airline_theme_map` for some more choices
     " Default in terminal vim is 'dark'
-    if isdirectory(expand('~/.cache/dein/repos/github.com/bling/vim-airline/'))
+    if isdirectory(expand('~/.cache/dein/repos/github.com/vim-airline/vim-airline/'))
         if !exists('g:airline_theme')
             let g:airline_theme = 'solarized'
         endif
@@ -550,6 +552,8 @@ if WINDOWS()
             let g:airline_left_sep='?'  " Slightly fancier than '>'
             let g:airline_right_sep='?' " Slightly fancier than '<'
         endif
+        "let g:airline_section_b = '%{strftime("%c")}'
+        "let g:airline_section_y = 'BN: %{bufnr("%")}'
     endif
 endif
 " }
