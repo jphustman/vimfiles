@@ -17,7 +17,7 @@ silent function! WINDOWS()
 endfunction
 " }
 
-set verbosefile=vimout.txt
+"set verbosefile=vimout.txt
 
 if has('vim_starting')
     if &compatible
@@ -46,7 +46,7 @@ set encoding=utf8
         " My Bundles here:
         " call dein#add('git@github.com:jphustman/cf-utils.vim')
         call dein#add('altercation/vim-colors-solarized')
-        call dein#add('scrooloose/syntastic')
+        call dein#add('vim-syntastic/syntastic')
         call dein#add('cflint/cflint-syntastic')
         call dein#add('tpope/vim-surround')
         call dein#add('vim-scripts/matchit.zip')
@@ -290,7 +290,6 @@ let python_highlight_all = 1
 
 "call Py2()
 
-
 " }
 
 " PHP {
@@ -320,12 +319,34 @@ augroup markdown
 augroup END
 " }
 
-set t_Co=16
-let g:solarized_termcolors=256
-let g:solarized_termtrans=1
-let g:solarized_contrast='normal'
-let g:solarized_visibility='normal'
 colorscheme solarized
+
+"set t_Co=16
+"let g:solarized_termcolors=16|256
+let g:solarized_termcolors=256
+"let g:solarized_termtrans=0|1
+let g:solarized_termtrans=0
+"let g:solarized_degrade=0|1
+let g:solarized_degrade=0
+"let g:solarized_bold=1|0
+let g:solarized_bold=1
+"let g:solarized_underline=1|0
+let g:solarized_underline=1
+"let g:solarized_italic=1|0
+let g:solarized_italic=1
+"let g:solarized_contrast='normal'|'high'|'low'
+let g:solarized_contrast='normal'
+"let g:solarized_visibility='normal'|'high'|'low'
+let g:solarized_visibility='normal'
+"let g:solarized_diffmode='normal'
+let g:solarized_diffmode='normal'
+" let g:solarized_hitrail=0
+let g:solarized_hitrail=1
+" let g:solarized_menu=1
+let g:solarized_menu=1
+
+
+
 
 highlight clear SignColumn
 highlight clear LineNr
@@ -572,7 +593,7 @@ set guioptions+=TlrLR
 
 " Gui {
 if has('gui_running')
-    set background=dark
+    "set background=dark
     if !exists('g:spf13_no_big_font')
         if LINUX() && has('gui_running')
             " set guifont=Source\ Code\ Pro\ 10
@@ -637,7 +658,8 @@ set foldenable
 " set list
 " set listchars=""            " Reset listchars
 " set listchars=nbsp:¬,eol:¶,tab:>-,extends:»,precedes:«,trail:.
-exec "set listchars=tab:\uBB\uBB,trail:\uB7,nbsp:~"
+set listchars=nbsp:¬,eol:¶,tab:>-,extends:»,precedes:«,trail:.
+"exec "set listchars=tab:\uBB\uBB,trail:\uB7,nbsp:~"
 set list
 
 " Previous worked out ok

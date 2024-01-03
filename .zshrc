@@ -1,12 +1,12 @@
-#!/bin/bash
-# ~/.bashrc
+#!/bin/zsh
+# ~/.zshrc
 #
-#[ -n "$PS1" ] && source ~/.bash_profile;
+#[ -n "$PS1" ] && source ~/.zsh_profile;
 
-PS1='\[\e]0;\w\a\]\n\[\e[32m\]\u@\h: \[\e[33m\]\w\[\e[0m\]\n\$ '
+PROMPT=$'%{\e]0;%~%G%}\n%{\e[32m%}%n@%m: %{\e[33m%}%~%{\e[0m%}\n%# '
 
 # If not running interactively, don't do anything
-[[ $- != *i* ]] && return
+[[ -o interactive ]] || return
 
 if [[ "$(uname)" == "Darwin" ]]; then
   alias ls='ls -G'
@@ -25,8 +25,7 @@ if [[ $OSTYPE != "cygwin" ]] || [[ $OSTYPE != "msys" ]]; then
 
   PATH="$(ruby -e 'print Gem.user_dir')/bin:$PATH"
 
-  pacman-size()
-  {
+  function pacman-size() {
     CMD="pacman -Si"
     SEP=": "
     TOTAL_SIZE=0
@@ -52,3 +51,10 @@ fi
 #if [[ "$(uname)" == "SunOS" ]]; then
 #  alias cmsdocs='cd /opt/dotcmsdev/docroot'
 #fi
+
+# Change theme to Agnoster
+ZSH_THEME="agnoster"
+
+# Enable autocomplete
+autoload -Uz compinit
+compinit
