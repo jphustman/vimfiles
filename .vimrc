@@ -46,8 +46,6 @@ set encoding=utf8
         " My Bundles here:
         " call dein#add('git@github.com:jphustman/cf-utils.vim')
         call dein#add('altercation/vim-colors-solarized')
-        call dein#add('vim-syntastic/syntastic')
-        call dein#add('cflint/cflint-syntastic')
         call dein#add('tpope/vim-surround')
         call dein#add('vim-scripts/matchit.zip')
         call dein#add('jphustman/Align.vim')
@@ -72,6 +70,12 @@ set encoding=utf8
                         \ 'rtp': '~/.cache/dein/repos/github.com/powerline/powerline/powerline/bindings/vim'})
         endif
 
+        call dein#add('dense-analysis/ale')
+        call dein#add('jremmen/vim-ripgrep')
+
+        call dein#add('prabirshrestha/vim-lsp')
+        call dein#add('mattn/vim-lsp-settings') " Auto-setup for common languages
+
         call dein#add('scrooloose/nerdcommenter')
         call dein#add('majutsushi/tagbar')
         call dein#add('tpope/vim-fugitive')
@@ -82,6 +86,17 @@ set encoding=utf8
         call dein#add('scrooloose/nerdtree')
         call dein#add('jistr/vim-nerdtree-tabs')
         call dein#add('Shougo/vimproc.vim', {'build' : 'make' })
+
+        " Modern React development
+        call dein#add('maxmellon/vim-jsx-pretty')           " Better JSX syntax
+        call dein#add('yuezk/vim-js')                       " Modern JS syntax
+        call dein#add('HerringtonDarkholme/yats.vim')       " Better TypeScript
+        call dein#add('styled-components/vim-styled-components') " styled-components
+
+        " Development tools
+        call dein#add('prettier/vim-prettier')              " Code formatting
+        call dein#add('mattn/emmet-vim')                   " HTML/JSX expansion
+        call dein#add('alvan/vim-closetag')                " Auto-close JSX tags
 
         call dein#add('Raimondi/delimitMate')
 
@@ -150,7 +165,15 @@ set encoding=utf8
         call dein#add('arnaud-lb/vim-php-namespace')
         call dein#add('2072/PHP-Indenting-for-VIm')
         call dein#add('stefanich/php.vim-html-enhanced')
+        call dein#add('phpactor/phpactor')                 " PHP language server
+        call dein#add('noahfrederick/vim-composer')        " Composer integration
+        call dein#add('adoy/vim-php-refactoring-toolbox')  " PHP refactoring
+        call dein#add('tobyS/pdv')                         " PHP documentor
         call dein#add('beyondwords/vim-twig')
+
+        " Perl development
+        call dein#add('vim-perl/vim-perl')                 " Modern Perl syntax
+        call dein#add('c9s/perlomni.vim')                  " Perl completion
 
         " Python
         call dein#add('klen/python-mode')
@@ -185,6 +208,10 @@ set encoding=utf8
 
         call dein#add('wikitopian/hardmode')
 
+        " Fuzzy Finding upgrade
+        call dein#add('junegunn/fzf.vim')
+        call dein#add('junegunn/fzf', { 'build': './install --all' })
+
         call dein#end()
         call dein#save_state()
     endif
@@ -203,49 +230,58 @@ set encoding=utf8
 let g:NERDSpaceDelims = 1     " Add space between comment and code
 " }
 
-" Syntastic Config {
-let g:syntastic_enable_signs = 1
-" let g:syntastic_quiet_messages = {'level': 'warnings'}
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 2
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-let g:syntastic_aggregate_errors = 1
-"let g:syntastic_javascript_checkers=['eslint', 'jshint', 'jslint']
-let g:syntastic_javascript_checkers=['jslint']
-let g:syntastic_javascript_jslint_args='--config ~/jslint.conf'
-let g:syntastic_sh_checkers=['shellcheck']
-let g:syntastic_css_checkers=['csslint']
-let g:syntastic_scss_checkers = ['scss_lint']
-let g:syntastic_scss_scss_lint_args='--config ~/scsslint.conf'
-let g:syntastic_cf_checkers=['cflint']
-let g:syntastic_cfml_checkers=['cflint']
-let g:syntastic_cfscript_checkers=['cflint']
-let g:syntastic_css_checkers=['csslint']
-let g:syntastic_html_checkers=['tidy', 'jshint']
-let g:syntastic_enable_perl_checker = 1
-let g:syntastic_php_checkers=['php', 'phplint', 'jshint']
-let g:syntastic_vim_checkers=['vimlint']
-let g:syntastic_typescript_checkers=['tslint']
-let g:syntastic_typescript_tslint_args = "--config ~/tslint.json"
+" ALE Config {
+let g:ale_enabled = 1
+let g:ale_lint_on_text_changed = 'never'
+let g:ale_lint_on_insert_leave = 0
+let g:ale_lint_on_enter = 1
+let g:ale_lint_on_save = 1
 
+" Your existing linters, but ALE syntax:
+let g:ale_linters = {
+\   'javascript': ['eslint'],
+\   'javascriptreact': ['eslint'],
+\   'typescript': ['eslint', 'tsserver'],
+\   'typescriptreact': ['eslint', 'tsserver'],
+\   'php': ['php', 'phplint'],
+\   'perl': ['perl', 'perlcritic'],
+\   'sh': ['shellcheck'],
+\   'css': ['csslint'],
+\   'scss': ['scsslint'],
+\   'cfml': ['cflint'],
+\   'cfscript': ['cflint'],
+\   'html': ['tidy'],
+\   'vim': ['vimlint'],
+\   'c': ['clang', 'gcc'],
+\}
 
-let g:syntastic_c_checkers=['clang_check', 'clang_tidy', 'gcc', 'make']
-let g:syntastic_c_check_header = 1
-"let g:syntastic_typescript_checkers=['eslint']
-"let g:syntastic_typescript_checkers=['tsc']
+" Enable Emmet for JSX
+let g:user_emmet_settings = {
+\  'javascript.jsx': {
+\    'extends': 'jsx',
+\  },
+\  'typescript.tsx': {
+\    'extends': 'tsx',
+\  },
+\}
 
+let g:ale_fixers = {
+\   'javascript': ['prettier', 'eslint'],
+\   'javascriptreact': ['prettier', 'eslint'],
+\   'typescript': ['prettier', 'eslint'],
+\   'typescriptreact': ['prettier', 'eslint'],
+\   'php': ['phpcbf'],
+\   'css': ['prettier'],
+\   'scss': ['prettier'],
+\   'json': ['prettier'],
+\}
 
-"function! ESLintArgs()
-    "let rules = findfile('.eslintrc', '.;')
-    "return rules != '' ? '--rulesdir ' . shellescape(fnamemodify(rules, ':p:h')) : ''
-"endfunction
+" Auto-fix on save
+let g:ale_fix_on_save = 1
 
-"autocmd FileType javascript let b:syntastic_javascript_eslint_args = ESLintArgs()
-
-" let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute " ,"trimming empty <", "unescaped &" , "lacks \"action", "is not recognized!", "discarding unexpected"]
-let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute "]
-
+" Navigation
+nmap <silent> [c <Plug>(ale_previous_wrap)
+nmap <silent> ]c <Plug>(ale_next_wrap)
 " }
 
 " vim-javascript {
@@ -280,14 +316,6 @@ endif
 
 let python_highlight_all = 1
 
-"function Py2()
-"    let g:syntastic_python_python_exec = '/usr/local/bin/python2.6'
-"endfunction
-
-"function Py3()
-"    let g:syntastic_python_python_exec = '/usr/bin/python3'
-"endfunction
-
 "call Py2()
 
 " }
@@ -300,8 +328,10 @@ endif
 " }
 
 " ColdFusion {
-"autocmd BufNewFile,FileType cfml,cfscript :set foldlevel=1
+autocmd FileType cfscript setlocal tabstop=4 shiftwidth=4 expandtab
+autocmd FileType cfml setlocal tabstop=2 shiftwidth=2 expandtab  " Keep tags compact
 " }
+
 
 " let g:tagbar_ctags_bin='C:\Users\jphustman\Downloads\ctags58\ctags58\ctags.exe'
 " set tags=./tags;
@@ -369,13 +399,6 @@ set statusline+=Line:%l/%L[%p%%]\
 set statusline+=Col:%v\
 set statusline+=Buf:#%n\
 set statusline+=[%b][0x%B]
-
-
-" Syntastic Recommended settings
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
 
 "set statusline+=\ [%{&ff}/%Y] " Filetype
 "set statusline+=\ [%{getcwd()}] " Current dir
@@ -759,11 +782,30 @@ set tabpagemax=15
 " }
 
 " autocommands {
-autocmd FileType javascript setlocal tabstop=4 shiftwidth=4 expandtab
-autocmd FileType typescript setlocal tabstop=2 shiftwidth=2 expandtab
-autocmd FileType scss setlocal ts=2 sw=2 expandtab
-autocmd FileType css setlocal ts=2 sw=2 expandtab
-autocmd FileType html setlocal ts=2 sw=2 expandtab
+" React/JS/TS file settings
+autocmd FileType javascript,javascriptreact setlocal tabstop=2 shiftwidth=2 expandtab
+autocmd FileType typescript,typescriptreact setlocal tabstop=2 shiftwidth=2 expandtab
+autocmd FileType json setlocal tabstop=2 shiftwidth=2 expandtab
+
+" PHP settings (adjust to your team's standards)
+autocmd FileType php setlocal tabstop=4 shiftwidth=4 expandtab
+autocmd FileType php setlocal commentstring=//\ %s
+
+" Perl settings
+autocmd FileType perl setlocal tabstop=4 shiftwidth=4 expandtab
+autocmd FileType perl setlocal commentstring=#\ %s
+
+" React/JS specific mappings
+autocmd FileType javascript,javascriptreact,typescript,typescriptreact nnoremap <buffer> <leader>r :!npm test<CR>
+autocmd FileType javascript,javascriptreact,typescript,typescriptreact nnoremap <buffer> <leader>b :!npm run build<CR>
+
+" PHP specific mappings
+autocmd FileType php nnoremap <buffer> <leader>r :!php %<CR>
+autocmd FileType php nnoremap <buffer> <leader>t :!./vendor/bin/phpunit<CR>
+
+" Perl specific mappings
+autocmd FileType perl nnoremap <buffer> <leader>r :!perl %<CR>
+autocmd FileType perl nnoremap <buffer> <leader>c :!perl -c %<CR>
 
 au BufRead, BufNewFile *.ts setlocal filetype=typescript
 
@@ -835,8 +877,6 @@ nnoremap <leader>sv :source $MYVIMRC<cr>
 
 nnoremap <leader><space> :Goyo<cr>
 
-nnoremap <leader>sc :SyntasticCheck<cr>
-
 " Fast Saving
 nnoremap <leader>w :w!<cr>
 " e2e matching
@@ -902,9 +942,6 @@ nnoremap L $
 " highlight line so you can find it quickly after scrolling away
 nnoremap <silent> <Leader>l ml:execute 'match Search /\%'.line('.').'l/'<CR>
 
-nmap <F2> :SyntasticCheck<CR>
-nmap <S-F2> :SyntasticToggleMode<CR>
-
 nmap <F3> :set list!<CR>
 
 nmap <F4> vii:sort i<cr>
@@ -930,7 +967,33 @@ nnoremap <leader>9 :<CR>
 inoremap <c-l> <space>=<space>
 
 
+" Find React components
+nnoremap <leader>comp :Files src/components<CR>
+nnoremap <leader>hook :Files src/hooks<CR>
+
+" Find PHP classes/files
+nnoremap <leader>php :Files app/<CR>
+nnoremap <leader>mod :Files app/Models<CR>
+
+" Search in project files
+nnoremap <leader>rg :Rg<space>
+nnoremap <leader>rw :Rg <C-r><C-w><CR>  " Search word under cursor
+
+" Find React components
+nnoremap <leader>comp :Files src/components<CR>
+nnoremap <leader>hook :Files src/hooks<CR>
+
+" Find PHP classes/files
+nnoremap <leader>php :Files app/<CR>
+nnoremap <leader>mod :Files app/Models<CR>
+
+" Search in project files
+nnoremap <leader>rg :Rg<space>
+nnoremap <leader>rw :Rg <C-r><C-w><CR>  " Search word under cursor
+
 " }
+
+
 
 " function
 inoremap <c-f> function () {<cr>});<esc>O
