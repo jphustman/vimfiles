@@ -279,6 +279,14 @@ let g:ale_fixers = {
 " Auto-fix on save
 let g:ale_fix_on_save = 1
 
+=======
+\   'php': ['php', 'phplint'],
+\   'vim': ['vimlint'],
+\   'typescript': ['tslint'],
+\   'c': ['clang', 'gcc'],
+\}
+
+>>>>>>> refs/remotes/origin/master
 " Navigation
 nmap <silent> [c <Plug>(ale_previous_wrap)
 nmap <silent> ]c <Plug>(ale_next_wrap)
